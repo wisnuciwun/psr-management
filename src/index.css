@@ -20,3 +20,7 @@ code {
   position: relative;
   overflow-y: auto;
 }
+
+.screen {
+  width: clamp(375px, 100vw, 500px);
+}

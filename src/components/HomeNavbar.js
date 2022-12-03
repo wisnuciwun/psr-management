@@ -23,13 +23,13 @@ function HomeNavbar(props) {
                     <NavbarToggler onClick={toggleNavbar} className="me-2" />
                     <Collapse isOpen={!collapsed} navbar>
                          <Nav navbar>
-                              <NavItem>
+                              {/* <NavItem>
                                    <NavLink>
                                         Tentang Kami
                                    </NavLink>
-                              </NavItem>
+                              </NavItem> */}
                               <NavItem>
-                                   <NavLink>
+                                   <NavLink href='/struktur'>
                                         Struktur Organisasi
                                    </NavLink>
                               </NavItem>
