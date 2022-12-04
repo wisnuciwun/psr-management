@@ -30,26 +30,31 @@ function HomeNavbar(props) {
                               </NavItem> */}
                               <NavItem>
                                    <NavLink href='/struktur'>
+                                        <i  style={{width: '30px'}} className='fa fa-sitemap'>&nbsp;</i>
                                         Struktur Organisasi
                                    </NavLink>
                               </NavItem>
                               <NavItem>
                                    <NavLink>
+                                        <i style={{width: '30px'}} className='fa fa-file-text'>&nbsp;</i>
                                         Notulensi
                                    </NavLink>
                               </NavItem>
                               <NavItem>
                                    <NavLink>
+                                        <i style={{width: '30px'}} className='fa fa-map'>&nbsp;</i>
                                         Denah Rumah
                                    </NavLink>
                               </NavItem>
                               <NavItem>
                                    <NavLink>
+                                        <i style={{width: '30px'}} className='fa fa-tint'>&nbsp;</i>
                                         Air Swadaya
                                    </NavLink>
                               </NavItem>
                               <NavItem>
                                    <NavLink>
+                                        <i style={{width: '30px'}} className='fa fa-phone'>&nbsp;</i>
                                         Kontak Penting
                                    </NavLink>
                               </NavItem>
