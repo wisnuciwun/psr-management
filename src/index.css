@@ -26,6 +26,46 @@ code {
   width: clamp(375px, 100vw, 500px);
 }
 
-.font-10 {
+.font-lg {
+  font-size: 18px;
+}
+
+.font-xs {
+  font-size: 8px;
+}
+
+.font-sm {
   font-size: 10px;
+}
+
+.font-md {
+  font-size: 14px;
+}
+
+.font-xl {
+  font-size: 26px;
+}
+
+.font-lg {
+  font-size: 18px;
+}
+
+.weight-xs {
+  font-weight: 100;
+}
+
+.weight-sm {
+  font-weight: 300;
+}
+
+.weight-md {
+  font-weight: 400;
+}
+
+.weight-lg {
+  font-weight: 500;
+}
+
+.weight-xl {
+  font-weight: 700;
 }

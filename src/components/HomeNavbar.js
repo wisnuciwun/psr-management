@@ -47,7 +47,7 @@ function HomeNavbar(props) {
                                    </NavLink>
                               </NavItem>
                               <NavItem>
-                                   <NavLink>
+                                   <NavLink href='/airswadaya'>
                                         <i style={{width: '30px'}} className='fa fa-tint'>&nbsp;</i>
                                         Air Swadaya
                                    </NavLink>
