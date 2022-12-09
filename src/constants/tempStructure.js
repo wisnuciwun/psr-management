@@ -4,7 +4,7 @@ module.exports = {
                name: 'Wahyu Saputra',
                address: 'A1 No. 11',
                position: 'Ketua RT',
-               img: 'https://assets.promediateknologi.com/crop/0x0:717x674/x/photo/2022/11/03/674327351.jpeg'
+               img: 'https://i.ibb.co/KjGs4PR/Wahyu.jpg'
           },
           {
                name: 'Gugun',
@@ -71,7 +71,7 @@ module.exports = {
                name: 'Nendar',
                address: 'I4-05',
                position: 'Perencanaan dan Pengembangan Masyarakat',
-               img: ''
+               img: 'https://i.ibb.co/dG2gLVC/NDAY-KACAPI.jpg'
           },
           {
                name: 'Rimba',
