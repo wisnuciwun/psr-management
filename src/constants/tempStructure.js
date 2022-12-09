@@ -83,7 +83,7 @@ module.exports = {
                name: 'Yudi',
                address: 'E2',
                position: 'Keamanan, Ketertiban dan Kebersihan',
-               img: 'https://i.ibb.co/M6Qqxg0/Rimba.jpg'
+               img: 'https://i.ibb.co/yY2z8bK/Suyudi-Yudi.jpg'
           },
           {
                name: 'Fahzis',
