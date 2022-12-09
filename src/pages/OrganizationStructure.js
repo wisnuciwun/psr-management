@@ -10,9 +10,9 @@ export class OrganizationStructure extends Component {
                          {
                               data_member.map((v, id) => {
                                    return (
-                                        <Card style={{width: id === 0 ? '100%' : '42%', margin: '10px', borderRadius: '10px'}} body className=''>
+                                        <Card style={{width: id === 0 ? '100%' : '42%', margin: '10px', borderRadius: '10px', height: '360px'}} body className=''>
                                              <CardText className='font-lg aquas'>{v.name}</CardText>
-                                             <img style={{height: '200px', objectFit: 'cover', borderRadius: '10px'}} src={v.img} alt="" />
+                                             <img style={{height: '230px', objectFit: 'cover', borderRadius: '10px',}} src={v.img} alt="" />
                                              <CardText className='mt-2'>
                                                   <div className='font-md'>{v.position}</div>
                                                   <div className='font-md font-weight-bold'>{v.address}</div>
