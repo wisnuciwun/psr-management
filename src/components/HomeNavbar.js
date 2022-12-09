@@ -35,13 +35,13 @@ function HomeNavbar(props) {
                                    </NavLink>
                               </NavItem>
                               <NavItem>
-                                   <NavLink>
+                                   <NavLink href='/notulensi'>
                                         <i style={{width: '30px'}} className='fa fa-file-text'>&nbsp;</i>
                                         Notulensi
                                    </NavLink>
                               </NavItem>
                               <NavItem>
-                                   <NavLink>
+                                   <NavLink href='/denah'>
                                         <i style={{width: '30px'}} className='fa fa-map'>&nbsp;</i>
                                         Denah Rumah
                                    </NavLink>
@@ -53,7 +53,7 @@ function HomeNavbar(props) {
                                    </NavLink>
                               </NavItem>
                               <NavItem>
-                                   <NavLink>
+                                   <NavLink href='/kontak'>
                                         <i style={{width: '30px'}} className='fa fa-phone'>&nbsp;</i>
                                         Kontak Penting
                                    </NavLink>

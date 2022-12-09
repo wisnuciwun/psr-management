@@ -1,10 +1,37 @@
+/* @font-face {
+  font-family: "aquas";
+  src: url('../public/aquawax/Aquawax\ Light\ Trial.ttf') format('truetype');
+  src: url('../public/aquawax/Aquawax\ Medium\ Trial.ttf') format('truetype');
+  src: url('../public/aquawax/Aquawax\ Black\ Trial.ttf') format('truetype');
+} */
+
+@font-face {
+  font-family: "aquas";
+  font-style: bold;
+  src: url('../public/aquawax/Aquawax\ Black\ Trial.ttf');
+}
+
+@font-face {
+  font-family: "aquas";
+  font-weight: lighter;
+  src: url('../public/aquawax/Aquawax\ Light\ Trial.ttf');
+}
+
+@font-face {
+  font-family: "aquas";
+  font-weight: normal;
+  src: url('../public/aquawax/Aquawax\ Medium\ Trial.ttf');
+}
+
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'aquas', 'Segoe UI', 'Roboto';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: grey !important;
+}
+
+h1, h2, h3, h4, h5, h6, .aquas {
+  font-family: 'aquas' !important;
 }
 
 code {
@@ -20,6 +47,7 @@ code {
   background-color:whitesmoke;
   position: relative;
   overflow-y: auto;
+  padding-bottom: 125px;
 }
 
 .screen {

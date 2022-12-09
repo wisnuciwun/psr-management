@@ -1,17 +1,21 @@
 import React, { Component } from 'react'
 import { Container, Table } from 'reactstrap'
+// import GoogleDocsViewer from 'react-google-docs-viewer'
 
 export class OurWater extends Component {
      render() {
           return (
-               <Container>
-                    <Table>
+               <Container style={{overflowX: 'auto'}}>
+                    {/* <GoogleDocsViewer
+                    fileUrl='https://docs.google.com/spreadsheets/d/1aAAVPVeaawAjf3IkmkcQKcRITHGV17o-QCMq0aczuq0/edit#gid=0'
+                    /> */}
+                    <Table className='w-100'>
                          <thead>
                               <tr>
-                                   <th>#</th>
-                                   <th>First Name</th>
-                                   <th>Last Name</th>
-                                   <th>Username</th>
+                                   <th></th>
+                                   <th>Nama</th>
+                                   <th>Status</th>
+                                   <th>Tunggakan</th>
                               </tr>
                          </thead>
                          <tbody>

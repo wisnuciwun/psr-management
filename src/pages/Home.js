@@ -15,7 +15,7 @@ export class Home extends Component {
                          
                          <h5 className='mb-4'><i className='fa fa-info-circle'>&nbsp;</i> Informasi penting</h5>
                          <Card className='mb-3'>
-                              <CardHeader className='bg-info text-light'>
+                              <CardHeader className='bg-info text-light aquas'>
                                    Pertemuan warga di Masjid
                               </CardHeader>
                               <CardBody>
@@ -26,7 +26,7 @@ export class Home extends Component {
                               </CardBody>
                          </Card>
                          <Card className='mb-3'>
-                              <CardHeader className='bg-info text-light'>
+                              <CardHeader className='bg-info text-light aquas'>
                                    Kerja Bakti
                               </CardHeader>
                               <CardBody>
