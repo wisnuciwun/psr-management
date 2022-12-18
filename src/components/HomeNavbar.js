@@ -47,12 +47,6 @@ function HomeNavbar(props) {
                                    </NavLink>
                               </NavItem>
                               <NavItem>
-                                   <NavLink href='/airswadaya'>
-                                        <i style={{width: '30px'}} className='fa fa-tint'>&nbsp;</i>
-                                        Air Swadaya
-                                   </NavLink>
-                              </NavItem>
-                              <NavItem>
                                    <NavLink href='/kontak'>
                                         <i style={{width: '30px'}} className='fa fa-phone'>&nbsp;</i>
                                         Kontak Penting
