@@ -21,7 +21,7 @@ module.exports = {
           {
                name: 'Arif Budiman, M.Sn',
                nickName: 'Nino',
-               address: 'J2-18',
+               address: 'J2 No. 18',
                position: 'Sekretaris',
                img: 'https://i.ibb.co/C6gRpND/Nino.jpg',
                email: 'Afrannino@gmail.com',
@@ -30,7 +30,7 @@ module.exports = {
           {
                name: 'Andi Setiandi',
                nickName: 'Andi',
-               address: 'B3-02',
+               address: 'B3 No. 02',
                position: 'Bendahara',
                img: 'https://i.ibb.co/G0zPX2f/Andi-Setiandi.jpg',
                email: 'andysetiandi@gmail.com',
@@ -39,7 +39,7 @@ module.exports = {
           {
                name: 'Asep Gunadi',
                nickName: 'Hawhaw',
-               address: 'B3-04',
+               address: 'B3 No. 04',
                position: 'Koordinator Blok 1 (A-B)',
                img: 'https://i.ibb.co/JnCwpQL/si-Hawhaw.jpg',
                email: 'asepsigunadi27@gmail.com',
@@ -48,7 +48,7 @@ module.exports = {
           {
                name: 'Gungun Gunawan',
                nickName: 'Gunawan Seto',
-               address: 'C4-04',
+               address: 'C4 No. 04',
                email: 'gunawanseto167@gmail.com',
                phone: '085759860967',
                position: 'Koordinator Blok 2 (C-D)',
@@ -57,7 +57,7 @@ module.exports = {
           {
                name: 'Luck.y Nugraha',
                nickName: 'Uky',
-               address: 'E2-02',
+               address: 'E2 No. 02',
                position: 'Koordinator Blok 3 (E-F)',
                img: 'https://i.ibb.co/pwPgkVj/Lucky-Nugraha.jpg',
                email: 'luckynugraha94@gmail.com',
@@ -68,14 +68,14 @@ module.exports = {
                nickName: 'Dika',
                phone: '08986063135',
                email: 'dika.rachman8@gmail.com',
-               address: 'H1-14',
+               address: 'H1 No. 14',
                position: 'Koordinator Keagamaan',
                img: 'https://i.ibb.co/Wx6bSHc/dika-rachman.jpg'
           },
           {
                name: 'Rangga Darmajati',
                nickName: 'Rangga',
-               address: 'G2-03',
+               address: 'G2 No. 03',
                position: 'Koordinator Blok 4 (G-H)',
                img: 'https://i.ibb.co/82M7KWM/Rangga-Darmajati.jpg',
                email: 'rangga.android69@gmail.com',
@@ -84,7 +84,7 @@ module.exports = {
           {
                name: 'Ahmad Rahmadi',
                nickName: 'Ahmad',
-               address: 'C3-10',
+               address: 'C3 No. 10',
                position: 'Hubungan Masyarakat',
                img: 'https://i.ibb.co/jfFKBL0/Ahmad-Rahmadi.jpg',
                email: 'rahmadiahmad87@gmail.com',
@@ -93,7 +93,7 @@ module.exports = {
           {
                name: 'Nona Anandha Diningrat',
                nickName: 'Nona',
-               address: 'C1-11',
+               address: 'C1 No. 11',
                position: 'Hubungan Masyarakat',
                img: 'https://i.ibb.co/DMqdBwt/Nona-Anandha-Diningrat.jpg',
                email: 'nonaanandhadiningrat@gmail.com',
@@ -104,14 +104,14 @@ module.exports = {
                nickName: 'Sigit',
                email: 'sigitbaihaqi13@gmail.com',
                phone: '088809492922',
-               address: 'H1-18',
+               address: 'H1 No. 18',
                position: 'Perencanaan dan Pengembangan Masyarakat',
                img: 'https://i.ibb.co/jTCLrkd/SIGIT-BAIHAQI.jpg'
           },
           {
                name: 'Nendar Kusnadi',
                nickName: 'Nday',
-               address: 'I4-05',
+               address: 'I4 No. 05',
                position: 'Perencanaan dan Pengembangan Masyarakat',
                img: 'https://i.ibb.co/dG2gLVC/NDAY-KACAPI.jpg',
                email: 'ndaynendar15@gmail.com',
@@ -120,7 +120,7 @@ module.exports = {
           {
                name: 'Rimba Igustira',
                nickName: 'Rimba',
-               address: 'B4-10',
+               address: 'B4 No. 10',
                email: 'rimbaigustira90@gmail.com',
                phone: '085794989817',
                position: 'Keamanan, Ketertiban dan Kebersihan',
@@ -129,7 +129,7 @@ module.exports = {
           {
                name: 'Suyudi Yudi',
                nickName: 'Yudi',
-               address: 'E2',
+               address: 'E2 No. 07',
                position: 'Keamanan, Ketertiban dan Kebersihan',
                img: 'https://i.ibb.co/yY2z8bK/Suyudi-Yudi.jpg',
                email: 'suyudiyudi372@gmail.com',
@@ -138,7 +138,7 @@ module.exports = {
           {
                name: 'Mohamad Fahrul Azis, S.M.',
                nickName: 'Fahzis',
-               address: 'D2',
+               address: 'D2 No. 03',
                position: 'Media dan Teknologi Informasi',
                img: 'https://i.ibb.co/MVdBzdQ/Mohamad-Fahrul-Azis.jpg',
                email: 'mfahrulazis3@gmail.com',
@@ -147,7 +147,7 @@ module.exports = {
           {
                name: 'Wisnu Adi Wardhana',
                nickName: 'Ciwun',
-               address: 'B5-21',
+               address: 'B5 No. 21',
                position: 'Media dan Teknologi Informasi',
                img: 'https://i.ibb.co/ssc6qPZ/Wisnu-Wardhana.jpg',
                email: 'adiwardhanawisnu@gmail.com',
@@ -156,7 +156,7 @@ module.exports = {
           {
                name: 'Florent Reno Eleganta',
                nickName: 'Reno Gembok',
-               address: 'D2-03',
+               address: 'D2 No. 03',
                position: 'Koordinator Blok 5 (I-J)',
                img: 'https://i.ibb.co/WGcCMGp/Florent-Reno-Eleganta.jpg',
                email: 'renoeleganta@gmail.com',
@@ -165,7 +165,7 @@ module.exports = {
           {
                name: 'Ahmad Zakky Askarudin',
                nickName: 'Zakky',
-               address: 'B4-04',
+               address: 'B4 No. 04',
                position: 'Keagamaan, Kesehatan, dan Kesejahteraan sosial',
                img: 'https://i.ibb.co/n1R7DgZ/Zaki.jpg',
                email: 'ahmadzakky90@gmail.com',
