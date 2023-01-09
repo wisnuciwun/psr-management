@@ -2,8 +2,8 @@ import React from 'react'
 
 function HomeFooter() {
      return (
-          <div style={{bottom: 0, zIndex: 999}} className='bg-white d-flex justify-content-between align-items-center footer position-absolute w-100'>
-               <div className='p-3'>
+          <div style={{bottom: 0, zIndex: 999}} className='bg-white d-flex justify-content-between align-items-center footer position-absolute w-100 p-2'>
+               <div>
                     {/* <div className='font-lg weight-xl'>
                          PSR Family
                     </div> */}
@@ -19,7 +19,7 @@ function HomeFooter() {
                     </div>
                </div>
                <div>
-                    <img src="/assets/logo2.png" style={{width: '180px'}} alt="" />
+                    <img src="/assets/logo2.png" style={{width: '60px'}} alt="" />
                </div>
           </div>
      )

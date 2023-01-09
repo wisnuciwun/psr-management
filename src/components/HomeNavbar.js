@@ -52,6 +52,12 @@ function HomeNavbar(props) {
                                         Kontak Penting
                                    </NavLink>
                               </NavItem>
+                              <NavItem>
+                                   <NavLink href='/login'>
+                                        <i style={{width: '30px'}} className='fa fa-user'>&nbsp;</i>
+                                        Login/Register
+                                   </NavLink>
+                              </NavItem>
                          </Nav>
                     </Collapse>
                </Navbar>
