@@ -29,32 +29,32 @@ function HomeNavbar(props) {
                                    </NavLink>
                               </NavItem> */}
                               <NavItem>
+                                   <NavLink href='/'>
+                                        <i style={{ width: '30px' }} className='fa fa-home'>&nbsp;</i>
+                                        Beranda
+                                   </NavLink>
+                              </NavItem>
+                              <NavItem>
+                                   <NavLink href='/'>
+                                        <i style={{ width: '30px' }} className='fa fa-newspaper-o'>&nbsp;</i>
+                                        Berita
+                                   </NavLink>
+                              </NavItem>
+                              <NavItem>
                                    <NavLink href='/struktur'>
-                                        <i  style={{width: '30px'}} className='fa fa-sitemap'>&nbsp;</i>
-                                        Struktur Organisasi
+                                        <i style={{ width: '30px' }} className='fa fa-users'>&nbsp;</i>
+                                        Profile
                                    </NavLink>
                               </NavItem>
                               <NavItem>
                                    <NavLink href='/notulensi'>
-                                        <i style={{width: '30px'}} className='fa fa-file-text'>&nbsp;</i>
-                                        Notulensi
-                                   </NavLink>
-                              </NavItem>
-                              <NavItem>
-                                   <NavLink href='/denah'>
-                                        <i style={{width: '30px'}} className='fa fa-map'>&nbsp;</i>
-                                        Denah Rumah
-                                   </NavLink>
-                              </NavItem>
-                              <NavItem>
-                                   <NavLink href='/kontak'>
-                                        <i style={{width: '30px'}} className='fa fa-phone'>&nbsp;</i>
-                                        Kontak Penting
+                                        <i style={{ width: '30px' }} className='fa fa-phone'>&nbsp;</i>
+                                        Kontak
                                    </NavLink>
                               </NavItem>
                               <NavItem>
                                    <NavLink href='/login'>
-                                        <i style={{width: '30px'}} className='fa fa-user'>&nbsp;</i>
+                                        <i style={{ width: '30px' }} className='fa fa-sign-in'>&nbsp;</i>
                                         Login/Register
                                    </NavLink>
                               </NavItem>
