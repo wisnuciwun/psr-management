@@ -13,6 +13,7 @@
     "perfect-scrollbar": "1.5.5",
     "react": "^18.2.0",
     "react-chartjs-2": "3.0.3",
+    "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "18.2.0",
     "react-google-docs-viewer": "^1.0.1",
     "react-notification-alert": "0.0.13",
