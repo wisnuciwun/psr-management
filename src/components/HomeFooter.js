@@ -15,7 +15,7 @@ function HomeFooter() {
                     </div>
                     <div className='font-sm weight-lg'>Hotline</div>
                     <div className='font-md weight-sm'>
-                         080391839192
+                         0813-20-5000-45
                     </div>
                     <div className='font-sm weight-lg'>Email</div>
                     <div className='font-md weight-sm'>
