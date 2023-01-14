@@ -22,7 +22,32 @@ const items = [
     src: '/assets/3.jpeg',
     altText: 'Slide 3',
     caption: 'Slide 3'
-  }
+  },
+  {
+    src: '/assets/4.jpeg',
+    altText: 'Slide 4',
+    caption: 'Slide 4'
+  },
+  {
+    src: '/assets/5.jpeg',
+    altText: 'Slide 5',
+    caption: 'Slide 5'
+  },
+  {
+    src: '/assets/6.jpeg',
+    altText: 'Slide 6',
+    caption: 'Slide 6'
+  },
+  {
+    src: '/assets/7.jpeg',
+    altText: 'Slide 7',
+    caption: 'Slide 7'
+  },
+  {
+    src: '/assets/8.jpeg',
+    altText: 'Slide 8',
+    caption: 'Slide 8'
+  },
 ];
 
 class HomeCarousel extends Component {
