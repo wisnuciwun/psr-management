@@ -11,8 +11,9 @@ export class Home extends Component {
                     </div>
                     <div className='p-3'>                         
                          <h5 className='mb-4'><i className='fa fa-info-circle'>&nbsp;</i> Informasi penting</h5>
-                         <Card className='mb-3'>
-                              <CardHeader className='bg-info text-light aquas'>
+                         <Card className='p-0'>
+                              <span className='text-center'>Belum ada informasi tersedia untuk saat ini.</span>
+                              {/* <CardHeader className='bg-info text-light aquas'>
                                    Pertemuan warga di Masjid
                               </CardHeader>
                               <CardBody>
@@ -30,7 +31,7 @@ export class Home extends Component {
                                    <CardText>
                                        Pengurasan Toren dan pemasangan jalur pipa baru. Diharapkan semua warga kumpul di depan rumah pak Sihawhaw tanggal 10 Desember 2022
                                    </CardText>
-                              </CardBody>
+                              </CardBody> */}
                          </Card>
                     </div>
                </Fragment>
