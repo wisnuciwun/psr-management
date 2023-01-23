@@ -150,6 +150,7 @@ module.exports = {
                email: 'rimbaigustira90@gmail.com',
                phone: '085794989817',
                position: 'Keamanan, Ketertiban dan Kebersihan',
+               group: 'Fungsional (Badan Kelengkapan)',
                img: 'https://i.ibb.co/M6Qqxg0/Rimba.jpg'
           },
           {

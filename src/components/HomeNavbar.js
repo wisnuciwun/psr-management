@@ -35,7 +35,7 @@ function HomeNavbar(props) {
                                    </NavLink>
                               </NavItem>
                               <NavItem>
-                                   <NavLink href='/'>
+                                   <NavLink href='/berita'>
                                         <i style={{ width: '30px' }} className='fa fa-newspaper-o'>&nbsp;</i>
                                         Berita
                                    </NavLink>
@@ -47,7 +47,7 @@ function HomeNavbar(props) {
                                    </NavLink>
                               </NavItem>
                               <NavItem>
-                                   <NavLink href='/notulensi'>
+                                   <NavLink href='/kontak'>
                                         <i style={{ width: '30px' }} className='fa fa-phone'>&nbsp;</i>
                                         Kontak
                                    </NavLink>

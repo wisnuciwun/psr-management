@@ -16,6 +16,7 @@
     "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "18.2.0",
     "react-google-docs-viewer": "^1.0.1",
+    "react-google-forms-hooks": "^1.2.4",
     "react-notification-alert": "0.0.13",
     "react-router": "^6.3.0",
     "react-router-dom": "^6.3.0",
