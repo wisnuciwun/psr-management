@@ -1,136 +1,201 @@
-import React, { Component, Fragment } from 'react'
-import { Button, Container, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, FormGroup, FormText, Input, InputGroup, Label } from 'reactstrap'
+import React, { Component, Fragment } from "react";
+import {
+  Button,
+  Container,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  Form,
+  FormFeedback,
+  FormGroup,
+  FormText,
+  Input,
+  InputGroup,
+  Label,
+  UncontrolledDropdown,
+} from "reactstrap";
+import { ValidatorBoolean } from "utils/validator";
 
 class Register extends Component {
-     constructor(props) {
-          super(props)
+  constructor(props) {
+    super(props);
 
-          this.state = {
-               haveMarried: false,
-               children: [],
-          }
-     }
+    this.state = {
+      haveMarried: false,
+      children: [],
+      registerPayload: {
+        full_name: "",
+        email: "",
+        password: "",
+        password_confirmation: "",
+        phone: "",
+        address: "",
+        identity_number: "",
+        family_card_number: "",
+        tos: true,
+        type: "",
+        blok: "",
+        home_number: "",
+      },
+    };
+  }
 
+  handleRegister = (event) => {
+    this.setState({
+      registerPayload: {
+        ...this.state.registerPayload,
+        [event.target.name]: event.target.value,
+      },
+    });
+  };
 
-     handleToggle = (e) => {
-          this.setState({
-               [e.target.name]: !this.state[e.target.name]
-          })
-     }
+  handlePostRegister = (event) => {
+    event.preventDefault();
+  };
 
-     handleAddChildren = () => {
-          let newData = [...this.state.children]
-          newData.push({ name: '' })
+  render() {
+    let { haveMarried, children, registerPayload } = this.state;
 
-          this.setState({
-               children: newData
-          })
-     }
-
-     render() {
-          let { haveMarried, children } = this.state
-
-          console.log("zzz", children)
-
-          return (
-               <>
-                    <div className='mb-3'>
-                         <Container>
-                              <Label>Nama</Label>
-                              <Input placeholder='Isi nama anda' />
-                              <Label>Email</Label>
-                              <Input placeholder='Isi alamat email anda' />
-                              <Label>No. KTP</Label>
-                              <Input placeholder='Isi No. KTP' />
-                              <Label>No. KK</Label>
-                              <Input placeholder='Isi No. KK' />
-                              <Label>Alamat rumah</Label>
-                              <Input placeholder='Isi Blok dan No. Rumah anda' />
-                              <Label>No. HP</Label>
-                              <Input placeholder='Isi No. HP anda'/>
-                              <hr />
-                              <div>
-                                   <FormGroup check>
-                                        <Input type="checkbox" checked={haveMarried} onClick={this.handleToggle} name='haveMarried' />
-                                        <Label check>
-                                             Sudah berkeluarga
-                                        </Label>
-                                   </FormGroup>
-                                   <div hidden={!haveMarried}>
-                                        {/* <br />
-                                        <Label>Nama Istri</Label> */}
-                                        <Input />
-                                        <Dropdown>
-                                             <DropdownToggle>
-                                                  <Button>ok</Button>
-                                             </DropdownToggle>
-                                             <DropdownMenu>
-                                                  <DropdownItem>Istri</DropdownItem>
-                                                  <DropdownItem>Suami</DropdownItem>
-                                                  <DropdownItem>Anak 1</DropdownItem>
-                                                  <DropdownItem>Anak 2</DropdownItem>
-                                                  <DropdownItem>Anak 3</DropdownItem>
-                                                  <DropdownItem>Lainnya</DropdownItem>
-                                             </DropdownMenu>
-                                        </Dropdown>
-                                        {/* {
-                                             children.length != 0 &&
-                                             children.map((v, id) => {
-                                                  return (
-                                                       <Fragment key={id}>
-                                                            <Label>Anak {id + 1}</Label>
-                                                            <Input value={v?.name} />
-                                                       </Fragment>
-                                                  )
-                                             })
-                                        } */}
-                                        <Button onClick={this.handleAddChildren} className='mt-3 w-100 btn-info'>Tambah data anak</Button>
-                                   </div>
-                              </div>
-                              <hr />
-                              <FormGroup>
-                                   <Label for="exampleFile">
-                                        Upload KTP
-                                   </Label>
-                                   <Input
-                                        id="exampleFile"
-                                        name="file"
-                                        type="file"
-                                   />
-                                   <FormText>
-                                        Pastikan format file adalah pdf
-                                   </FormText>
-                              </FormGroup>
-                              <FormGroup>
-                                   <Label for="exampleFile">
-                                        Upload KK
-                                   </Label>
-                                   <Input
-                                        id="exampleFile"
-                                        name="file"
-                                        type="file"
-                                   />
-                                   <FormText>
-                                        Pastikan format file adalah pdf
-                                   </FormText>
-                              </FormGroup>
-                              {/* <div className='d-flex justify-content-between mt-3'>
-                                   <Label>Upload KTP</Label>
-                                   <Button className='btn-info'>Upload</Button>
-
-                              </div>
-                              <div className='d-flex justify-content-between mt-3'>
-                                   <Label>Upload KK</Label>
-                                   <Button className='btn-info'>Upload</Button>
-                              </div> */}
-                              <p className='font-md'>Jika file belum pdf, anda dapat kunjungi situs ini <a rel='noopener noreferrer' target='_blank' no href="https://png2pdf.com/">https://png2pdf.com/</a></p>
-                              <hr />
-                              <Button className='mt-4 w-100 btn-success'>Submit</Button>
-                         </Container>
-                    </div>
-               </>
-          )
-     }
+    return (
+      <>
+        <Container className="mb-3">
+          <Form inline onSubmit={this.handlePostRegister} >
+            <Label>Nama</Label>
+            <Input
+              id="zzz"
+              name="full_name"
+              value={registerPayload.full_name}
+              onChange={this.handleRegister}
+              placeholder="Isi nama anda"
+              invalid={
+                !ValidatorBoolean(registerPayload.full_name, "type:string", false)
+              }
+            />
+            <FormFeedback id="zzz">Nama harus diisi</FormFeedback>
+            <Label>Email</Label>
+            <Input
+              id="email"
+              name="email"
+              value={registerPayload.email}
+              onChange={this.handleRegister}
+              placeholder="Isi alamat email anda"
+              invalid={
+                !ValidatorBoolean(
+                  registerPayload.email,
+                  "type:string|regex:/^[^s@]+@[^s@]+.[^s@]+$/"
+                )
+              }
+            />
+            <FormFeedback id="email">
+              Email harus diisi dan sesuai format
+            </FormFeedback>
+            <Label>No. KTP</Label>
+            <Input
+              name="identity_number"
+              value={registerPayload.identity_number}
+              onChange={this.handleRegister}
+              placeholder="Isi No. KTP"
+              invalid={
+                !ValidatorBoolean(
+                  registerPayload.identity_number,
+                  "type:number|max:16"
+                )
+              }
+            />
+            <FormFeedback>No. KTP harus diisi dan sesuai format</FormFeedback>
+            <Label>No. KK</Label>
+            <Input
+              name="family_card_number"
+              value={registerPayload.family_card_number}
+              placeholder="Isi No. KK"
+              invalid={
+                !ValidatorBoolean(
+                  registerPayload.family_card_number,
+                  "type:number|max:16"
+                )
+              }
+            />
+            <FormFeedback>Nomor KK harus diisi dan sesuai format</FormFeedback>
+            <Label>Blok rumah</Label>
+            <Input
+              name="blok"
+              value={registerPayload.blok}
+              onChange={this.handleRegister}
+              placeholder="Isi blok rumah anda. Contoh B5"
+              invalid={
+                !ValidatorBoolean(registerPayload.blok, "type:string|max:2")
+              }
+            />
+            <FormFeedback>Isi blok rumah anda sesuai contoh</FormFeedback>
+            <Label>Nomor rumah</Label>
+            <Input
+              name="home_number"
+              value={registerPayload.home_number}
+              onChange={this.handleRegister}
+              placeholder="Isi nomor rumah anda. Contoh 07"
+              invalid={
+                !ValidatorBoolean(
+                  registerPayload.home_number,
+                  "type:number|max:2"
+                )
+              }
+            />
+            <FormFeedback>Isi blok rumah anda sesuai contoh</FormFeedback>
+            <Label>No. HP</Label>
+            <Input
+              name="phone"
+              value={registerPayload.phone}
+              onChange={this.handleRegister}
+              placeholder="Isi No. HP anda. Contoh 08183128491"
+              invalid={
+                !ValidatorBoolean(
+                  registerPayload.family_card_number,
+                  "type:number|max:13|min:10"
+                )
+              }
+            />
+            <FormFeedback>
+              Isi nomor HP anda, maksimal 13 digit dan minimal 10 digit
+            </FormFeedback>
+            <Label>Password</Label>
+            <Input
+              name="password"
+              value={registerPayload.password}
+              onChange={this.handleRegister}
+              placeholder="Isi No. HP anda"
+              invalid={
+                !ValidatorBoolean(
+                  registerPayload.family_card_number,
+                  "type:string|regex:/^(?=.*[\\d])(?=.*[!@#$%^&*])[\\w!@#$%^&*]{6,16}$/"
+                )
+              }
+            />
+            <FormFeedback>
+              Password harus mengandung angka, huruf kecil dan huruf besar
+            </FormFeedback>
+            <Label>Konfirmasi Password</Label>
+            <Input
+              name="password_confirmation"
+              value={registerPayload.password_confirmation}
+              onChange={this.handleRegister}
+              placeholder="Isi No. HP anda"
+              invalid={
+                !(registerPayload === registerPayload.password_confirmation)
+              }
+            />
+            <FormFeedback>
+              Password harus sama dengan password konfirmasi
+            </FormFeedback>
+            <hr />
+            <Button type="submit" className="mt-4 w-100 btn-success">
+              Submit
+            </Button>
+          </Form>
+        </Container>
+      </>
+    );
+  }
 }
 
-export default Register
+export default Register;

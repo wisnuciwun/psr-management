@@ -1,68 +1,95 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
-     Collapse,
-     Navbar,
-     NavbarToggler,
-     NavbarBrand,
-     Nav,
-     NavItem,
-     NavLink,
-} from 'reactstrap';
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+} from "reactstrap";
+import { getCookie } from "tiny-cookie";
 
 function HomeNavbar(props) {
-     const [collapsed, setCollapsed] = useState(true);
+  const [collapsed, setCollapsed] = useState(true);
+  const isLogin = getCookie("token");
 
-     const toggleNavbar = () => setCollapsed(!collapsed);
+  const toggleNavbar = () => setCollapsed(!collapsed);
 
-     return (
-          <div>
-               <Navbar color="faded" light>
-                    <NavbarBrand href="/" className="me-auto">
-                         <img className='img-logo' src="/assets/logo.png" alt="" />
-                    </NavbarBrand>
-                    <NavbarToggler onClick={toggleNavbar} className="me-2" />
-                    <Collapse isOpen={!collapsed} navbar>
-                         <Nav navbar>
-                              {/* <NavItem>
+  return (
+    <div>
+      <Navbar color="faded" light>
+        <NavbarBrand href="/" className="me-auto">
+          <img className="img-logo" src="/assets/logo.png" alt="" />
+        </NavbarBrand>
+        <NavbarToggler onClick={toggleNavbar} className="me-2" />
+        <Collapse isOpen={!collapsed} navbar>
+          <Nav navbar>
+            {/* <NavItem>
                                    <NavLink>
                                         Tentang Kami
                                    </NavLink>
                               </NavItem> */}
-                              <NavItem>
-                                   <NavLink href='/'>
-                                        <i style={{ width: '30px' }} className='fa fa-home'>&nbsp;</i>
-                                        Beranda
-                                   </NavLink>
-                              </NavItem>
-                              <NavItem>
-                                   <NavLink href='/berita'>
-                                        <i style={{ width: '30px' }} className='fa fa-newspaper-o'>&nbsp;</i>
-                                        Berita
-                                   </NavLink>
-                              </NavItem>
-                              <NavItem>
-                                   <NavLink href='/struktur'>
-                                        <i style={{ width: '30px' }} className='fa fa-users'>&nbsp;</i>
-                                        Profile
-                                   </NavLink>
-                              </NavItem>
-                              <NavItem>
-                                   <NavLink href='/kontak'>
-                                        <i style={{ width: '30px' }} className='fa fa-phone'>&nbsp;</i>
-                                        Kontak
-                                   </NavLink>
-                              </NavItem>
-                              <NavItem>
-                                   <NavLink href='/login'>
-                                        <i style={{ width: '30px' }} className='fa fa-sign-in'>&nbsp;</i>
-                                        Login/Register
-                                   </NavLink>
-                              </NavItem>
-                         </Nav>
-                    </Collapse>
-               </Navbar>
-          </div>
-     );
+            <NavItem>
+              <NavLink href="/">
+                <i style={{ width: "30px" }} className="fa fa-home">
+                  &nbsp;
+                </i>
+                Beranda
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="/berita">
+                <i style={{ width: "30px" }} className="fa fa-newspaper-o">
+                  &nbsp;
+                </i>
+                Berita
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="/struktur">
+                <i style={{ width: "30px" }} className="fa fa-users">
+                  &nbsp;
+                </i>
+                Struktur Organisasi
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="/kontak">
+                <i style={{ width: "30px" }} className="fa fa-phone">
+                  &nbsp;
+                </i>
+                Kontak
+              </NavLink>
+            </NavItem>
+            {isLogin ? (
+              <NavItem>
+                <NavLink href="/profile">
+                  <i
+                    style={{ width: "30px" }}
+                    className="fa fa-user"
+                    aria-hidden="true"
+                  >
+                    &nbsp;
+                  </i>
+                  Profile
+                </NavLink>
+              </NavItem>
+            ) : (
+              <NavItem>
+                <NavLink href="/login">
+                  <i style={{ width: "30px" }} className="fa fa-sign-in">
+                    &nbsp;
+                  </i>
+                  Login/Register
+                </NavLink>
+              </NavItem>
+            )}
+          </Nav>
+        </Collapse>
+      </Navbar>
+    </div>
+  );
 }
 
 export default HomeNavbar;
