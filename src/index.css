@@ -98,3 +98,7 @@ code {
 .weight-xl {
   font-weight: 700;
 }
+
+input{
+  /* background: none !important; */
+}

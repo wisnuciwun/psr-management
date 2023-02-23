@@ -1,16 +1,26 @@
 import React, { Component } from "react";
 import { Link, Navigate } from "react-router-dom";
-import { Button, Container, Form, FormFeedback, Input, Label } from "reactstrap";
+import {
+  Button,
+  Container,
+  FormFeedback,
+  FormGroup,
+  Input,
+  Label,
+} from "reactstrap";
 import request from "../utils/request";
 import { connect } from "react-redux";
 import { getLoginData } from "config/redux/rootAction";
+import { Form, FormControl, FormLabel } from "react-bootstrap";
+import { REGEX_EMAIL } from "constants/Constants";
+import { ValidatorBoolean } from "../utils/validator";
 
 class Login extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-     invalidInput: false,
+      validated: false,
       loginPayload: {
         email: "",
         password: "",
@@ -19,15 +29,26 @@ class Login extends Component {
   }
 
   onHandleLogin = (event) => {
-     console.log("fff", event);
-     event.preventDefault()
     let { dispatch } = this.props;
-    request.post("/auth/login", this.state.loginPayload).then((res) => {
-      if (res.data.code === 200) {
-        dispatch(getLoginData(res.data.docs));
-        this.props.navigate("/");
-      }
-    });
+    const form = event.currentTarget;
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (form.checkValidity()) {
+      this.setState({
+        validated: false,
+      });
+      request.post("/auth/login", this.state.loginPayload).then((res) => {
+        if (res.data.code === 200) {
+          dispatch(getLoginData(res.data.docs));
+          this.props.navigate("/");
+        }
+      });
+    } else {
+      this.setState({
+        validated: true,
+      });
+    }
   };
 
   onHandleChangeUser = (event) => {
@@ -40,7 +61,8 @@ class Login extends Component {
   };
 
   render() {
-    const { loginPayload } = this.state;
+    const { loginPayload, validated } = this.state;
+
     return (
       <>
         <div
@@ -48,21 +70,42 @@ class Login extends Component {
           style={{ minHeight: "70vh" }}
         >
           <Container>
-            <Form onSubmit={this.onHandleLogin} noValidate>
-              <Label>Username</Label>
-              <Input
-                onChange={this.onHandleChangeUser}
-                name="email"
-                value={loginPayload.email}
-                invalid={true}
-              />
-              <FormFeedback>ok</FormFeedback>
-              <Label>Password</Label>
-              <Input
-                onChange={this.onHandleChangeUser}
-                name="password"
-                value={loginPayload.password}
-              />
+            <Form
+              noValidate
+              validated={validated}
+              onSubmit={this.onHandleLogin}
+            >
+              <FormGroup>
+                <FormLabel className="mb-1">Email</FormLabel>
+                <FormControl
+                  onChange={this.onHandleChangeUser}
+                  name="email"
+                  value={loginPayload.email}
+                  isInvalid={
+                    !ValidatorBoolean({
+                      value: loginPayload.email,
+                      rule: `type:string|regex:${REGEX_EMAIL}`,
+                    }) && validated
+                  }
+                  required
+                />
+                <FormControl.Feedback type="invalid">
+                  Silahkan input email anda terlebih dahulu
+                </FormControl.Feedback>
+              </FormGroup>
+              <FormGroup>
+                <FormLabel className="mb-1">Password</FormLabel>
+                <FormControl
+                  onChange={this.onHandleChangeUser}
+                  name="password"
+                  value={loginPayload.password}
+                  isInvalid={ValidatorBoolean({value: loginPayload.password, rule: 'type:string'}) && validated}
+                  required
+                />
+                <FormControl.Feedback type="invalid">
+                  Silahkan input password anda terlebih dahulu
+                </FormControl.Feedback>
+              </FormGroup>
               <Button type="submit" className="w-100 mt-4">
                 Login
               </Button>
