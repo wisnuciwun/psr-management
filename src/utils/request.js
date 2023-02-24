@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getCookie } from "tiny-cookie";
 // import config from "@config";
 // import { store } from "@config/store";
 // import { logoutRequest } from 'actions/app';
@@ -10,11 +11,11 @@ const request = axios.create({
 });
 
 const requestHandler = (request) => {
-  // let token = store.getState();
+  let token = getCookie('token');
 
-  // if (token.app.login.data.token != undefined) {
-  //      request.headers.Authorization = `Bearer ${token.app.login.data.token}`;
-  // }
+  if (token != undefined) {
+       request.headers.Authorization = `Bearer ${token}`;
+  }
 
   return request;
 };

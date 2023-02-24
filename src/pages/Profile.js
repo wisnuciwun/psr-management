@@ -8,11 +8,13 @@ import {
   DropdownMenu,
   DropdownToggle,
   FormGroup,
+  FormText,
   Input,
   Label,
   UncontrolledDropdown,
 } from "reactstrap";
-import { removeCookie } from "tiny-cookie";
+import { getCookie, removeCookie } from "tiny-cookie";
+import request from "utils/request";
 
 class Profile extends Component {
   constructor(props) {
@@ -21,6 +23,7 @@ class Profile extends Component {
     this.state = {
       haveMarried: false,
       children: [],
+      dataProfile: {},
     };
   }
   
@@ -43,10 +46,6 @@ class Profile extends Component {
      let g = [...this.state.children];
      let selectedChild = g[key];
      selectedChild[event.target.name] = event.target.value;
- //     g = [...this.state.children, selectedChild];
-     //     this.setState({
-     //       children: newData,
-     //     });
    };
 
    handleLogout = () => {
@@ -56,24 +55,32 @@ class Profile extends Component {
     this.props.navigate('/')
    }
 
+   componentDidMount() {
+    request.get('/auth/info').then(res => {
+      this.setState({
+        dataProfile: res.data.docs
+      })
+    })
+   }
+
   render() {
-    let { haveMarried, children } = this.state
+    let { haveMarried, children, dataProfile } = this.state
 
     return (
       <>
         <Container>
           <Label>Nama</Label>
-          <Input disabled placeholder="Isi nama anda" />
+          <Input disabled placeholder="Isi nama anda" value={dataProfile.full_name} />
           <Label>Email</Label>
-          <Input disabled placeholder="Isi alamat email anda" />
+          <Input disabled placeholder="Isi alamat email anda" value={dataProfile.email} />
           <Label>No. KTP</Label>
-          <Input disabled placeholder="Isi No. KTP" />
+          <Input disabled placeholder="Isi No. KTP" value={dataProfile.identity_number} />
           <Label>No. KK</Label>
-          <Input disabled placeholder="Isi No. KK" />
+          <Input disabled placeholder="Isi No. KK" value={dataProfile.family_card_number} />
           <Label>Alamat rumah</Label>
-          <Input placeholder="Isi Blok dan No. Rumah anda (contoh: B5-21)" />
+          <Input placeholder="Isi Blok dan No. Rumah anda (contoh: B5-21)" value={dataProfile.blok+'-'+dataProfile.home_number} />
           <Label>No. HP</Label>
-          <Input placeholder="Isi No. HP anda" />
+          <Input placeholder="Isi No. HP anda" value={dataProfile.phone} />
           <hr />
           <FormGroup check>
             <Input
@@ -210,7 +217,7 @@ class Profile extends Component {
             </Button>
           </div>
           <hr />
-          {/* <FormGroup>
+          <FormGroup>
               <Label for="exampleFile">Upload KTP</Label>
               <Input id="exampleFile" name="file" type="file" />
               <FormText>Pastikan format file adalah pdf</FormText>
@@ -231,8 +238,8 @@ class Profile extends Component {
                 https://png2pdf.com/
               </a>
             </p>
-            <hr /> */}
-          <Button className="mt-4 w-100 btn-success">Submit</Button>
+            <hr />
+          <Button className="mt-4 w-100 btn-success">Update Data</Button>
           <Button onClick={this.handleLogout} className="mt-4 w-100 btn-danger">Logout</Button>
         </Container>
       </>
