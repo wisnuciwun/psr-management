@@ -25,11 +25,12 @@ import {
   FormSelect,
   // FormSelect,
 } from "react-bootstrap";
-import request from "utils/request";
 import { connect } from "react-redux";
-import Form from 'react-bootstrap/Form';
+import Form from "react-bootstrap/Form";
 import Select from "react-select";
 import { getLoginData } from "config/redux/rootAction";
+import request from "utils/request";
+import { BadgeNotif } from "components/BadgeNotification";
 
 class Register extends Component {
   constructor(props) {
@@ -39,7 +40,7 @@ class Register extends Component {
       validated: false,
       haveMarried: false,
       children: [],
-      houseType: '',
+      houseType: "",
       registerPayload: {
         full_name: "",
         email: "",
@@ -58,7 +59,6 @@ class Register extends Component {
   }
 
   handleRegister = (event) => {
-    console.log("first", event)
     this.setState({
       registerPayload: {
         ...this.state.registerPayload,
@@ -75,7 +75,7 @@ class Register extends Component {
       houseType: value,
       registerPayload: {
         ...this.state.registerPayload,
-        type: value.value
+        type: value.value,
       },
     });
   };
@@ -98,17 +98,22 @@ class Register extends Component {
           phone: parseInt(this.state.registerPayload.phone),
         })
         .then((res) => {
-          if (res.data.code === 201) {
-            request.post("/auth/login", {
-              email: res.data.docs.email,
-              password: this.state.registerPayload.password,
-              // res.data.docs.email
-            }).then((res) => {
-              if (res.data.code === 200) {
-                dispatch(getLoginData(res.data.docs));
-                this.props.navigate("/");
-              }
-            });
+          if (res?.data?.code === 201) {
+            request
+              .post("/auth/login", {
+                email: res.data.docs.email,
+                password: this.state.registerPayload.password,
+                // res.data.docs.email
+              })
+              .then((res) => {
+                if (res.data.code === 200) {
+                  dispatch(getLoginData(res.data.docs));
+                  this.props.navigate("/");
+                }
+              })
+              .catch((error) => {});
+          } else {
+            BadgeNotif.show({ delay: 5000, text: res.response.data.message });
           }
         });
     } else {
@@ -119,12 +124,13 @@ class Register extends Component {
   };
 
   render() {
-    let { haveMarried, children, registerPayload, validated, houseType } = this.state;
+    let { haveMarried, children, registerPayload, validated, houseType } =
+      this.state;
     const options = [
-      { value: '', label: 'Pilih salah satu' },
-      { value: 'owner', label: 'Milik Pribadi' },
-      { value: 'contract', label: 'Kontrak' }
-    ]
+      { value: "", label: "Pilih salah satu" },
+      { value: "owner", label: "Milik Pribadi" },
+      { value: "contract", label: "Kontrak" },
+    ];
     return (
       <>
         <Container className="mb-3">
@@ -153,8 +159,13 @@ class Register extends Component {
               </FormControl.Feedback>
             </FormGroup>
             <FormGroup className="mb-2">
-              <FormLabel className="mb-1">Status Kepemilikan Rumah</FormLabel><br />
-              <Select onChange={this.handleSelectHouseType} value={houseType} options={options}/>
+              <FormLabel className="mb-1">Status Kepemilikan Rumah</FormLabel>
+              <br />
+              <Select
+                onChange={this.handleSelectHouseType}
+                value={houseType}
+                options={options}
+              />
               <FormControl.Feedback type="invalid">
                 No. KTP harus diisi dan sesuai format
               </FormControl.Feedback>
@@ -311,7 +322,10 @@ class Register extends Component {
               </FormControl.Feedback>
             </FormGroup>
             <hr />
-            <Button type="submit" className="mt-2 w-100 btn-success">
+            <Button
+              onClick={this.handlePostRegister}
+              className="mt-2 w-100 btn-success"
+            >
               Submit
             </Button>
           </Form>

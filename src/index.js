@@ -8,16 +8,21 @@ import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "./config/redux/persistConfig";
 import { BrowserRouter } from "react-router-dom";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
-  <Provider store={store}>
-    <PersistGate persistor={persistor}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </PersistGate>
-  </Provider>
-);
+export const MainProgram = ({ children = null }) => {
+  return (
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <BrowserRouter>
+          <App />
+          {children}
+        </BrowserRouter>
+      </PersistGate>
+    </Provider>
+  );
+};
+
+export const roots = ReactDOM.createRoot(document.getElementById("root"));
+roots.render(<MainProgram />);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

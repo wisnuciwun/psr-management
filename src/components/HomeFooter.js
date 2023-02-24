@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import { Alert } from 'reactstrap'
-import BadgeNotification from './BadgeNotification'
+import { BadgeNotif } from './BadgeNotification'
 
 function HomeFooter() {
      const [show, setshow] = useState(false)
@@ -32,7 +32,7 @@ function HomeFooter() {
                          <div className='font-sm weight-lg'>Hotline</div>
                          <div style={{ cursor: 'pointer' }} className='font-sm weight-sm'>
                               0813-20-5000-45&nbsp;&nbsp;&nbsp;&nbsp;
-                              <CopyToClipboard onCopy={() => { setshow(true) }} text='08132050045'>
+                              <CopyToClipboard onCopy={() => { setshow(true); BadgeNotif.show({text: 'Nomor berhasil dicopy !', delay: '3000', variant: 'success'}) }} text='08132050045'>
                                    <i className='fa fa-clone fa-lg text-dark'></i>
                               </CopyToClipboard>
                               <a href="https://api.whatsapp.com/send?phone=6281320500045" target='_blank' rel='noopener noreferrer' className='text-decoration-none'>
@@ -53,10 +53,6 @@ function HomeFooter() {
                <div>
                     &nbsp;
                </div>
-               <BadgeNotification text='Nomor berhasil dicopy !' variant='success' show={show} />
-               {/* <Alert hidden={!show} className='position-absolute' style={{ width: '96%', bottom: 0 }} variant='success'>
-                    Nomor berhasil dicopy !
-               </Alert> */}
           </div>
      )
 }

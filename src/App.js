@@ -23,7 +23,7 @@ function App() {
   return (
     <Fragment>
       <Suspense fallback={<Spinner />}>
-        <div className="app">
+        <div className="app position-relative">
           <div className="screen">
             <HomeNavbar />
             <Routes>
