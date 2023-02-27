@@ -100,13 +100,13 @@ code {
 }
 
 input{
-  /* background: none !important; */
+  background: none !important;
 }
 
 .icon-suffix{
   position: absolute;
   right: 0;
-  bottom: 0;
-  margin-bottom: 12px;
+  top: 0;
+  margin-top: 42px;
   margin-right: 13px;
 }

@@ -22,6 +22,7 @@ class Login extends Component {
 
     this.state = {
       validated: false,
+      hidePassword: true,
       loginPayload: {
         email: "",
         password: "",
@@ -67,7 +68,7 @@ class Login extends Component {
   };
 
   render() {
-    const { loginPayload, validated } = this.state;
+    const { loginPayload, validated, hidePassword } = this.state;
 
     return (
       <>
@@ -99,9 +100,10 @@ class Login extends Component {
                   Silahkan input email anda terlebih dahulu
                 </FormControl.Feedback>
               </FormGroup>
-              <FormGroup>
+              <FormGroup className="position-relative">
                 <FormLabel className="mb-1">Password</FormLabel>
                 <FormControl
+                  type={hidePassword ? 'password' : 'text'}
                   onChange={this.onHandleChangeUser}
                   name="password"
                   value={loginPayload.password}
@@ -113,6 +115,14 @@ class Login extends Component {
                   }
                   required
                 />
+                <i
+                  onClick={() => this.setState({
+                    hidePassword: !hidePassword
+                  })}
+                  className={`fa-regular  ${
+                    hidePassword ? "fa-eye" : "fa-eye-slash"
+                  } fa-lg cursor-pointer btn-password fa icon-suffix`}
+                ></i>
                 <FormControl.Feedback type="invalid">
                   Silahkan input password anda terlebih dahulu
                 </FormControl.Feedback>

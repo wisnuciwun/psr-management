@@ -17,6 +17,9 @@ class ForgetPassword extends Component {
     super(props);
 
     this.state = {
+      hideOldPassword: true,
+      hideNewPassword: true,
+      hideConfirmPassword: true,
       validated: false,
       resetPasswordPayload: {
         old_password: "",
@@ -72,7 +75,13 @@ class ForgetPassword extends Component {
   };
 
   render() {
-    let { resetPasswordPayload, validated } = this.state;
+    let {
+      resetPasswordPayload,
+      validated,
+      hideConfirmPassword,
+      hideNewPassword,
+      hideOldPassword,
+    } = this.state;
     return (
       <>
         <div
@@ -85,9 +94,10 @@ class ForgetPassword extends Component {
               noValidate
               validated={validated}
             >
-              <FormGroup>
+              <FormGroup className="position-relative">
                 <FormLabel>Password Lama</FormLabel>
                 <FormControl
+                  type={hideOldPassword ? "password" : "text"}
                   name="old_password"
                   value={resetPasswordPayload.old_password}
                   onChange={this.onHandleChangePassword}
@@ -99,13 +109,24 @@ class ForgetPassword extends Component {
                     }) && validated
                   }
                 />
+                <i
+                  onClick={() =>
+                    this.setState({
+                      hideOldPassword: !hideOldPassword,
+                    })
+                  }
+                  className={`fa-regular  ${
+                    hideOldPassword ? "fa-eye" : "fa-eye-slash"
+                  } fa-lg cursor-pointer btn-password fa icon-suffix`}
+                ></i>
                 <FormControl.Feedback type="invalid">
                   Silahkan password lama anda terlebih dahulu
                 </FormControl.Feedback>
               </FormGroup>
-              <FormGroup>
+              <FormGroup className="position-relative">
                 <FormLabel>Password Baru</FormLabel>
                 <FormControl
+                  type={hideNewPassword ? "password" : "text"}
                   name="password"
                   value={resetPasswordPayload.password}
                   onChange={this.onHandleChangePassword}
@@ -117,13 +138,24 @@ class ForgetPassword extends Component {
                     }) && validated
                   }
                 />
+                <i
+                  onClick={() =>
+                    this.setState({
+                      hideNewPassword: !hideNewPassword,
+                    })
+                  }
+                  className={`fa-regular  ${
+                    hideNewPassword ? "fa-eye" : "fa-eye-slash"
+                  } fa-lg cursor-pointer btn-password fa icon-suffix`}
+                ></i>
                 <FormControl.Feedback type="invalid">
                   Silahkan password baru anda terlebih dahulu
                 </FormControl.Feedback>
               </FormGroup>
-              <FormGroup>
+              <FormGroup className="position-relative">
                 <FormLabel>Konfirmasi Password Baru</FormLabel>
                 <FormControl
+                  type={hideConfirmPassword ? "password" : "text"}
                   name="password_confirmation"
                   value={resetPasswordPayload.password_confirmation}
                   onChange={this.onHandleChangePassword}
@@ -133,6 +165,16 @@ class ForgetPassword extends Component {
                       resetPasswordPayload.password_confirmation && validated
                   }
                 />
+                <i
+                  onClick={() =>
+                    this.setState({
+                      hideConfirmPassword: !hideConfirmPassword,
+                    })
+                  }
+                  className={`fa-regular  ${
+                    hideConfirmPassword ? "fa-eye" : "fa-eye-slash"
+                  } fa-lg cursor-pointer btn-password fa icon-suffix`}
+                ></i>
                 <FormControl.Feedback type="invalid">
                   Ketik ulang password baru anda
                 </FormControl.Feedback>

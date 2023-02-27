@@ -39,6 +39,8 @@ class Register extends Component {
     this.state = {
       validated: false,
       haveMarried: false,
+      hidePassword: true,
+      hideConfirmPassword: true,
       children: [],
       houseType: "",
       registerPayload: {
@@ -124,8 +126,15 @@ class Register extends Component {
   };
 
   render() {
-    let { haveMarried, children, registerPayload, validated, houseType } =
-      this.state;
+    let {
+      haveMarried,
+      children,
+      registerPayload,
+      validated,
+      houseType,
+      hideConfirmPassword,
+      hidePassword,
+    } = this.state;
     const options = [
       { value: "", label: "Pilih salah satu" },
       { value: "owner", label: "Milik Pribadi" },
@@ -285,10 +294,11 @@ class Register extends Component {
                 Isi nomor HP anda, maksimal 13 digit dan minimal 10 digit
               </FormControl.Feedback>
             </FormGroup>
-            <FormGroup className="mb-2">
+            <FormGroup className="mb-2 position-relative">
               <FormLabel className="mb-1">Password</FormLabel>
               <FormControl
                 name="password"
+                type={hidePassword ? "password" : "text"}
                 value={registerPayload.password}
                 onChange={this.handleRegister}
                 placeholder="Ketik password anda"
@@ -300,13 +310,24 @@ class Register extends Component {
                   }) && validated
                 }
               />
+              <i
+                onClick={() =>
+                  this.setState({
+                    hidePassword: !hidePassword,
+                  })
+                }
+                className={`fa-regular  ${
+                  hidePassword ? "fa-eye" : "fa-eye-slash"
+                } fa-lg cursor-pointer btn-password fa icon-suffix`}
+              ></i>
               <FormControl.Feedback type="invalid">
                 Password harus mengandung angka, huruf kecil dan huruf besar
               </FormControl.Feedback>
             </FormGroup>
-            <FormGroup className="mb-2">
+            <FormGroup className="mb-2 position-relative">
               <FormLabel className="mb-1">Konfirmasi Password</FormLabel>
               <FormControl
+                type={hideConfirmPassword ? "password" : "text"}
                 name="password_confirmation"
                 value={registerPayload.password_confirmation}
                 onChange={this.handleRegister}
@@ -317,6 +338,16 @@ class Register extends Component {
                   validated
                 }
               />
+              <i
+                onClick={() =>
+                  this.setState({
+                    hideConfirmPassword: !hideConfirmPassword,
+                  })
+                }
+                className={`fa-regular  ${
+                  hideConfirmPassword ? "fa-eye" : "fa-eye-slash"
+                } fa-lg cursor-pointer btn-password fa icon-suffix`}
+              ></i>
               <FormControl.Feedback type="invalid">
                 Password harus sama dengan password konfirmasi
               </FormControl.Feedback>
