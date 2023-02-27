@@ -32,7 +32,7 @@ function HomeFooter() {
                          <div className='font-sm weight-lg'>Hotline</div>
                          <div style={{ cursor: 'pointer' }} className='font-sm weight-sm'>
                               0813-20-5000-45&nbsp;&nbsp;&nbsp;&nbsp;
-                              <CopyToClipboard onCopy={() => { setshow(true); BadgeNotif.show({text: 'Nomor berhasil dicopy !', delay: 5000, variant: 'success'}) }} text='08132050045'>
+                              <CopyToClipboard onCopy={() => { setshow(true); BadgeNotif.show({text: 'Nomor berhasil dicopy !', variant: 'success'}) }} text='08132050045'>
                                    <i className='fa fa-clone fa-lg text-dark'></i>
                               </CopyToClipboard>
                               <a href="https://api.whatsapp.com/send?phone=6281320500045" target='_blank' rel='noopener noreferrer' className='text-decoration-none'>
