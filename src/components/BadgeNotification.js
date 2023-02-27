@@ -5,39 +5,38 @@ class BadgeNotification extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      opens: false,
-    };
-
-    this.show = ({ delay = 3000, text = "", variant = "danger" }) => {
-     
+    this.show = ({
+      delay = 3000,
+      text = "",
+      variant = "danger",
+      close = false,
+    }) => {
       let after = (
         <>
           <MainProgram>
             <div className="d-flex justify-content-center">
-              <Alert
-                hidden={!this.state.opens}
-                className="position-fixed d-flex justify-content-between align-items-center"
-                style={{
-                  width: "92%",
-                  bottom: 0,
-                  maxWidth: "470px",
-                  zIndex: "9999999",
-                }}
-                variant={variant}
-              >
-                {text}
-                <i
-                  style={{ cursor: "pointer" }}
-               //    onClick={() => {
-               //      console.log("msk")
-               //      this.setState({
-               //        opens: false,
-               //      });
-               //    }}
-                  className="fa fa-times"
-                ></i>
-              </Alert>
+              {!close && (
+                <Alert
+                  hidden={true}
+                  className="position-fixed d-flex justify-content-between align-items-center"
+                  style={{
+                    width: "92%",
+                    bottom: 0,
+                    maxWidth: "470px",
+                    zIndex: "9999999",
+                  }}
+                  variant={variant}
+                >
+                  {text}
+                  <i
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      this.show({ close: true });
+                    }}
+                    className="fa fa-times"
+                  ></i>
+                </Alert>
+              )}
             </div>
           </MainProgram>
         </>

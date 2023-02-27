@@ -1,4 +1,5 @@
 import axios from "axios";
+import { BadgeNotif } from "components/BadgeNotification";
 import { getCookie } from "tiny-cookie";
 // import config from "@config";
 // import { store } from "@config/store";
@@ -11,10 +12,10 @@ const request = axios.create({
 });
 
 const requestHandler = (request) => {
-  let token = getCookie('token');
+  let token = getCookie("token");
 
   if (token != undefined) {
-       request.headers.Authorization = `Bearer ${token}`;
+    request.headers.Authorization = `Bearer ${token}`;
   }
 
   return request;
@@ -25,7 +26,7 @@ const responseHandler = (response) => {
 };
 
 const errorHandler = (error) => {
-     return error
+  return error;
 };
 
 request.interceptors.request.use(

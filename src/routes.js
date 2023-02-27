@@ -9,6 +9,7 @@ const Login = React.lazy(() => import('./pages/Login'))
 const Register = React.lazy(() => import('./pages/Register'))
 const Profile = React.lazy(() => import('./pages/Profile'))
 const UnderConstruction = React.lazy(() => import('./pages/UnderConstruction'))
+const ForgetPassword = React.lazy(() => import('./pages/ForgetPassword'))
 
 
 const routes = [
@@ -16,11 +17,12 @@ const routes = [
   { path: '/', exact: true, name: 'Home', element: Home, protected: false },
   { path: '/berita', exact: true, name: 'Home', element: UnderConstruction, protected: false },
   // { path: '/kontak', exact: true, name: 'OurWater', element: Contacts },
-  { path: '/denah', exact: true, name: 'HouseMap', element: HouseMap, protected: false },
-  { path: '/kontak', exact: true, name: 'OurWater', element: MeetingHistory, protected: false },
+  // { path: '/denah', exact: true, name: 'House Map', element: HouseMap, protected: false },
+  { path: '/kontak', exact: true, name: 'Kontak', element: MeetingHistory, protected: false },
   { path: '/login', exact: true, name: 'Login', element: Login, protected: false },
   { path: '/register', exact: true, name: 'Register', element: Register, protected: false },
   { path: '/profile', exact: true, name: 'Profile', element: Profile, protected: true },
+  { path: '/forgetpassword', exact: true, name: 'Lupa Password', element: ForgetPassword, protected: true },
 ]
 
 export default routes

@@ -313,7 +313,7 @@ class Register extends Component {
                 placeholder="Ketik ulang password anda"
                 required
                 isInvalid={
-                  registerPayload === registerPayload.password_confirmation &&
+                  registerPayload !== registerPayload.password_confirmation &&
                   validated
                 }
               />

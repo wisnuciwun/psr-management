@@ -14,6 +14,7 @@ import { getLoginData } from "config/redux/rootAction";
 import { Form, FormControl, FormLabel } from "react-bootstrap";
 import { REGEX_EMAIL } from "constants/Constants";
 import { ValidatorBoolean } from "../utils/validator";
+import { BadgeNotif } from "components/BadgeNotification";
 
 class Login extends Component {
   constructor(props) {
@@ -39,9 +40,14 @@ class Login extends Component {
         validated: false,
       });
       request.post("/auth/login", this.state.loginPayload).then((res) => {
-        if (res.data.code === 200) {
+        if (res.data?.code === 200) {
           dispatch(getLoginData(res.data.docs));
           this.props.navigate("/");
+        } else {
+          BadgeNotif.show({
+            text: res.response.data.message || "Terjadi kesalahan",
+            variant: "warning",
+          });
         }
       });
     } else {
@@ -99,7 +105,12 @@ class Login extends Component {
                   onChange={this.onHandleChangeUser}
                   name="password"
                   value={loginPayload.password}
-                  isInvalid={ValidatorBoolean({value: loginPayload.password, rule: 'type:string'}) && validated}
+                  isInvalid={
+                    ValidatorBoolean({
+                      value: loginPayload.password,
+                      rule: "type:string",
+                    }) && validated
+                  }
                   required
                 />
                 <FormControl.Feedback type="invalid">
