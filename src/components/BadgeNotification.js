@@ -31,7 +31,7 @@ class BadgeNotification extends Component {
                   <i
                     style={{ cursor: "pointer" }}
                     onClick={() => {
-                      this.show({ close: true });
+                      this.show({ close: true, delay: 100 });
                     }}
                     className="fa fa-times"
                   ></i>
