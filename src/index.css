@@ -102,3 +102,11 @@ code {
 input{
   /* background: none !important; */
 }
+
+.icon-suffix{
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin-bottom: 12px;
+  margin-right: 13px;
+}
