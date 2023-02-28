@@ -136,7 +136,6 @@ class Register extends Component {
       hidePassword,
     } = this.state;
     const options = [
-      { value: "", label: "Pilih salah satu" },
       { value: "owner", label: "Milik Pribadi" },
       { value: "contract", label: "Kontrak" },
     ];
@@ -174,6 +173,7 @@ class Register extends Component {
                 onChange={this.handleSelectHouseType}
                 value={houseType}
                 options={options}
+                placeholder='Pilih salah satu'
               />
               <FormControl.Feedback type="invalid">
                 No. KTP harus diisi dan sesuai format
@@ -272,7 +272,7 @@ class Register extends Component {
                 }
               />
               <FormControl.Feedback type="invalid">
-                Isi blok rumah anda sesuai contoh
+                Isi nomor rumah anda sesuai contoh
               </FormControl.Feedback>
             </FormGroup>
             <FormGroup className="mb-2">
