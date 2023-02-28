@@ -121,7 +121,7 @@ class Login extends Component {
                   })}
                   className={`fa-regular  ${
                     hidePassword ? "fa-eye" : "fa-eye-slash"
-                  } fa-lg cursor-pointer btn-password fa icon-suffix`}
+                  } fa-lg cursor-pointer btn-password fa icon-suffix2`}
                 ></i>
                 <FormControl.Feedback type="invalid">
                   Silahkan input password anda terlebih dahulu

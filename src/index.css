@@ -103,6 +103,14 @@ code {
   background: none !important;
 }
 
+.icon-suffix2{
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-top: 38px;
+  margin-right: 13px;
+}
+
 .icon-suffix{
   position: absolute;
   right: 0;
