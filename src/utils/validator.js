@@ -274,7 +274,7 @@ function typeCheck(value = '', type) {
 
 function minCheck(value = '', length) {
      let res = ''
-     if (value.length >= length && value != null) {
+     if (value?.length >= length && value != null) {
           res = true
      }
      else {
@@ -285,7 +285,7 @@ function minCheck(value = '', length) {
 
 function maxCheck(value = '', length) {
      let res = ''
-     if (value.length <= length && value != null) {
+     if (value?.length <= length && value != null) {
           res = true
      }
      else {

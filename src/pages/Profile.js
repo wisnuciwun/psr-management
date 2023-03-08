@@ -407,7 +407,7 @@ class Profile extends Component {
             });
           }}
         >
-          <ModalHeader>Ubah Data Profile</ModalHeader>
+          <ModalHeader closeButton>Ubah Data Profile</ModalHeader>
           <ModalBody>
             <Form
               onSubmit={this.handlePutDataProfile}
