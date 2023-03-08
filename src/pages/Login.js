@@ -85,6 +85,7 @@ class Login extends Component {
               <FormGroup>
                 <FormLabel className="mb-1">Email</FormLabel>
                 <FormControl
+                  className="input-no-decoration"
                   onChange={this.onHandleChangeUser}
                   name="email"
                   value={loginPayload.email}
@@ -103,6 +104,7 @@ class Login extends Component {
               <FormGroup className="position-relative">
                 <FormLabel className="mb-1">Password</FormLabel>
                 <FormControl
+                  className="input-no-decoration"
                   type={hidePassword ? 'password' : 'text'}
                   onChange={this.onHandleChangeUser}
                   name="password"

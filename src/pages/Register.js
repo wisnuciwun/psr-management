@@ -153,6 +153,7 @@ class Register extends Component {
             <FormGroup className="mb-2">
               <FormLabel className="mb-1">Nama</FormLabel>
               <FormControl
+                className="input-no-decoration"
                 name="full_name"
                 value={registerPayload.full_name}
                 onChange={this.handleRegister}
@@ -172,19 +173,34 @@ class Register extends Component {
             <FormGroup className="mb-2">
               <FormLabel className="mb-1">Status Kepemilikan Rumah</FormLabel>
               <br />
+              <FormControl
+                hidden
+                className="input-no-decoration"
+                name="full_name"
+                value={houseType}
+                placeholder="Isi nama anda"
+                required
+                isInvalid={
+                  !ValidatorBoolean({
+                    value: registerPayload.type,
+                    rule: "type:string",
+                  }) && validated
+                }
+              />
               <Select
                 onChange={this.handleSelectHouseType}
                 value={houseType}
                 options={options}
-                placeholder='Pilih salah satu'
+                placeholder="Pilih salah satu"
               />
               <FormControl.Feedback type="invalid">
-               Isi status kepemilikan rumah
+                Isi status kepemilikan rumah
               </FormControl.Feedback>
             </FormGroup>
             <FormGroup className="mb-2">
               <FormLabel className="mb-1">Email</FormLabel>
               <FormControl
+                className="input-no-decoration"
                 id="email"
                 name="email"
                 value={registerPayload.email}
@@ -205,6 +221,7 @@ class Register extends Component {
             <FormGroup className="mb-2">
               <FormLabel className="mb-1">No. KTP</FormLabel>
               <FormControl
+                className="input-no-decoration"
                 maxLength={16}
                 name="identity_number"
                 value={registerPayload.identity_number}
@@ -214,7 +231,7 @@ class Register extends Component {
                 isInvalid={
                   !ValidatorBoolean({
                     value: registerPayload.identity_number,
-                    rule: "type:number|max:16",
+                    rule: "type:number|min:16",
                   }) && validated
                 }
               />
@@ -225,6 +242,7 @@ class Register extends Component {
             <FormGroup className="mb-2">
               <FormLabel className="mb-1">No. KK</FormLabel>
               <FormControl
+                className="input-no-decoration"
                 maxLength={16}
                 name="family_card_number"
                 value={registerPayload.family_card_number}
@@ -234,7 +252,7 @@ class Register extends Component {
                 isInvalid={
                   !ValidatorBoolean({
                     value: registerPayload.family_card_number,
-                    rule: "type:number|max:16",
+                    rule: "type:number|min:16",
                   }) && validated
                 }
               />
@@ -245,6 +263,7 @@ class Register extends Component {
             <FormGroup className="mb-2">
               <FormLabel className="mb-1">Blok rumah</FormLabel>
               <FormControl
+                className="input-no-decoration"
                 name="blok"
                 value={registerPayload.blok}
                 onChange={this.handleRegister}
@@ -264,6 +283,7 @@ class Register extends Component {
             <FormGroup className="mb-2">
               <FormLabel className="mb-1">Nomor rumah</FormLabel>
               <FormControl
+                className="input-no-decoration"
                 name="home_number"
                 value={registerPayload.home_number}
                 onChange={this.handleRegister}
@@ -283,15 +303,17 @@ class Register extends Component {
             <FormGroup className="mb-2">
               <FormLabel className="mb-1">No. HP</FormLabel>
               <FormControl
+                className="input-no-decoration"
                 name="phone"
                 value={registerPayload.phone}
                 onChange={this.handleRegister}
                 placeholder="Isi No. HP anda. Contoh 08183128491"
                 required
+                maxLength={13}
                 isInvalid={
                   !ValidatorBoolean({
-                    value: registerPayload.family_card_number,
-                    rule: "type:number|max:13|min:10",
+                    value: registerPayload.phone,
+                    rule: "type:number|min:10",
                   }) && validated
                 }
               />
@@ -302,6 +324,7 @@ class Register extends Component {
             <FormGroup className="mb-2 position-relative">
               <FormLabel className="mb-1">Password</FormLabel>
               <FormControl
+                className="input-no-decoration"
                 name="password"
                 type={hidePassword ? "password" : "text"}
                 value={registerPayload.password}
@@ -310,7 +333,7 @@ class Register extends Component {
                 required
                 isInvalid={
                   !ValidatorBoolean({
-                    value: registerPayload.family_card_number,
+                    value: registerPayload.password,
                     rule: `type:string|regex:${REGEX_PASSWORD_VALIDATOR}`,
                   }) && validated
                 }
@@ -332,6 +355,7 @@ class Register extends Component {
             <FormGroup className="mb-2 position-relative">
               <FormLabel className="mb-1">Konfirmasi Password</FormLabel>
               <FormControl
+                className="input-no-decoration"
                 type={hideConfirmPassword ? "password" : "text"}
                 name="password_confirmation"
                 value={registerPayload.password_confirmation}
@@ -358,10 +382,7 @@ class Register extends Component {
               </FormControl.Feedback>
             </FormGroup>
             <hr />
-            <Button
-              className="mt-2 w-100 btn-success"
-              type="submit"
-            >
+            <Button className="mt-2 w-100 btn-success" type="submit">
               Submit
             </Button>
           </Form>

@@ -166,7 +166,7 @@ class Profile extends Component {
       modalProfileOpen,
       profileDataPayload,
       validated,
-      houseType
+      houseType,
     } = this.state;
     const options = [
       { value: "owner", label: "Milik Pribadi" },
@@ -417,6 +417,7 @@ class Profile extends Component {
               <FormGroup className="mb-2">
                 <FormLabel className="mb-1">Nama</FormLabel>
                 <FormControl
+                  className="input-no-decoration"
                   placeholder="Isi nama anda"
                   value={profileDataPayload.full_name}
                   onChange={this.onHandleChangeProfileData}
@@ -436,11 +437,29 @@ class Profile extends Component {
               <FormGroup className="mb-2">
                 <FormLabel className="mb-1">Status Kepemilikan Rumah</FormLabel>
                 <br />
+                <FormControl
+                  hidden
+                  className="input-no-decoration"
+                  name="full_name"
+                  value={options.filter(
+                    (v) => v.value == profileDataPayload.type
+                  )}
+                  placeholder="Isi nama anda"
+                  required
+                  isInvalid={
+                    !ValidatorBoolean({
+                      value: options.filter(v => v.value == profileDataPayload.type),
+                      rule: "type:string",
+                    }) && validated
+                  }
+                />
                 <Select
                   onChange={this.handleSelectHouseType}
-                  value={options.filter(v => v.value == profileDataPayload.type)}
+                  value={options.filter(
+                    (v) => v.value == profileDataPayload.type
+                  )}
                   options={options}
-                  placeholder='Pilih salah satu'
+                  placeholder="Pilih salah satu"
                 />
                 <FormControl.Feedback type="invalid">
                   No. KTP harus diisi dan sesuai format
@@ -449,6 +468,7 @@ class Profile extends Component {
               <FormGroup className="mb-2">
                 <FormLabel className="mb-1">No. KTP</FormLabel>
                 <FormControl
+                  className="input-no-decoration"
                   placeholder="Isi No. KTP"
                   value={profileDataPayload.identity_number}
                   onChange={this.onHandleChangeProfileData}
@@ -465,6 +485,7 @@ class Profile extends Component {
               <FormGroup className="mb-2">
                 <FormLabel className="mb-1">No. KK</FormLabel>
                 <FormControl
+                  className="input-no-decoration"
                   placeholder="Isi No. KK"
                   value={profileDataPayload.family_card_number}
                   onChange={this.onHandleChangeProfileData}
@@ -484,6 +505,7 @@ class Profile extends Component {
               <FormGroup className="mb-2">
                 <FormLabel className="mb-1">Blok rumah</FormLabel>
                 <FormControl
+                  className="input-no-decoration"
                   name="blok"
                   value={profileDataPayload.blok}
                   onChange={this.onHandleChangeProfileData}
@@ -503,6 +525,7 @@ class Profile extends Component {
               <FormGroup className="mb-2">
                 <FormLabel className="mb-1">Nomor rumah</FormLabel>
                 <FormControl
+                  className="input-no-decoration"
                   name="home_number"
                   value={profileDataPayload.home_number}
                   onChange={this.onHandleChangeProfileData}
@@ -522,6 +545,7 @@ class Profile extends Component {
               <FormGroup className="mb-2">
                 <FormLabel className="mb-1">No. HP</FormLabel>
                 <FormControl
+                  className="input-no-decoration"
                   placeholder="Isi No. HP anda"
                   value={profileDataPayload.phone}
                   name="phone"
