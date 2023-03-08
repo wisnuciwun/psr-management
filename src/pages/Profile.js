@@ -448,7 +448,9 @@ class Profile extends Component {
                   required
                   isInvalid={
                     !ValidatorBoolean({
-                      value: options.filter(v => v.value == profileDataPayload.type),
+                      value: options.filter(
+                        (v) => v.value == profileDataPayload.type
+                      ),
                       rule: "type:string",
                     }) && validated
                   }
@@ -462,7 +464,7 @@ class Profile extends Component {
                   placeholder="Pilih salah satu"
                 />
                 <FormControl.Feedback type="invalid">
-                  No. KTP harus diisi dan sesuai format
+                  Isi status kepemilikan rumah
                 </FormControl.Feedback>
               </FormGroup>
               <FormGroup className="mb-2">
