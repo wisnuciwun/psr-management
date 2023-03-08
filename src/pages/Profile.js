@@ -468,6 +468,7 @@ class Profile extends Component {
               <FormGroup className="mb-2">
                 <FormLabel className="mb-1">No. KTP</FormLabel>
                 <FormControl
+                  maxLength={16}
                   className="input-no-decoration"
                   placeholder="Isi No. KTP"
                   value={profileDataPayload.identity_number}
@@ -477,7 +478,7 @@ class Profile extends Component {
                   isInvalid={
                     !ValidatorBoolean({
                       value: profileDataPayload.identity_number,
-                      rule: "type:string|max:16",
+                      rule: "type:string|min:16",
                     }) && validated
                   }
                 />
@@ -487,6 +488,7 @@ class Profile extends Component {
                 <FormControl
                   className="input-no-decoration"
                   placeholder="Isi No. KK"
+                  maxLength={16}
                   value={profileDataPayload.family_card_number}
                   onChange={this.onHandleChangeProfileData}
                   name="family_card_number"
@@ -494,7 +496,7 @@ class Profile extends Component {
                   isInvalid={
                     !ValidatorBoolean({
                       value: profileDataPayload.family_card_number,
-                      rule: "type:string|max:16",
+                      rule: "type:string|min:16",
                     }) && validated
                   }
                 />
@@ -549,11 +551,12 @@ class Profile extends Component {
                   placeholder="Isi No. HP anda"
                   value={profileDataPayload.phone}
                   name="phone"
+                  maxLength={13}
                   onChange={this.onHandleChangeProfileData}
                   isInvalid={
                     !ValidatorBoolean({
                       value: profileDataPayload.phone,
-                      rule: "type:string|max:3",
+                      rule: "type:string|min:10",
                     }) && validated
                   }
                 />
