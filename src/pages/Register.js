@@ -23,10 +23,11 @@ import {
   FormGroup,
   FormLabel,
   FormSelect,
+  Form,
   // FormSelect,
 } from "react-bootstrap";
 import { connect } from "react-redux";
-import Form from "react-bootstrap/Form";
+// import Form from "react-bootstrap/Form";
 import Select from "react-select";
 import { getLoginData } from "config/redux/rootAction";
 import request from "utils/request";
@@ -135,10 +136,12 @@ class Register extends Component {
       hideConfirmPassword,
       hidePassword,
     } = this.state;
+
     const options = [
       { value: "owner", label: "Milik Pribadi" },
       { value: "contract", label: "Kontrak" },
     ];
+
     return (
       <>
         <Container className="mb-3">
@@ -176,7 +179,7 @@ class Register extends Component {
                 placeholder='Pilih salah satu'
               />
               <FormControl.Feedback type="invalid">
-                No. KTP harus diisi dan sesuai format
+               Isi status kepemilikan rumah
               </FormControl.Feedback>
             </FormGroup>
             <FormGroup className="mb-2">
@@ -202,6 +205,7 @@ class Register extends Component {
             <FormGroup className="mb-2">
               <FormLabel className="mb-1">No. KTP</FormLabel>
               <FormControl
+                maxLength={16}
                 name="identity_number"
                 value={registerPayload.identity_number}
                 onChange={this.handleRegister}
@@ -221,6 +225,7 @@ class Register extends Component {
             <FormGroup className="mb-2">
               <FormLabel className="mb-1">No. KK</FormLabel>
               <FormControl
+                maxLength={16}
                 name="family_card_number"
                 value={registerPayload.family_card_number}
                 onChange={this.handleRegister}
@@ -354,8 +359,8 @@ class Register extends Component {
             </FormGroup>
             <hr />
             <Button
-              onClick={this.handlePostRegister}
               className="mt-2 w-100 btn-success"
+              type="submit"
             >
               Submit
             </Button>
