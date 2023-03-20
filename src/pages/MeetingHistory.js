@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Col, Form, FormGroup, FormText, Input, Label } from 'reactstrap'
+import { Button, Col, Form, FormGroup, FormText, FormControl, FormLabel } from 'react-bootstrap'
 
 export class MeetingHistory extends Component {
   render() {
@@ -8,21 +8,21 @@ export class MeetingHistory extends Component {
         <h5 className='mb-4'><i className="fa fa-phone" aria-hidden="true">&nbsp;&nbsp;</i>Hubungi Kami</h5>
         <Form>
           <FormGroup row>
-            <Label for="exampleEmail" sm={2}>Email</Label>
+            <FormLabel for="exampleEmail" sm={2}>Email</FormLabel>
             <Col sm={10}>
-              <Input type="email" name="email" id="exampleEmail" placeholder="Silahkan isi email anda" />
+              <FormControl type="email" name="email" id="exampleEmail" placeholder="Silahkan isi email anda" />
             </Col>
           </FormGroup>
           <FormGroup row>
-            <Label for="exampleEmail" sm={2}>Nama</Label>
+            <FormLabel for="exampleEmail" sm={2}>Nama</FormLabel>
             <Col sm={10}>
-              <Input type="text" name="name" id="exampleEmail" placeholder="Silahkan isi nama anda" />
+              <FormControl type="text" name="name" id="exampleEmail" placeholder="Silahkan isi nama anda" />
             </Col>
           </FormGroup>
           <FormGroup row>
-            <Label for="exampleText" sm={2}>Pesan</Label>
+            <FormLabel for="exampleText" sm={2}>Pesan</FormLabel>
             <Col sm={10}>
-              <Input type="textarea" name="text" id="exampleText" placeholder='Silahkan isi pesan anda' />
+              <FormControl type="textarea" name="text" id="exampleText" placeholder='Silahkan isi pesan anda' />
             </Col>
           </FormGroup>
           <FormGroup row>

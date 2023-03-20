@@ -1,92 +1,221 @@
+import { getLoginData } from "config/redux/rootAction";
 import React, { useState } from "react";
 import {
   Collapse,
+  Container,
   Navbar,
-  NavbarToggler,
+  // NavbarToggler,
   NavbarBrand,
   Nav,
   NavItem,
   NavLink,
-} from "reactstrap";
-import { getCookie } from "tiny-cookie";
+  Offcanvas,
+  NavDropdown,
+  Form,
+  Button,
+  Dropdown,
+  OverlayTrigger,
+  Popover,
+  Card,
+} from "react-bootstrap";
+import DropdownItem from "react-bootstrap/esm/DropdownItem";
+import DropdownMenu from "react-bootstrap/esm/DropdownMenu";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
+import { getCookie, removeCookie } from "tiny-cookie";
 
 function HomeNavbar(props) {
   const [collapsed, setCollapsed] = useState(true);
+  const dispatch = useDispatch();
   const isLogin = getCookie("token");
+  const pagePosition = window.location.pathname;
+  let expand = false;
+  let navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(getLoginData({}));
+    removeCookie("token");
+    props.navigate("/");
+  };
 
   const toggleNavbar = () => setCollapsed(!collapsed);
 
   return (
     <div>
-      <Navbar color="faded" light>
-        <NavbarBrand href="/" className="me-auto">
-          <img className="img-logo" src="/assets/logo.png" alt="" />
-        </NavbarBrand>
-        <NavbarToggler onClick={toggleNavbar} className="me-2" />
-        <Collapse isOpen={!collapsed} navbar>
-          <Nav navbar>
-            {/* <NavItem>
-                                   <NavLink>
-                                        Tentang Kami
-                                   </NavLink>
-                              </NavItem> */}
-            <NavItem>
-              <NavLink href="/">
-                <i style={{ width: "30px" }} className="fa fa-home">
-                  &nbsp;
-                </i>
-                Beranda
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/berita">
-                <i style={{ width: "30px" }} className="fa fa-newspaper-o">
-                  &nbsp;
-                </i>
-                Berita
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/struktur">
-                <i style={{ width: "30px" }} className="fa fa-users">
-                  &nbsp;
-                </i>
-                Struktur Organisasi
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/kontak">
-                <i style={{ width: "30px" }} className="fa fa-phone">
-                  &nbsp;
-                </i>
-                Kontak
-              </NavLink>
-            </NavItem>
-            {isLogin ? (
-              <NavItem>
-                <NavLink href="/profile">
+      <Navbar
+        key={expand}
+        expand={expand}
+        className="mb-3 bg-secondary-yellow pb-3 pt-2"
+      >
+        <Container fluid>
+          <Navbar.Toggle
+            style={{ border: "none" }}
+            className="no-outline"
+            aria-controls={`offcanvasNavbar-expand-${expand}`}
+          />
+          <div className="d-flex align-items-center" style={{ gap: "10px" }}>
+            <OverlayTrigger
+              trigger="click"
+              key="news-notification"
+              placement="bottom-start"
+              overlay={
+                <Popover className="mt-4" id="news-notification">
+                  <Popover.Header as="h3">Notifikasi</Popover.Header>
+                  <Popover.Body>
+                    <Card className="mb-2">
+                      <Card.Body>
+                        Undangan untuk menghadiri peresmian masjid
+                      </Card.Body>
+                    </Card>
+                    <Card className="mb-2">
+                      <Card.Body className="w-100" style={{ width: "200px" }}>
+                        Anda belum membayar iuran bulan ini
+                      </Card.Body>
+                    </Card>
+                  </Popover.Body>
+                </Popover>
+              }
+            >
+              <i className="fa fa-bell-o fa-lg"></i>
+            </OverlayTrigger>
+            <div>
+              <Dropdown drop="down">
+                <Dropdown.Toggle
+                  style={{
+                    borderRadius: "64px",
+                    width: "86px",
+                    backgroundColor: "inherit",
+                  }}
+                  variant="secondary"
+                >
+                  <span
+                    style={{
+                      borderRadius: "50%",
+                      width: "25px",
+                      height: "25px",
+                      backgroundColor: `#${Math.floor(
+                        Math.random() * 16777215
+                      ).toString(16)}`,
+                      display: "inline-block",
+                    }}
+                  >
+                    W
+                  </span>
+                </Dropdown.Toggle>
+                <DropdownMenu style={{ marginLeft: "-70px" }}>
+                  <DropdownItem onClick={() => navigate("/profile")}>
+                    Profile
+                  </DropdownItem>
+                  {isLogin !== null ? (
+                    <DropdownItem onClick={handleLogout}>Logout</DropdownItem>
+                  ) : (
+                    <DropdownItem onClick={() => navigate("/")}>
+                      Login/Register
+                    </DropdownItem>
+                  )}
+                </DropdownMenu>
+              </Dropdown>
+            </div>
+          </div>
+          <Navbar.Offcanvas
+            id={`offcanvasNavbar-expand-${expand}`}
+            aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
+            placement="start"
+            className="bg-primary-green"
+            style={{ color: "white" }}
+          >
+            <Offcanvas.Header
+              className="d-flex justify-content-end"
+              closeButton
+            ></Offcanvas.Header>
+            <div className="d-flex justify-content-center mb-3">
+              <img src="/assets/logo3.png" style={{ width: "100px" }} alt="" />
+            </div>
+            <Offcanvas.Body>
+              <Nav className="justify-content-end flex-grow-1 pe-3">
+                <Nav.Link
+                  href="/"
+                  className={`${
+                    pagePosition === "/" && "bg-selected-menu"
+                  } d-flex align-items-center p-2`}
+                >
+                  <i style={{ width: "35px" }} className="fa fa-home fa-lg">
+                    &nbsp;
+                  </i>
+                  <span className="font-lg">Beranda</span>
+                </Nav.Link>
+                <Nav.Link
+                  href="/berita"
+                  className={`${
+                    pagePosition === "/berita" && "bg-selected-menu"
+                  } d-flex align-items-center p-2`}
+                >
                   <i
-                    style={{ width: "30px" }}
-                    className="fa fa-user"
-                    aria-hidden="true"
+                    style={{ width: "35px" }}
+                    className="fa fa-newspaper-o fa-lg"
                   >
                     &nbsp;
                   </i>
-                  Profile
-                </NavLink>
-              </NavItem>
-            ) : (
-              <NavItem>
-                <NavLink href="/login">
-                  <i style={{ width: "30px" }} className="fa fa-sign-in">
+                  <span className="font-lg">Berita</span>
+                </Nav.Link>
+                <Nav.Link
+                  href="/struktur"
+                  className={`${
+                    pagePosition === "/struktur" && "bg-selected-menu"
+                  } d-flex align-items-center p-2`}
+                >
+                  <i style={{ width: "35px" }} className="fa fa-users fa-lg">
                     &nbsp;
                   </i>
-                  Login/Register
-                </NavLink>
-              </NavItem>
-            )}
-          </Nav>
-        </Collapse>
+                  <span className="font-lg">Struktur Organisasi</span>
+                </Nav.Link>
+                <Nav.Link
+                  href="/kontak"
+                  className={`${
+                    pagePosition === "/kontak" && "bg-selected-menu"
+                  } d-flex align-items-center p-2`}
+                >
+                  <i style={{ width: "35px" }} className="fa fa-phone fa-lg">
+                    &nbsp;
+                  </i>
+                  <span className="font-lg">Kontak</span>
+                </Nav.Link>
+                {isLogin !== null ? (
+                  <Nav.Link
+                    href="/profile"
+                    className={`${
+                      pagePosition === "/profile" && "bg-selected-menu"
+                    } d-flex align-items-center p-2`}
+                  >
+                    <i
+                      style={{ width: "35px" }}
+                      className="fa fa-user fa-lg"
+                      aria-hidden="true"
+                    >
+                      &nbsp;
+                    </i>
+                    <span className="font-lg">Profile</span>
+                  </Nav.Link>
+                ) : (
+                  <Nav.Link
+                    href="/login"
+                    className={`${
+                      pagePosition === "/login" && "bg-selected-menu"
+                    } d-flex align-items-center p-2`}
+                  >
+                    <i
+                      style={{ width: "35px" }}
+                      className="fa fa-sign-in fa-lg"
+                    >
+                      &nbsp;
+                    </i>
+                    <span className="font-lg">Login/Register</span>
+                  </Nav.Link>
+                )}
+              </Nav>
+            </Offcanvas.Body>
+          </Navbar.Offcanvas>
+        </Container>
       </Navbar>
     </div>
   );

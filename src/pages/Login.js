@@ -3,11 +3,8 @@ import { Link, Navigate } from "react-router-dom";
 import {
   Button,
   Container,
-  FormFeedback,
   FormGroup,
-  Input,
-  Label,
-} from "reactstrap";
+} from "react-bootstrap";
 import request from "../utils/request";
 import { connect } from "react-redux";
 import { getLoginData } from "config/redux/rootAction";

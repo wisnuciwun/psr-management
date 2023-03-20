@@ -45,7 +45,7 @@ export default {
   post: (url, data, headers = {}) =>
     request({ method: "post", url, data, headers }),
   put: (url, data) => request({ method: "put", url, data }),
-  delete: (url) => request({ method: "delete", url }),
+  delete: (url, data) => request({ method: "delete", url, data }),
   setToken: (token) => {
     if (token) {
       request.defaults.headers.common.Authorization = `Bearer ${token}`;

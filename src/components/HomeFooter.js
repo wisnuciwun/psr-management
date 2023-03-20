@@ -2,7 +2,7 @@ import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import CopyToClipboard from 'react-copy-to-clipboard'
-import { Alert } from 'reactstrap'
+import { Alert } from 'react-bootstrap'
 import { BadgeNotif } from './BadgeNotification'
 
 function HomeFooter() {
@@ -17,8 +17,8 @@ function HomeFooter() {
      }, [show])
 
      return (
-          <div style={{ bottom: 0, zIndex: 999 }} className='bg-white d-flex justify-content-between align-items-center footer position-absolute w-100 pl-3 pt-4 pb-4 pr-3'>
-               <div style={{ gap: '10px' }} className='d-flex align-items-center'>
+          <div style={{ bottom: 0, zIndex: 999, padding: '10px 10px 10px 10px' }} className='bg-white d-flex justify-content-between align-items-center footer position-absolute w-100'>
+               <div style={{ gap: '20px' }} className='d-flex align-items-center'>
                     <div>
                          <img src="/assets/logo2.png" style={{ width: '65px' }} alt="" />
                     </div>
@@ -41,17 +41,14 @@ function HomeFooter() {
                          </div>
                          <div className='font-sm weight-sm mt-2'>
                               <i className="fa fa-envelope-o" aria-hidden="true"></i>
-                              <a href='mailto:primaswargaresidence@gmail.com'>&nbsp;primaswargaresidence@gmail.com</a>
+                              <a style={{textDecoration: 'none'}} href='mailto:primaswargaresidence@gmail.com'>&nbsp;primaswargaresidence@gmail.com</a>
                          </div>
                          <div className='font-sm weight-sm'>
                               <i className="fa fa-instagram" aria-hidden="true"></i>
-                              <a href='https://www.instagram.com/barayaswarga/' target='_blank' rel='noopener noreferrer'>&nbsp;@barayaswarga</a>
+                              <a style={{textDecoration: 'none'}} href='https://www.instagram.com/barayaswarga/' target='_blank' rel='noopener noreferrer'>&nbsp;@barayaswarga</a>
                          </div>
 
                     </div>
-               </div>
-               <div>
-                    &nbsp;
                </div>
           </div>
      )

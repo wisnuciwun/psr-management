@@ -12,26 +12,30 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
+  Table,
+  Accordion,
+  Badge,
 } from "react-bootstrap";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-// import {
-//   Button,
-//   Container,
-//   DropdownItem,
-//   DropdownMenu,
-//   DropdownToggle,
-//   FormText,
-//   Input,
-//   Label,
-//   UncontrolledDropdown,
-// } from "reactstrap";
-
 import { getCookie, removeCookie } from "tiny-cookie";
 import request from "utils/request";
 import { ValidatorBoolean } from "utils/validator";
 import Form from "react-bootstrap/Form";
 import Select from "react-select";
+import NoData from "components/NoData";
+import DropdownMenu from "react-bootstrap/esm/DropdownMenu";
+import DropdownItem from "react-bootstrap/esm/DropdownItem";
+import PopUpProfile from "modals/PopUpProfile";
+import PopUpAddress from "modals/PopUpAddress";
+import PopUpDocument from "modals/PopUpDocument";
+import PopUpEmergency from "modals/PopUpEmergency";
+import PopUpFamily from "modals/PopUpFamily";
+import MenuProfile from "accordions/MenuProfile";
+import MenuAddress from "accordions/MenuAddress";
+import MenuEmergency from "accordions/MenuEmergency";
+import MenuDocument from "accordions/MenuDocument";
+import MenuFamily from "accordions/MenuFamily";
 class Profile extends Component {
   constructor(props) {
     super(props);
@@ -42,6 +46,7 @@ class Profile extends Component {
       children: [],
       dataProfile: {},
       modalProfileOpen: false,
+      modalProfileHeader: "",
       profileDataPayload: {
         full_name: "",
         phone: "",
@@ -149,6 +154,10 @@ class Profile extends Component {
     });
   };
 
+  handleOpenModal = (typeModal) => {
+    this.setState({ modalProfileOpen: !this.state.modalProfileOpen, modalProfileHeader: typeModal });
+  };
+
   componentDidMount() {
     request.get("/auth/info").then((res) => {
       this.setState({
@@ -173,224 +182,152 @@ class Profile extends Component {
       { value: "contract", label: "Kontrak" },
     ];
 
+    console.log("zzz", this.props);
+
+    const customButtonToggle = React.forwardRef(
+      ({ children, onClick }, ref) => (
+        <Button
+          variant="light"
+          className="btn-primary-light w-50"
+          href=""
+          ref={ref}
+          onClick={(e) => {
+            e.preventDefault();
+            onClick(e);
+          }}
+        >
+          <span
+            style={{
+              color: "#666666",
+              display: "inline",
+              display: "flex",
+              gap: "7px",
+              alignItems: "center",
+              width: "100%",
+            }}
+          >
+            <i className="fa fa-calendar"></i>
+            <span>2023</span>
+          </span>
+          <i className="fa fa-chevron-down text-dark"></i>
+        </Button>
+      )
+    );
+
     return (
       <>
         <Container>
-          <div className="d-flex justify-content-end">
-            <Button
-              onClick={() => {
-                this.setState({ modalProfileOpen: !modalProfileOpen });
-              }}
-              className="btn-dark"
+          <Accordion>
+            <Accordion.Item eventKey="profile">
+              <Accordion.Header>Profile</Accordion.Header>
+              <MenuProfile onOpenModal={this.handleOpenModal} />
+            </Accordion.Item>
+            <Accordion.Item
+              className="mt-2 border-top-collapse"
+              eventKey="alamat"
             >
-              Edit Profile
-            </Button>
-          </div>
-          <br />
-          <FormGroup className="mb-2">
-            <FormLabel className="mb-1">Nama</FormLabel>
-            <FormControl
-              disabled
-              placeholder="Isi nama anda"
-              value={dataProfile.full_name}
-            />
-          </FormGroup>
-          <FormGroup className="mb-2">
-            <FormLabel className="mb-1">Email</FormLabel>
-            <FormControl
-              disabled
-              placeholder="Isi alamat email anda"
-              value={dataProfile.email}
-            />
-          </FormGroup>
-          <FormGroup className="mb-2">
-            <FormLabel className="mb-1">No. KTP</FormLabel>
-            <FormControl
-              disabled
-              placeholder="Isi No. KTP"
-              value={dataProfile.identity_number}
-            />
-          </FormGroup>
-          <FormGroup className="mb-2">
-            <FormLabel className="mb-1">No. KK</FormLabel>
-            <FormControl
-              disabled
-              placeholder="Isi No. KK"
-              value={dataProfile.family_card_number}
-            />
-          </FormGroup>
-          <FormGroup className="mb-2">
-            <FormLabel className="mb-1">Alamat rumah</FormLabel>
-            <FormControl
-              placeholder="Isi Blok dan No. Rumah anda (contoh: B5-21)"
-              value={dataProfile.blok + "-" + dataProfile.home_number}
-              disabled
-            />
-          </FormGroup>
-          <FormGroup className="mb-2">
-            <FormLabel className="mb-1">No. HP</FormLabel>
-            <FormControl
-              placeholder="Isi No. HP anda"
-              value={dataProfile.phone}
-              disabled
-            />
-          </FormGroup>
-          <hr />
-          <Form>
-            <Form.Check
-              type="switch"
-              checked={haveMarried}
-              onClick={this.handleToggle}
-              name="haveMarried"
-              label="Sudah berkeluarga"
-            />
-          </Form>
-          <div hidden={!haveMarried}>
-            <div>
-              {children.length != 0 &&
-                children.map((v, id) => {
-                  return (
-                    <div
-                      key={id}
-                      className="d-flex mb-2"
-                      style={{ gap: "10px" }}
+              <Accordion.Header>Alamat</Accordion.Header>
+              <MenuAddress onOpenModal={this.handleOpenModal}/>
+            </Accordion.Item>
+            <Accordion.Item
+              className="mt-2 border-top-collapse"
+              eventKey="keluarga"
+            >
+              <Accordion.Header>Data Keluarga</Accordion.Header>
+              <MenuFamily onOpenModal={this.handleOpenModal} />
+            </Accordion.Item>
+            <Accordion.Item
+              className="mt-2 border-top-collapse"
+              eventKey="darurat"
+            >
+              <Accordion.Header>Kontak Darurat</Accordion.Header>
+              <MenuEmergency onOpenModal={this.handleOpenModal} />
+            </Accordion.Item>
+            <Accordion.Item
+              className="mt-2 border-top-collapse"
+              eventKey="dokumen"
+            >
+              <Accordion.Header>Dokumen</Accordion.Header>
+              <MenuDocument onOpenModal={this.handleOpenModal} />
+            </Accordion.Item>
+            <Accordion.Item
+              className="mt-2 border-top-collapse"
+              eventKey="iuran"
+            >
+              <Accordion.Header>Data Iuran</Accordion.Header>
+              <Accordion.Body>
+                {/* <NoData /> */}
+
+                <Dropdown drop="down">
+                  <div
+                    style={{ gap: "8px" }}
+                    className="d-flex justify-content-between"
+                  >
+                    <Dropdown.Toggle
+                      style={{
+                        borderRadius: "64px",
+                        backgroundColor: "inherit",
+                        width: "50%",
+                        height: "35px",
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                      }}
+                      variant="secondary"
+                      // as={customButtonToggle}
                     >
-                      <FormControl
-                        onChange={(e) => this.handleChangeChildren(id, e)}
-                        value={v.name}
-                        style={{ height: "40px" }}
-                        name="name"
-                        type="text"
-                        className="w-75"
-                      />
-                      <Dropdown>
-                        <Dropdown.Toggle variant="dark" id="dropdown-basic">
-                          {v.relationship ? v.relationship : "Hubungan"}
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                          <Dropdown.Item
-                            onClick={() =>
-                              this.handleChangeChildren(id, {
-                                target: {
-                                  name: "relationship",
-                                  value: "Istri",
-                                },
-                              })
-                            }
-                          >
-                            Istri
-                          </Dropdown.Item>
-                          <Dropdown.Item
-                            name="relationship"
-                            onClick={() =>
-                              this.handleChangeChildren(id, {
-                                target: {
-                                  name: "relationship",
-                                  value: "Suami",
-                                },
-                              })
-                            }
-                          >
-                            Suami
-                          </Dropdown.Item>
-                          <Dropdown.Item
-                            name="relationship"
-                            onClick={() =>
-                              this.handleChangeChildren(id, {
-                                target: {
-                                  name: "relationship",
-                                  value: "Anak 1",
-                                },
-                              })
-                            }
-                          >
-                            Anak 1
-                          </Dropdown.Item>
-                          <Dropdown.Item
-                            name="relationship"
-                            onClick={() =>
-                              this.handleChangeChildren(id, {
-                                target: {
-                                  name: "relationship",
-                                  value: "Anak 2",
-                                },
-                              })
-                            }
-                          >
-                            Anak 2
-                          </Dropdown.Item>
-                          <Dropdown.Item
-                            name="relationship"
-                            onClick={() =>
-                              this.handleChangeChildren(id, {
-                                target: {
-                                  name: "relationship",
-                                  value: "Anak 3",
-                                },
-                              })
-                            }
-                          >
-                            Anak 3
-                          </Dropdown.Item>
-                          <Dropdown.Item
-                            name="relationship"
-                            onClick={() =>
-                              this.handleChangeChildren(id, {
-                                target: {
-                                  name: "relationship",
-                                  value: "Lainnya",
-                                },
-                              })
-                            }
-                          >
-                            Lainnya
-                          </Dropdown.Item>
-                        </Dropdown.Menu>
-                      </Dropdown>
-                    </div>
-                  );
-                })}
-            </div>
-            <Button
-              hidden={!haveMarried}
-              onClick={this.handleAddChildren}
-              className="mt-3 w-100 btn-info"
-            >
-              Tambah data
-            </Button>
-          </div>
-          <hr />
-          <Form.Group controlId="formFile" className="mb-3">
-            <Form.Label>Upload KTP</Form.Label>
-            <Form.Control
-              placeholder="Pastikan format file adalah pdf"
-              type="file"
-              size="md"
-              className="h-100"
-            />
-          </Form.Group>
-          <Form.Group controlId="formFile" className="mb-3">
-            <Form.Label>Upload KK</Form.Label>
-            <Form.Control
-              placeholder="Pastikan format file adalah pdf"
-              type="file"
-              size="md"
-              className="h-100"
-            />
-          </Form.Group>
-          <p className="font-md">
-            Jika file belum pdf, anda dapat kunjungi situs ini{" "}
-            <a
-              rel="noopener noreferrer"
-              target="_blank"
-              no
-              href="https://png2pdf.com/"
-            >
-              https://png2pdf.com/
-            </a>
-          </p>
-          <hr />
-          <Button className="mt-4 w-100 btn-success">Update Data</Button>
+                      <span
+                        style={{
+                          color: "#666666",
+                          display: "flex",
+                          gap: "7px",
+                          alignItems: "center",
+                          width: "100%",
+                        }}
+                      >
+                        <i className="fa fa-calendar"></i>
+                        <span>2023</span>
+                      </span>
+                      <i className="fa fa-chevron-down text-dark"></i>
+                    </Dropdown.Toggle>
+                    <Button className="btn-primary-yellow w-50">Bayar</Button>
+                  </div>
+                  <DropdownMenu style={{ marginLeft: "-70px" }}>
+                    <DropdownItem>2023</DropdownItem>
+                    <DropdownItem>2022</DropdownItem>
+                    <DropdownItem>2021</DropdownItem>
+                    <DropdownItem>2020</DropdownItem>
+                  </DropdownMenu>
+                </Dropdown>
+
+                <Badge className="w-100 mt-2 mb-2" bg="warning">
+                  Pembayaran iuran maksimal tanggal 15 setiap bulannya
+                </Badge>
+                <div style={{ border: "0.5px solid gray" }} className="w-50">
+                  <div
+                    style={{ border: "0.5px solid gray" }}
+                    className="text-center"
+                  >
+                    Januari
+                  </div>
+                  <div style={{ height: "50px" }}>&nbsp;</div>
+                  <table>
+                    <tr>
+                      <td style={{ width: "50px" }}>Tgl</td>
+                      <td>:</td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>Paraf</td>
+                      <td>:</td>
+                      <td></td>
+                    </tr>
+                  </table>
+                </div>
+              </Accordion.Body>
+            </Accordion.Item>
+          </Accordion>
+          <hr className="line-thin" />
           <Link to={"/forgetpassword"}>
             <Button className="mt-2 w-100 btn-info">Reset Password</Button>
           </Link>
@@ -398,7 +335,7 @@ class Profile extends Component {
             Logout
           </Button>
         </Container>
-        <Modal
+        {/* <Modal
           centered
           show={modalProfileOpen}
           onHide={() => {
@@ -571,6 +508,28 @@ class Profile extends Component {
               </Button>
             </Form>
           </ModalBody>
+        </Modal> */}
+        <Modal
+          show={this.state.modalProfileOpen}
+          onHide={() => this.setState({ modalProfileOpen: false })}
+        >
+          <ModalHeader>{this.state.modalProfileHeader}</ModalHeader>
+          {(() => {
+            switch (this.state.modalProfileHeader) {
+              case "profile":
+                return <PopUpProfile />;
+              case "address":
+                return <PopUpAddress />;
+              case "document":
+                return <PopUpDocument />;
+              case "emergency":
+                return <PopUpEmergency />;
+              case "family":
+                return <PopUpFamily />;
+              default:
+                return null;
+            }
+          })()}
         </Modal>
       </>
     );

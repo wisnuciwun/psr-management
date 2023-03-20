@@ -1,52 +1,52 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
   Carousel,
   CarouselItem,
   CarouselControl,
   CarouselIndicators,
-  CarouselCaption
-} from 'reactstrap';
+  CarouselCaption,
+} from "react-bootstrap";
 
 const items = [
   {
-    src: '/assets/1.jpeg',
-    altText: 'Slide 1',
-    caption: 'Slide 1'
+    src: "/assets/1.jpeg",
+    altText: "Slide 1",
+    caption: "Slide 1",
   },
   {
-    src: '/assets/2.jpeg',
-    altText: 'Slide 2',
-    caption: 'Slide 2'
+    src: "/assets/2.jpeg",
+    altText: "Slide 2",
+    caption: "Slide 2",
   },
   {
-    src: '/assets/3.jpeg',
-    altText: 'Slide 3',
-    caption: 'Slide 3'
+    src: "/assets/3.jpeg",
+    altText: "Slide 3",
+    caption: "Slide 3",
   },
   {
-    src: '/assets/4.jpeg',
-    altText: 'Slide 4',
-    caption: 'Slide 4'
+    src: "/assets/4.jpeg",
+    altText: "Slide 4",
+    caption: "Slide 4",
   },
   {
-    src: '/assets/5.jpeg',
-    altText: 'Slide 5',
-    caption: 'Slide 5'
+    src: "/assets/5.jpeg",
+    altText: "Slide 5",
+    caption: "Slide 5",
   },
   {
-    src: '/assets/6.jpeg',
-    altText: 'Slide 6',
-    caption: 'Slide 6'
+    src: "/assets/6.jpeg",
+    altText: "Slide 6",
+    caption: "Slide 6",
   },
   {
-    src: '/assets/7.jpeg',
-    altText: 'Slide 7',
-    caption: 'Slide 7'
+    src: "/assets/7.jpeg",
+    altText: "Slide 7",
+    caption: "Slide 7",
   },
   {
-    src: '/assets/8.jpeg',
-    altText: 'Slide 8',
-    caption: 'Slide 8'
+    src: "/assets/8.jpeg",
+    altText: "Slide 8",
+    caption: "Slide 8",
   },
 ];
 
@@ -71,13 +71,19 @@ class HomeCarousel extends Component {
 
   next() {
     if (this.animating) return;
-    const nextIndex = this.state.activeIndex === items.length - 1 ? 0 : this.state.activeIndex + 1;
+    const nextIndex =
+      this.state.activeIndex === items.length - 1
+        ? 0
+        : this.state.activeIndex + 1;
     this.setState({ activeIndex: nextIndex });
   }
 
   previous() {
     if (this.animating) return;
-    const nextIndex = this.state.activeIndex === 0 ? items.length - 1 : this.state.activeIndex - 1;
+    const nextIndex =
+      this.state.activeIndex === 0
+        ? items.length - 1
+        : this.state.activeIndex - 1;
     this.setState({ activeIndex: nextIndex });
   }
 
@@ -86,38 +92,55 @@ class HomeCarousel extends Component {
     this.setState({ activeIndex: newIndex });
   }
 
+  // const [index, setIndex] = useState(0);
+
+  handleSelect = (selectedIndex, e) => {
+    // setIndex(selectedIndex);
+    this.setState({
+      activeIndex: selectedIndex,
+    });
+  };
+
   render() {
     const { activeIndex } = this.state;
 
     const slides = items.map((item) => {
       return (
-        <CarouselItem
-          onExiting={this.onExiting}
-          onExited={this.onExited}
+        <Carousel.Item
+          interval={2500}
+          // onExiting={this.onExiting}
+          // onExited={this.onExited}
           key={item.src}
-          className='text-center'
-         
+          className="text-center"
         >
-          <img  style={{height: '300px', objectFit: 'cover', width: '100%'}} src={item.src} alt={item.altText} />
+          <img
+            style={{ height: "300px", objectFit: "cover", width: "100%" }}
+            src={item.src}
+            alt={item.altText}
+          />
           {/* <CarouselCaption captionText={item.caption} captionHeader={item.caption} /> */}
-        </CarouselItem>
+        </Carousel.Item>
       );
     });
 
     return (
       <Carousel
+        style={{ marginTop: "-20px" }}
         activeIndex={activeIndex}
-        next={this.next}
-        previous={this.previous}
+        onSelect={this.handleSelect}
+        prevIcon=''
+        nextIcon=''
+        // next={this.next}
+        // previous={this.previous}
       >
-        <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
+        {slides}
+        {/* <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
         {slides}
         <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
-        <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
+        <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} /> */}
       </Carousel>
     );
   }
 }
-
 
 export default HomeCarousel;

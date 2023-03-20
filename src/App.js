@@ -3,7 +3,7 @@ import Home from "pages/Home";
 import { Fragment, Suspense } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { HomeNavbar } from "components";
-import { Button, Modal, ModalBody, NavLink, Spinner } from "reactstrap";
+import { Button, Modal, ModalBody, NavLink, Spinner } from "react-bootstrap";
 import {
   BrowserRouter,
   BrowserRouter as Router,

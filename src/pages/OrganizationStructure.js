@@ -2,7 +2,7 @@ import { BadgeNotif } from "components/BadgeNotification";
 import { data_member } from "constants/tempStructure";
 import React, { Component, Fragment } from "react";
 import CopyToClipboard from "react-copy-to-clipboard";
-import { Card, CardText, Modal, ModalBody, ModalHeader } from "reactstrap";
+import { Card, Modal, ModalBody, ModalHeader } from "react-bootstrap";
 import groupBy from "utils/groupBy";
 
 export class OrganizationStructure extends Component {
@@ -123,9 +123,9 @@ export class OrganizationStructure extends Component {
                         body
                         className=""
                       >
-                        <CardText className="font-lg aquas text-truncate">
+                        <Card.Body className="font-lg aquas text-truncate">
                           {v.name}
-                        </CardText>
+                        </Card.Body>
                         <img
                           style={{
                             height: "230px",
@@ -135,14 +135,14 @@ export class OrganizationStructure extends Component {
                           src={v.img}
                           alt=""
                         />
-                        <CardText className="mt-2">
+                        <Card.Body className="mt-2">
                           <div className="font-md text-truncate">
                             {v.position}
                           </div>
                           <div className="font-md font-weight-bold">
                             {v.address}
                           </div>
-                        </CardText>
+                        </Card.Body>
                       </Card>
                     );
                   })}
