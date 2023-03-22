@@ -184,3 +184,7 @@ code {
 .flex-break{
   flex-basis: 100%;
 }
+
+.font-weight-bold{
+  font-weight: 500 !important;
+}

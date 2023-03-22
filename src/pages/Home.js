@@ -1,6 +1,6 @@
 import { HomeCarousel } from "components";
 import React, { Component, Fragment } from "react";
-import { Card } from "react-bootstrap";
+import { Card, NavLink } from "react-bootstrap";
 
 export class Home extends Component {
   render() {
@@ -12,9 +12,15 @@ export class Home extends Component {
           {/* <video style={{ width: "100%" }} controls={false} autoPlay>
             <source src="assets/pengurus.mp4" type="video/mp4" />
           </video> */}
-          <h6>Berita</h6>
-          <h6>Struktur Organisasi</h6>
+          <NavLink href="/berita">
+            <h6>Berita</h6>
+          </NavLink>
+          <NavLink href="/struktur">
+            <h6>Struktur Organisasi</h6>
+          </NavLink>
+          <NavLink href="/kontak">
           <h6>Kontak</h6>
+          </NavLink>
         </div>
       </Fragment>
     );

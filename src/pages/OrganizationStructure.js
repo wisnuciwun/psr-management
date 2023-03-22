@@ -3,7 +3,7 @@ import { data_member } from "constants/tempStructure";
 import React, { Component, Fragment } from "react";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { Card, Modal, ModalBody, ModalHeader } from "react-bootstrap";
-import groupBy from "utils/groupBy";
+import { utils } from "utils";
 
 export class OrganizationStructure extends Component {
   constructor(props) {
@@ -40,7 +40,7 @@ export class OrganizationStructure extends Component {
 
   render() {
     const { selectedData, toggleModalBio } = this.state;
-    let allData = groupBy(data_member, "group");
+    let allData = utils.groupBy(data_member, "group");
     let allNames = Object.keys(allData);
 
     return (
@@ -55,7 +55,6 @@ export class OrganizationStructure extends Component {
           style={{ textJustify: "inter-word", textAlign: "justify" }}
           className="mb-4"
         >
-          {/* <p className='font-weight-bold text-center'>PERATURAN DAN TATA TERTIB GRUP WHATSAPP INFO BARAYA SWARGA</p> */}
           <p>
             Visi :
             <br />
@@ -101,11 +100,14 @@ export class OrganizationStructure extends Component {
           </i>{" "}
           Struktur Organisasi
         </h5>
-        <div>
+        <div className="mb-4">
           {allNames.length != 0 &&
             allNames.map((w, id) => {
               return (
-                <div className="w-100 d-flex flex-wrap mb-3">
+                <div
+                  style={{ gap: "8px" }}
+                  className="w-100 d-flex flex-wrap mb-1"
+                >
                   <h5 className="mt-2 text-center w-100">{w}</h5>
                   {allData[w].map((v, idx) => {
                     return (
@@ -113,33 +115,24 @@ export class OrganizationStructure extends Component {
                         key={idx}
                         onClick={() => this.onHandleModalData(v)}
                         style={{
-                          width: v.position === "Ketua" ? "100%" : "42%",
-                          margin: "10px",
-                          borderRadius: "10px",
-                          height: "360px",
-                          cursor: "pointer",
-                          maxWidth: v.position === "Ketua" ? "100%" : "42%",
+                          maxWidth: v.position === "Ketua" ? "100%" : "48.5%",
                         }}
-                        body
-                        className=""
+                        className={v.position === "Ketua" ? "w-100" : "w-50"}
                       >
-                        <Card.Body className="font-lg aquas text-truncate">
-                          {v.name}
-                        </Card.Body>
                         <img
                           style={{
                             height: "230px",
                             objectFit: "cover",
-                            borderRadius: "10px",
                           }}
                           src={v.img}
                           alt=""
                         />
-                        <Card.Body className="mt-2">
-                          <div className="font-md text-truncate">
+                        <Card.Body className="font-md font-weight-bold text-truncate">
+                          <div className="font-md text-truncate font-weight-bold">{v.name}</div>
+                          <div className="font-sm text-truncate">
                             {v.position}
                           </div>
-                          <div className="font-md font-weight-bold">
+                          <div className="font-sm">
                             {v.address}
                           </div>
                         </Card.Body>
@@ -176,11 +169,9 @@ export class OrganizationStructure extends Component {
             </a>
           </li>
         </div>
-        <Modal toggle={this.onHandleModalBio} centered isOpen={toggleModalBio}>
-          <ModalHeader toggle={this.onHandleModalBio}>
-            Biodata lengkap
-          </ModalHeader>
-          <ModalBody className="p-4">
+        <Modal onHide={this.onHandleModalBio} centered show={toggleModalBio}>
+          <ModalHeader closeButton>Biodata lengkap</ModalHeader>
+          <ModalBody className="p-3">
             <div className="d-flex justify-content-center">
               <img
                 src={selectedData.img}
@@ -194,16 +185,16 @@ export class OrganizationStructure extends Component {
               />
             </div>
             <br />
-            <div>Nama Lengkap</div>
-            <div className="font-lg font-weight-bold text-primary">
+            <div className="font-md">Nama Lengkap</div>
+            <div className="font-md font-weight-bold text-primary">
               {selectedData.name}
             </div>
-            <div>Nama Panggilan</div>
-            <div className="font-lg font-weight-bold text-primary">
+            <div className="font-md">Nama Panggilan</div>
+            <div className="font-md font-weight-bold text-primary">
               {selectedData.nickName}
             </div>
-            <div>Nomor HP</div>
-            <div className="font-lg text-success font-weight-bold">
+            <div className="font-md">Nomor HP</div>
+            <div className="font-md text-success font-weight-bold">
               {selectedData.phone}
               &nbsp;&nbsp;
               <CopyToClipboard
@@ -218,14 +209,14 @@ export class OrganizationStructure extends Component {
                 <i className="fa fa-clone fa-sm text-dark"></i>
               </CopyToClipboard>
             </div>
-            <div>Jabatan</div>
-            <div className="font-lg font-weight-bold">
+            <div className="font-md">Jabatan</div>
+            <div className="font-md font-weight-bold">
               {selectedData.position}
             </div>
-            <div>Email</div>
-            <div className="font-lg font-weight-bold">{selectedData.email}</div>
-            <div>Alamat Rumah</div>
-            <div className="font-lg font-weight-bold">
+            <div className="font-md">Email</div>
+            <div className="font-md font-weight-bold">{selectedData.email}</div>
+            <div className="font-md">Alamat Rumah</div>
+            <div className="font-md font-weight-bold">
               {selectedData.address}
             </div>
           </ModalBody>

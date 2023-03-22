@@ -1,11 +1,11 @@
 import React from "react";
 import { Button, Form, FormControl, FormGroup, FormLabel, ModalBody } from "react-bootstrap";
 
-function PopUpEmergency({ onChange }) {
+function PopUpEmergency({ onChange, onHide, onSubmit, validate }) {
   return (
     <div>
       <ModalBody>
-        <Form>
+        <Form onSubmit={onSubmit} noValidate validated={validate}>
           <FormGroup className="mb-2 position-relative">
             <FormLabel className="mb-1">Nama</FormLabel>
             <FormControl
@@ -60,8 +60,8 @@ function PopUpEmergency({ onChange }) {
           </FormGroup>
         </Form>
         <div style={{gap: '8px'}} className="d-flex justify-content-between mt-4">
-          <Button className="btn-primary-white w-50">Cancel</Button>
-          <Button className="btn-primary-yellow w-50">Save</Button>
+          <Button onClick={onHide} className="btn-primary-white w-50">Cancel</Button>
+          <Button type="submit" className="btn-primary-yellow w-50">Save</Button>
         </div>
       </ModalBody>
     </div>

@@ -57,7 +57,7 @@ function HomeNavbar(props) {
             <OverlayTrigger
               trigger="click"
               key="news-notification"
-              placement="bottom-start"
+              placement='bottom'
               overlay={
                 <Popover className="mt-4" id="news-notification">
                   <Popover.Header as="h3">Notifikasi</Popover.Header>

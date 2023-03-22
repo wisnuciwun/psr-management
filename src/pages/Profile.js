@@ -36,6 +36,7 @@ import MenuAddress from "accordions/MenuAddress";
 import MenuEmergency from "accordions/MenuEmergency";
 import MenuDocument from "accordions/MenuDocument";
 import MenuFamily from "accordions/MenuFamily";
+import { utils } from "utils";
 class Profile extends Component {
   constructor(props) {
     super(props);
@@ -155,7 +156,10 @@ class Profile extends Component {
   };
 
   handleOpenModal = (typeModal) => {
-    this.setState({ modalProfileOpen: !this.state.modalProfileOpen, modalProfileHeader: typeModal });
+    this.setState({
+      modalProfileOpen: !this.state.modalProfileOpen,
+      modalProfileHeader: typeModal,
+    });
   };
 
   componentDidMount() {
@@ -227,7 +231,7 @@ class Profile extends Component {
               eventKey="alamat"
             >
               <Accordion.Header>Alamat</Accordion.Header>
-              <MenuAddress onOpenModal={this.handleOpenModal}/>
+              <MenuAddress onOpenModal={this.handleOpenModal} />
             </Accordion.Item>
             <Accordion.Item
               className="mt-2 border-top-collapse"
@@ -513,19 +517,46 @@ class Profile extends Component {
           show={this.state.modalProfileOpen}
           onHide={() => this.setState({ modalProfileOpen: false })}
         >
-          <ModalHeader>{this.state.modalProfileHeader}</ModalHeader>
+          <ModalHeader>
+            {utils.toSentenceCase(this.state.modalProfileHeader)}
+          </ModalHeader>
           {(() => {
             switch (this.state.modalProfileHeader) {
               case "profile":
-                return <PopUpProfile />;
+                return (
+                  <PopUpProfile
+                    onSubmit={() => null}
+                    onHide={() => this.setState({ modalProfileOpen: false })}
+                  />
+                );
               case "address":
-                return <PopUpAddress />;
+                return (
+                  <PopUpAddress
+                    onSubmit={() => null}
+                    onHide={() => this.setState({ modalProfileOpen: false })}
+                  />
+                );
               case "document":
-                return <PopUpDocument />;
+                return (
+                  <PopUpDocument
+                    onSubmit={() => null}
+                    onHide={() => this.setState({ modalProfileOpen: false })}
+                  />
+                );
               case "emergency":
-                return <PopUpEmergency />;
+                return (
+                  <PopUpEmergency
+                    onSubmit={() => null}
+                    onHide={() => this.setState({ modalProfileOpen: false })}
+                  />
+                );
               case "family":
-                return <PopUpFamily />;
+                return (
+                  <PopUpFamily
+                    onSubmit={() => null}
+                    onHide={() => this.setState({ modalProfileOpen: false })}
+                  />
+                );
               default:
                 return null;
             }

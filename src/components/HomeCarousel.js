@@ -6,54 +6,55 @@ import {
   CarouselIndicators,
   CarouselCaption,
 } from "react-bootstrap";
+import request from "utils/request";
 
-const items = [
-  {
-    src: "/assets/1.jpeg",
-    altText: "Slide 1",
-    caption: "Slide 1",
-  },
-  {
-    src: "/assets/2.jpeg",
-    altText: "Slide 2",
-    caption: "Slide 2",
-  },
-  {
-    src: "/assets/3.jpeg",
-    altText: "Slide 3",
-    caption: "Slide 3",
-  },
-  {
-    src: "/assets/4.jpeg",
-    altText: "Slide 4",
-    caption: "Slide 4",
-  },
-  {
-    src: "/assets/5.jpeg",
-    altText: "Slide 5",
-    caption: "Slide 5",
-  },
-  {
-    src: "/assets/6.jpeg",
-    altText: "Slide 6",
-    caption: "Slide 6",
-  },
-  {
-    src: "/assets/7.jpeg",
-    altText: "Slide 7",
-    caption: "Slide 7",
-  },
-  {
-    src: "/assets/8.jpeg",
-    altText: "Slide 8",
-    caption: "Slide 8",
-  },
-];
+// const items = [
+//   {
+//     src: "/assets/1.jpeg",
+//     altText: "Slide 1",
+//     caption: "Slide 1",
+//   },
+//   {
+//     src: "/assets/2.jpeg",
+//     altText: "Slide 2",
+//     caption: "Slide 2",
+//   },
+//   {
+//     src: "/assets/3.jpeg",
+//     altText: "Slide 3",
+//     caption: "Slide 3",
+//   },
+//   {
+//     src: "/assets/4.jpeg",
+//     altText: "Slide 4",
+//     caption: "Slide 4",
+//   },
+//   {
+//     src: "/assets/5.jpeg",
+//     altText: "Slide 5",
+//     caption: "Slide 5",
+//   },
+//   {
+//     src: "/assets/6.jpeg",
+//     altText: "Slide 6",
+//     caption: "Slide 6",
+//   },
+//   {
+//     src: "/assets/7.jpeg",
+//     altText: "Slide 7",
+//     caption: "Slide 7",
+//   },
+//   {
+//     src: "/assets/8.jpeg",
+//     altText: "Slide 8",
+//     caption: "Slide 8",
+//   },
+// ];
 
 class HomeCarousel extends Component {
   constructor(props) {
     super(props);
-    this.state = { activeIndex: 0 };
+    this.state = { activeIndex: 0, items: [] };
     this.next = this.next.bind(this);
     this.previous = this.previous.bind(this);
     this.goToIndex = this.goToIndex.bind(this);
@@ -72,7 +73,7 @@ class HomeCarousel extends Component {
   next() {
     if (this.animating) return;
     const nextIndex =
-      this.state.activeIndex === items.length - 1
+      this.state.activeIndex === this.state.items.length - 1
         ? 0
         : this.state.activeIndex + 1;
     this.setState({ activeIndex: nextIndex });
@@ -82,7 +83,7 @@ class HomeCarousel extends Component {
     if (this.animating) return;
     const nextIndex =
       this.state.activeIndex === 0
-        ? items.length - 1
+        ? this.state.items.length - 1
         : this.state.activeIndex - 1;
     this.setState({ activeIndex: nextIndex });
   }
@@ -101,8 +102,18 @@ class HomeCarousel extends Component {
     });
   };
 
+  componentDidMount() {
+    request.get("/ext/banners").then((res) => {
+      if (res.data.code === 200 || res.data.code === 201) {
+        this.setState({
+          items: res.data.docs,
+        });
+      }
+    });
+  }
+
   render() {
-    const { activeIndex } = this.state;
+    const { activeIndex, items } = this.state;
 
     const slides = items.map((item) => {
       return (
@@ -128,8 +139,8 @@ class HomeCarousel extends Component {
         style={{ marginTop: "-20px" }}
         activeIndex={activeIndex}
         onSelect={this.handleSelect}
-        prevIcon=''
-        nextIcon=''
+        prevIcon=""
+        nextIcon=""
         // next={this.next}
         // previous={this.previous}
       >

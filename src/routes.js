@@ -18,7 +18,7 @@ const routes = [
   { path: '/berita', exact: true, name: 'Home', element: UnderConstruction, protected: false },
   // { path: '/kontak', exact: true, name: 'OurWater', element: Contacts },
   // { path: '/denah', exact: true, name: 'House Map', element: HouseMap, protected: false },
-  { path: '/kontak', exact: true, name: 'Kontak', element: MeetingHistory, protected: false },
+  { path: '/kontak', exact: true, name: 'Kontak', element: Contacts, protected: false },
   { path: '/login', exact: true, name: 'Login', element: Login, protected: false },
   { path: '/register', exact: true, name: 'Register', element: Register, protected: false },
   { path: '/profile', exact: true, name: 'Profile', element: Profile, protected: false },

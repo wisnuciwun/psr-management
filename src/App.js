@@ -22,7 +22,22 @@ function App() {
 
   return (
     <Fragment>
-      <Suspense fallback={<Spinner />}>
+      <Suspense
+        fallback={
+          <div
+            style={{
+              position: "fixed",
+              justifyContent: "center",
+              alignItems: "center",
+              display: "flex",
+              width: '100%',
+              height: '100%'
+            }}
+          >
+            <Spinner />
+          </div>
+        }
+      >
         <div className="app position-relative">
           <div className="screen">
             <HomeNavbar />
