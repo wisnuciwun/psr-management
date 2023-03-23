@@ -186,7 +186,7 @@ class Profile extends Component {
       { value: "contract", label: "Kontrak" },
     ];
 
-    console.log("zzz", this.props);
+    const role = this.props.userbasedata.user_role.role.name;
 
     const customButtonToggle = React.forwardRef(
       ({ children, onClick }, ref) => (
@@ -332,12 +332,25 @@ class Profile extends Component {
             </Accordion.Item>
           </Accordion>
           <hr className="line-thin" />
-          <Link to={"/forgetpassword"}>
-            <Button className="mt-2 w-100 btn-info">Reset Password</Button>
-          </Link>
           <Button onClick={this.handleLogout} className="mt-2 w-100 btn-danger">
             Logout
           </Button>
+          <Link to={"/forgetpassword"}>
+            <Button
+              className="mt-2 w-100 btn-secondary"
+              style={{ color: "white" }}
+            >
+              Reset Password
+            </Button>
+          </Link>
+          <Link to="/admin" style={{ textDecoration: "none" }}>
+            <Button
+              className="mt-2 w-100 btn-secondary"
+              hidden={role === "Superadmin" ? false : true}
+            >
+              Admin Page
+            </Button>
+          </Link>
         </Container>
         {/* <Modal
           centered

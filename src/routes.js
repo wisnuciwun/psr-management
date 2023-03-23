@@ -21,9 +21,9 @@ const routes = [
   { path: '/kontak', exact: true, name: 'Kontak', element: Contacts, protected: false },
   { path: '/login', exact: true, name: 'Login', element: Login, protected: false },
   { path: '/register', exact: true, name: 'Register', element: Register, protected: false },
-  { path: '/profile', exact: true, name: 'Profile', element: Profile, protected: false },
+  { path: '/profile', exact: true, name: 'Profile', element: Profile, protected: true },
   { path: '/forgetpassword', exact: true, name: 'Lupa Password', element: ForgetPassword, protected: true },
-  { path: '/admin', exact: true, name: 'Admin Page', element: AdminPage, protected: false },
+  { path: '/admin', exact: true, name: 'Admin Page', element: AdminPage, protected: true },
 ]
 
 export default routes

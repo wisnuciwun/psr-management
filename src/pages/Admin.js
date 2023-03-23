@@ -81,6 +81,21 @@ export class Admin extends Component {
       });
   };
 
+  onPostDataBulkCitizen = (e) => {
+    request
+      .post("/backoffice/citizens/batch", {
+        citizens: this.state.readyToInsert,
+      })
+      .then(() => {
+        setTimeout(() => {
+          this.onGetDataCitizens();
+          this.setState({
+            readyToInsert: [],
+          });
+        }, 500);
+      });
+  };
+
   onPostDataBanners = async (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -134,8 +149,19 @@ export class Admin extends Component {
         fileCitizen: event.target.files[0],
       },
       () => {
-        let names = ["id", "link"];
-        let values = ["", ""];
+        let names = [
+          "no_kk",
+          "nama_kepala_keluarga",
+          "alamat",
+          "rt",
+          "rw",
+          "kodepos",
+          "kelurahan",
+          "kecamatan",
+          "provinsi",
+          "kota",
+        ];
+        let values = ["", "", "", "", "", "", "", "", "", ""];
 
         let fileObj = this.state.fileCitizen;
 
@@ -146,21 +172,22 @@ export class Admin extends Component {
               console.log(err);
             } else {
               for (let i = 1; i < resp.rows.length; i++) {
-                for (let z = 0; z < names.length; z++) {
-                  values[z] = resp.rows[i][z];
+                if (resp.rows[i].length != 0) {
+                  for (let z = 0; z < names.length; z++) {
+                    values[z] = resp.rows[i][z];
+                  }
+                  let jsonEntries = new Map();
+                  jsonEntries.set(names, values);
+                  let temp = Object.assign(
+                    ...names.map((k, i) => ({ [k]: values[i] }))
+                  );
+
+                  this.setState((state) => {
+                    const readyToInsert = [...state.readyToInsert, temp];
+                    temp = Object.assign(...names.map((k, i) => ({ [k]: "" })));
+                    return { readyToInsert, temp };
+                  });
                 }
-
-                let jsonEntries = new Map();
-                jsonEntries.set(names, values);
-                let temp = Object.assign(
-                  ...names.map((k, i) => ({ [k]: values[i] }))
-                );
-
-                this.setState((state) => {
-                  const readyToInsert = [...state.readyToInsert, temp];
-                  temp = Object.assign(...names.map((k, i) => ({ [k]: "" })));
-                  return { readyToInsert, temp };
-                });
               }
             }
           },
@@ -171,17 +198,31 @@ export class Admin extends Component {
     );
   };
 
+  onGetDataStructure = () => {
+    request.get("/ext/organizations").then((res) => {
+      if (res.data.code === 200) {
+        console.log("fff", res);
+        // this.setState({
+        //   dataCitizens: res.data.docs,
+        // });
+      }
+    });
+  };
+
+  onPostDataStructure = () => {};
+
   componentDidMount() {
     this.onGetDataBanners();
     this.onGetDataCitizens();
+    this.onGetDataStructure();
   }
 
   render() {
     let { dataTempCitizen, dataCitizens } = this.state;
-    console.log("object", this.state.readyToInsert);
+    
     return (
       <div>
-        <Accordion defaultActiveKey="0">
+        <Accordion>
           <Accordion.Item eventKey="0">
             <Accordion.Header>Banners</Accordion.Header>
             <Accordion.Body>
@@ -252,16 +293,26 @@ export class Admin extends Component {
             <Accordion.Header>Pengguna</Accordion.Header>
             <Accordion.Body></Accordion.Body>
           </Accordion.Item>
-          <Accordion.Item eventKey="3">
+          <Accordion.Item eventKey="4">
             <Accordion.Header>List Data Warga</Accordion.Header>
             <Accordion.Body>
-              <FormControl
-                placeholder="Pastikan format file adalah pdf"
-                type="file"
-                size="md"
-                className="h-100"
-                onChange={this.procFileHandler}
-              />
+              <FormGroup>
+                <FormLabel style={{ fontWeight: "600" }}>
+                  Upload Massal Via Excel
+                </FormLabel>
+                <div className="d-flex mb-3" style={{ gap: "8px" }}>
+                  <FormControl
+                    placeholder="Pastikan format file adalah xlsx atau xls"
+                    type="file"
+                    size="md"
+                    className="h-100"
+                    onChange={this.procFileHandler}
+                  />
+                  <Button type="submit" onClick={this.onPostDataBulkCitizen}>
+                    Upload
+                  </Button>
+                </div>
+              </FormGroup>
               <div style={{ overflowX: "scroll" }}>
                 <Table striped bordered hover>
                   <thead>
@@ -304,8 +355,10 @@ export class Admin extends Component {
                   </tbody>
                 </Table>
               </div>
-              <div>
-                <p>Input Data Warga</p>
+              <div className="mt-3">
+                <p className="mb-1" style={{ fontWeight: "600" }}>
+                  Input Data Warga Manual
+                </p>
                 <Form onSubmit={this.onPostDataCitizen}>
                   <FormGroup className="mb-2">
                     <FormLabel className="mb-1">Nomor Kartu Keluarga</FormLabel>

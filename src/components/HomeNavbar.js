@@ -20,8 +20,9 @@ import {
 } from "react-bootstrap";
 import DropdownItem from "react-bootstrap/esm/DropdownItem";
 import DropdownMenu from "react-bootstrap/esm/DropdownMenu";
-import { useDispatch } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 import { getCookie, removeCookie } from "tiny-cookie";
 
 function HomeNavbar(props) {
@@ -57,7 +58,7 @@ function HomeNavbar(props) {
             <OverlayTrigger
               trigger="click"
               key="news-notification"
-              placement='bottom'
+              placement="bottom"
               overlay={
                 <Popover className="mt-4" id="news-notification">
                   <Popover.Header as="h3">Notifikasi</Popover.Header>
@@ -78,44 +79,68 @@ function HomeNavbar(props) {
             >
               <i className="fa fa-bell-o fa-lg"></i>
             </OverlayTrigger>
-            <div>
-              <Dropdown drop="down">
-                <Dropdown.Toggle
-                  style={{
-                    borderRadius: "64px",
-                    width: "86px",
-                    backgroundColor: "inherit",
-                  }}
-                  variant="secondary"
-                >
-                  <span
+            {isLogin ? (
+              <div>
+                <Dropdown drop="down">
+                  <Dropdown.Toggle
                     style={{
-                      borderRadius: "50%",
-                      width: "25px",
-                      height: "25px",
-                      backgroundColor: `#${Math.floor(
-                        Math.random() * 16777215
-                      ).toString(16)}`,
-                      display: "inline-block",
+                      borderRadius: "64px",
+                      width: "86px",
+                      backgroundColor: "inherit",
                     }}
+                    variant="secondary"
                   >
-                    W
-                  </span>
-                </Dropdown.Toggle>
-                <DropdownMenu style={{ marginLeft: "-70px" }}>
-                  <DropdownItem onClick={() => navigate("/profile")}>
-                    Profile
-                  </DropdownItem>
-                  {isLogin !== null ? (
-                    <DropdownItem onClick={handleLogout}>Logout</DropdownItem>
-                  ) : (
-                    <DropdownItem onClick={() => navigate("/")}>
-                      Login/Register
+                    <span
+                      style={{
+                        borderRadius: "50%",
+                        width: "25px",
+                        height: "25px",
+                        backgroundColor: `#${Math.floor(
+                          Math.random() * 16777215
+                        ).toString(16)}`,
+                        display: "inline-block",
+                      }}
+                    >
+                      {props.userbasedata.full_name[0]}
+                    </span>
+                  </Dropdown.Toggle>
+                  <DropdownMenu style={{ marginLeft: "-70px" }}>
+                    <DropdownItem onClick={() => navigate("/profile")}>
+                      Profile
                     </DropdownItem>
-                  )}
-                </DropdownMenu>
-              </Dropdown>
-            </div>
+                    {isLogin !== null ? (
+                      <DropdownItem onClick={handleLogout}>Logout</DropdownItem>
+                    ) : (
+                      <DropdownItem onClick={() => navigate("/")}>
+                        Login/Register
+                      </DropdownItem>
+                    )}
+                  </DropdownMenu>
+                </Dropdown>
+              </div>
+            ) : (
+              <Link
+                to="/login"
+                style={{ textDecoration: "none", color: "black" }}
+              >
+                <div
+                  className="bg-light pl-3 pr-3 pb-1 pt-1"
+                  style={{
+                    borderRadius: "25px",
+                    width: "90px",
+                    textAlign: "center",
+                  }}
+                >
+                  <i
+                    style={{ color: "#FEC439" }}
+                    className="fa fa-user-o fa-lg"
+                  ></i>
+                  <span style={{ color: "#FEC439" }}>
+                    &nbsp;&nbsp;&nbsp;Login
+                  </span>
+                </div>
+              </Link>
+            )}
           </div>
           <Navbar.Offcanvas
             id={`offcanvasNavbar-expand-${expand}`}
@@ -221,4 +246,8 @@ function HomeNavbar(props) {
   );
 }
 
-export default HomeNavbar;
+// export default HomeNavbar;
+function mapStateToProps(state) {
+  return state;
+}
+export default connect(mapStateToProps)(HomeNavbar);

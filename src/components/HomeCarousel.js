@@ -104,6 +104,7 @@ class HomeCarousel extends Component {
 
   componentDidMount() {
     request.get("/ext/banners").then((res) => {
+      console.log("res", res)
       if (res.data.code === 200 || res.data.code === 201) {
         this.setState({
           items: res.data.docs,
@@ -121,12 +122,12 @@ class HomeCarousel extends Component {
           interval={2500}
           // onExiting={this.onExiting}
           // onExited={this.onExited}
-          key={item.src}
+          key={item.id}
           className="text-center"
         >
           <img
-            style={{ height: "300px", objectFit: "cover", width: "100%" }}
-            src={item.src}
+            style={{ height: "300px", objectFit: 'cover', width: "100%" }}
+            src={item.image_url}
             alt={item.altText}
           />
           {/* <CarouselCaption captionText={item.caption} captionHeader={item.caption} /> */}
