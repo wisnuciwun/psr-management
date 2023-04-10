@@ -1,6 +1,8 @@
 import { HomeCarousel } from "components";
 import React, { Component, Fragment } from "react";
 import { Button, Card, NavLink } from "react-bootstrap";
+import OrganizationStructure from "./OrganizationStructure";
+import Contacts from "./Contacts";
 
 export class Home extends Component {
   render() {
@@ -44,14 +46,17 @@ export class Home extends Component {
               </Card.Body>
             </Card> */}
           </NavLink>
+          <div>Belum ada berita yang dapat ditampilkan.</div>
           <br />
-          <NavLink href="/struktur">
+          <NavLink>
             <h6>Struktur Organisasi</h6>
           </NavLink>
+          <OrganizationStructure/>
           <br />
-          <NavLink href="/kontak">
-            <h6>Kontak</h6>
+          <NavLink>
+            <h6 className="mb-3">Hubungi Kami</h6>
           </NavLink>
+          <Contacts/>
         </div>
       </Fragment>
     );

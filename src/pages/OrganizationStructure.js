@@ -44,13 +44,8 @@ export class OrganizationStructure extends Component {
     let allNames = Object.keys(allData);
 
     return (
-      <div className="p-3">
-        <h5 className="mb-3">
-          <i className="fa fa-shield" aria-hidden="true">
-            &nbsp;&nbsp;
-          </i>{" "}
-          Visi Misi
-        </h5>
+      <div className={window.location.pathname === '/struktur' ? 'p-3': ''}>
+        <h5 className="mb-3 text-center">Visi Misi</h5>
         <div
           style={{ textJustify: "inter-word", textAlign: "justify" }}
           className="mb-4"
@@ -94,12 +89,6 @@ export class OrganizationStructure extends Component {
             </ol>
           </p>
         </div>
-        <h5 className="mb-2">
-          <i className="fa fa-users" aria-hidden="true">
-            &nbsp;&nbsp;
-          </i>{" "}
-          Struktur Organisasi
-        </h5>
         <div className="mb-4">
           {allNames.length != 0 &&
             allNames.map((w, id) => {
@@ -128,13 +117,13 @@ export class OrganizationStructure extends Component {
                           alt=""
                         />
                         <Card.Body className="font-md font-weight-bold text-truncate">
-                          <div className="font-md text-truncate font-weight-bold">{v.name}</div>
+                          <div className="font-md text-truncate font-weight-bold">
+                            {v.name}
+                          </div>
                           <div className="font-sm text-truncate">
                             {v.position}
                           </div>
-                          <div className="font-sm">
-                            {v.address}
-                          </div>
+                          <div className="font-sm">{v.address}</div>
                         </Card.Body>
                       </Card>
                     );
@@ -143,32 +132,42 @@ export class OrganizationStructure extends Component {
               );
             })}
         </div>
-        <div>
-          <h5 className="mb-2">
-            <i className="fa fa-file-text" aria-hidden="true">
-              &nbsp;&nbsp;
-            </i>{" "}
-            Dokumen
-          </h5>
-          <li>
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://drive.google.com/uc?id=1ysyadaRHLxIhEA72UozPwjWx9oodWWFQ&export=download"
-            >
-              Unduh Dokumen SK Pengangkatan
-            </a>
-          </li>
-          <li>
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://drive.google.com/uc?id=1Z_LGyLbzF7WyKDPfikro75p0YvtiZXBq&export=download"
-            >
-              Unduh Tata Tertib
-            </a>
-          </li>
+        <div className="mb-2">
+          <h5 className="mb-2 text-center">Kotak Aspirasi</h5>
+          <div className="mb-2">
+            Apabila anda memiliki keluhan, kritik maupun saran. Anda dapat
+            menggunakan link dibawah ini untuk mengisi Kotak Aspirasi. Semua
+            akan ditampung dan disampaikan langsung ke pengurus Prima Swarga
+            Residence.
+          </div>
+          <a
+            target="_blank"
+            style={{ textDecoration: "none" }}
+            href="https://forms.gle/L7WffCsYveH8DYaCA"
+          >
+            Klik disini
+          </a>
         </div>
+        {/* <div>
+          <h5 className="mb-2 text-center">Dokumen</h5>
+          <a
+            style={{ textDecoration: "none" }}
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://drive.google.com/uc?id=1ysyadaRHLxIhEA72UozPwjWx9oodWWFQ&export=download"
+          >
+            Unduh Dokumen SK Pengangkatan
+          </a>
+          <br />
+          <a
+            style={{ textDecoration: "none" }}
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://drive.google.com/uc?id=1Z_LGyLbzF7WyKDPfikro75p0YvtiZXBq&export=download"
+          >
+            Unduh Tata Tertib
+          </a>
+        </div> */}
         <Modal onHide={this.onHandleModalBio} centered show={toggleModalBio}>
           <ModalHeader closeButton>Biodata lengkap</ModalHeader>
           <ModalBody className="p-3">
