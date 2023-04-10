@@ -50,6 +50,15 @@ code {
   padding-bottom: 125px;
 }
 
+.app-full{
+  min-height: 100vh;
+  height: 100%;
+  background-color: #FFFFFF !important;
+  position: relative;
+  overflow-y: auto;
+  padding-bottom: 125px;
+}
+
 .screen {
   width: clamp(375px, 100vw, 500px);
   padding-bottom: 50px;
@@ -157,6 +166,16 @@ code {
   height: 40px !important;
 }
 
+.btn-primary-red{
+  background-color: #FCE4E4 !important;
+  border-radius: 96px !important;
+  color: #CC3F3F !important;
+  border: none !important;
+  height: fit-content !important;
+  font-size: 14px !important;
+  height: 40px !important;
+}
+
 .btn-primary-white{
   background-color: white !important;
   border-radius: 96px !important;
@@ -188,3 +207,32 @@ code {
 .font-weight-bold{
   font-weight: 500 !important;
 }
+
+.color-primary-yellow {
+  color: #FEC439;
+  text-decoration: none;
+}
+
+.color-primary-green {
+  color: #36A054;
+  text-decoration: none;
+}
+
+.important{
+  color: red;
+}
+
+.accordion-button:not(.collapsed) {
+  color: white !important;
+  background-color: #36A054 !important;
+  border-radius: 8px 8px 0px 0px !important;
+  outline: none !important;
+}
+
+.accordion-button:after {
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !important;
+}
+
+/* .accordion-button:before {
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#000000'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !important;
+} */

@@ -36,7 +36,7 @@ function HomeNavbar(props) {
   const handleLogout = () => {
     dispatch(getLoginData({}));
     removeCookie("token");
-    props.navigate("/");
+    navigate("/");
   };
 
   const toggleNavbar = () => setCollapsed(!collapsed);
@@ -101,7 +101,7 @@ function HomeNavbar(props) {
                         display: "inline-block",
                       }}
                     >
-                      {props.userbasedata.full_name[0]}
+                      {props.userbasedata.full_name[0].toUpperCase()}
                     </span>
                   </Dropdown.Toggle>
                   <DropdownMenu style={{ marginLeft: "-70px" }}>

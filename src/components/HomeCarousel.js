@@ -104,7 +104,6 @@ class HomeCarousel extends Component {
 
   componentDidMount() {
     request.get("/ext/banners").then((res) => {
-      console.log("res", res)
       if (res.data.code === 200 || res.data.code === 201) {
         this.setState({
           items: res.data.docs,

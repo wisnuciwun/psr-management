@@ -9,6 +9,8 @@ import {
   FormControl,
   FormGroup,
   FormLabel,
+  Modal,
+  ModalBody,
   Row,
   Table,
 } from "react-bootstrap";
@@ -23,8 +25,20 @@ export class Admin extends Component {
 
     this.state = {
       readyToInsert: [],
+      modalDetaiUser: false,
       fileCitizen: "",
       dataBanners: null,
+      dataTempOrganization: {
+        name: "",
+        nickname: "",
+        address: "",
+        position: "",
+        img: "",
+        email: "",
+        phone: "",
+        group: "",
+        order: 0,
+      },
       dataTempCitizen: {
         no_kk: null,
         nama_kepala_keluarga: null,
@@ -39,14 +53,38 @@ export class Admin extends Component {
       },
       dataImageBanners: [],
       dataCitizens: [],
+      dataOrganization: [],
+      dataUsers: [],
+      detailUser: {},
     };
   }
+
+  onGetDetailUser = (value) => {
+    request.get(`/backoffice/users/${value}`).then((res) => {
+      if (res.data.code === 200) {
+        this.setState({
+          modalDetaiUser: true,
+          detailUser: res.data.docs,
+        });
+      }
+    });
+  };
 
   onGetDataBanners = () => {
     request.get("/backoffice/banners").then((res) => {
       if (res.data.code === 200) {
         this.setState({
           dataImageBanners: res.data.docs,
+        });
+      }
+    });
+  };
+
+  onGetDataUsers = () => {
+    request.get("/backoffice/users").then((res) => {
+      if (res.data.code === 200) {
+        this.setState({
+          dataUsers: res.data.docs,
         });
       }
     });
@@ -65,6 +103,15 @@ export class Admin extends Component {
   onChangeDataBanners = (e) => {
     this.setState({
       dataBanners: e.target.files[0],
+    });
+  };
+
+  onChangeUploadImgOrganization = (e) => {
+    this.setState({
+      dataTempOrganization: {
+        ...this.state.dataTempOrganization,
+        img: e.target.files[0],
+      },
     });
   };
 
@@ -132,12 +179,31 @@ export class Admin extends Component {
     });
   };
 
+  onDeleteDataOrganization = async (value) => {
+    await request
+      .delete("/backoffice/organizations", { uuid: value })
+      .then(() => {
+        setTimeout(() => {
+          this.onGetDataStructure();
+        }, 500);
+      });
+  };
+
   onDeleteDataCitizen = async (value) => {};
 
   onHandleChangeCitizenData = (e) => {
     this.setState({
       dataTempCitizen: {
         ...this.state.dataTempCitizen,
+        [e.target.name]: e.target.value,
+      },
+    });
+  };
+
+  onHandleChangeOrganizationData = (e) => {
+    this.setState({
+      dataTempOrganization: {
+        ...this.state.dataTempOrganization,
         [e.target.name]: e.target.value,
       },
     });
@@ -199,29 +265,110 @@ export class Admin extends Component {
   };
 
   onGetDataStructure = () => {
-    request.get("/ext/organizations").then((res) => {
+    request.get("/backoffice/organizations").then((res) => {
       if (res.data.code === 200) {
-        console.log("fff", res);
-        // this.setState({
-        //   dataCitizens: res.data.docs,
-        // });
+        this.setState({
+          dataOrganization: res.data.docs,
+        });
       }
     });
   };
 
-  onPostDataStructure = () => {};
+  onPostDataStructure = async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const formData = new FormData();
+    let token = getCookie("token");
+
+    formData.append(
+      "img",
+      this.state.dataTempOrganization.img,
+      this.state.dataTempOrganization.img.name
+    );
+
+    axios.defaults.headers.Authorization = `Bearer ${token}`;
+    await axios
+      .post(
+        "https://api-dev.barayaswarga.com/api/v1/backoffice/organizations",
+        this.state.dataTempOrganization
+      )
+      .then(() => {
+        setTimeout(() => {
+          this.onGetDataBanners();
+          this.setState({
+            dataBanners: null,
+          });
+        }, 500);
+      });
+
+    request
+      .post("/backoffice/organizations", this.state.dataTempOrganization)
+      .then(() => {
+        setTimeout(() => {
+          this.onGetDataCitizens();
+          this.setState({
+            dataTempOrganization: {
+              name: "",
+              nickname: "",
+              address: "",
+              position: "",
+              img: "",
+              email: "",
+              phone: "",
+              group: "",
+              order: 0,
+            },
+          });
+        }, 500);
+      });
+  };
+
+  // address: "B3 04";
+  // appellation: null;
+  // blok: "B3";
+  // blood_type: null;
+  // createdAt: "2023-02-23T05:43:31.000Z";
+  // email: "darmajati.rangga@gmail.com";
+  // family_card_number: "7378884777166";
+  // full_name: "Test warga 2";
+  // height: null;
+  // home_number: "04";
+  // id: 6;
+  // identity_number: "3209487727001";
+  // image: null;
+  // image_url: null;
+  // is_active: true;
+  // mother_name: null;
+  // nickname: null;
+  // phone: "628537376611";
+  // religion: null;
+  // tos: true;
+  // type: "contract";
+  // updatedAt: "2023-02-24T08:02:28.000Z";
+  // uuid: "e72cb7b5-17c1-4e5a-bf3b-6991ec5b9e04";
+  // verified: true;
+  // weight: null;
 
   componentDidMount() {
     this.onGetDataBanners();
     this.onGetDataCitizens();
     this.onGetDataStructure();
+    this.onGetDataUsers();
   }
 
   render() {
-    let { dataTempCitizen, dataCitizens } = this.state;
-    
+    let {
+      dataTempCitizen,
+      dataCitizens,
+      dataTempOrganization,
+      dataOrganization,
+      dataUsers,
+      detailUser,
+      modalDetaiUser,
+    } = this.state;
+
     return (
-      <div>
+      <div style={{paddingLeft: '15px', paddingRight: '15px', paddingBottom: '15px'}}>
         <Accordion>
           <Accordion.Item eventKey="0">
             <Accordion.Header>Banners</Accordion.Header>
@@ -287,11 +434,171 @@ export class Admin extends Component {
           </Accordion.Item>
           <Accordion.Item eventKey="1">
             <Accordion.Header>Struktur Organisasi</Accordion.Header>
-            <Accordion.Body></Accordion.Body>
+            <Accordion.Body>
+              <Table striped bordered hover>
+                <thead>
+                  <tr>
+                    <th>Nama</th>
+                    <th>Nama Panggilan</th>
+                    <th>Alamat</th>
+                    <th>Posisi</th>
+                    <th>Foto</th>
+                    <th>Email</th>
+                    <th>Nomor HP</th>
+                    <th>Grup</th>
+                    <th>Order</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {dataOrganization.length != 0 &&
+                    dataOrganization.map((x, id) => {
+                      return (
+                        <tr>
+                          <td>{x.name}</td>
+                          <td>{x.nickname}</td>
+                          <td>{x.address}</td>
+                          <td>{x.position}</td>
+                          <td>{x.img}</td>
+                          <td>{x.email}</td>
+                          <td>{x.phone}</td>
+                          <td>{x.group}</td>
+                          <td>{x.order}</td>
+                          <td>
+                            {" "}
+                            <i
+                              onClick={() =>
+                                this.onDeleteDataOrganization(x.uuid)
+                              }
+                              className="fa fa-trash text-dark pointer"
+                            ></i>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                </tbody>
+              </Table>
+              <Form onSubmit={this.onPostDataStructure}>
+                {Object.keys(dataTempOrganization).map((v) => {
+                  if (v === "img") {
+                    return (
+                      <FormGroup controlId="formFile" className="mb-3">
+                        <FormLabel>{v}</FormLabel>
+                        <FormControl
+                          placeholder="Pastikan format file adalah pdf"
+                          type="file"
+                          size="md"
+                          className="h-100"
+                          onChange={this.onChangeUploadImgOrganization}
+                        />
+                      </FormGroup>
+                    );
+                  } else {
+                    return (
+                      <>
+                        <FormGroup className="mb-2">
+                          <FormLabel className="mb-1">{v}</FormLabel>
+                          <FormControl
+                            className="input-no-decoration"
+                            name={`${v}`}
+                            value={dataTempOrganization[v]}
+                            onChange={this.onHandleChangeOrganizationData}
+                            required
+                          />
+                        </FormGroup>
+                      </>
+                    );
+                  }
+                })}
+                <Button className="mt-2 w-100 btn-primary-yellow" type="submit">
+                  Submit
+                </Button>
+              </Form>
+            </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="3">
             <Accordion.Header>Pengguna</Accordion.Header>
-            <Accordion.Body></Accordion.Body>
+            <Accordion.Body>
+              <div style={{ overflowX: "scroll" }}>
+                <Table
+                  striped
+                  bordered
+                  hover
+                  style={{ overflowX: "scroll", width: "500px" }}
+                >
+                  <thead>
+                    <tr>
+                      <th>Nama Lengkap</th>
+                      <th>Alamat</th>
+                      <th>Appelation</th>
+                      <th>Blok</th>
+                      <th>Golongan Darah</th>
+                      <th>Dibuat tanggal</th>
+                      <th>Email</th>
+                      <th>Nomor HP</th>
+                      <th>Nomor KK</th>
+                      <th>Tinggi</th>
+                      <th>Nomor Rumah</th>
+                      <th>Nomor KTP</th>
+                      <th>Foto</th>
+                      <th>Url Foto</th>
+                      <th>Aktif</th>
+                      <th>Nama Ibu</th>
+                      <th>Nama Panggilan</th>
+                      <th>TOS</th>
+                      <th>Jenis Tempat Tinggal</th>
+                      <th>Verified</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {dataUsers.length != 0 &&
+                      dataUsers.map((x, id) => {
+                        return (
+                          <tr>
+                            <td onClick={() => this.onGetDetailUser(x.uuid)}>
+                              {x.full_name}
+                            </td>
+                            <td>{x.address}</td>
+                            <td>{x.appellation}</td>
+                            <td>{x.blok}</td>
+                            <td>{x.position}</td>
+                            <td>{x.blood_type}</td>
+                            <td>{x.createdAt}</td>
+                            <td>{x.email}</td>
+                            <td>{x.family_card_number}</td>
+                            <td>{x.height}</td>
+                            <td>{x.home_number}</td>
+                            <td>{x.identity_number}</td>
+                            <td>{x.image}</td>
+                            <td
+                             
+                            >
+                              {x.image_url}
+                            </td>
+                            <td>{x.is_active}</td>
+                            <td>{x.mother_name}</td>
+                            <td>{x.nickname}</td>
+                            <td>{x.religion}</td>
+                            <td>{x.tos}</td>
+                            <td>{x.type}</td>
+                            <td>{x.verified}</td>
+                            <td>
+                              {" "}
+                              <i
+                                onClick={() =>
+                                  this.onDeleteDataOrganization(x.uuid)
+                                }
+                                className="fa fa-trash text-dark pointer"
+                              ></i>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                  </tbody>
+                </Table>
+              </div>
+            </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="4">
             <Accordion.Header>List Data Warga</Accordion.Header>
@@ -360,106 +667,20 @@ export class Admin extends Component {
                   Input Data Warga Manual
                 </p>
                 <Form onSubmit={this.onPostDataCitizen}>
-                  <FormGroup className="mb-2">
-                    <FormLabel className="mb-1">Nomor Kartu Keluarga</FormLabel>
-                    <FormControl
-                      className="input-no-decoration"
-                      name="no_kk"
-                      value={dataTempCitizen.no_kk}
-                      onChange={this.onHandleChangeCitizenData}
-                      required
-                    />
-                  </FormGroup>
-                  <FormGroup className="mb-2">
-                    <FormLabel className="mb-1">Nama Kepala Keluarga</FormLabel>
-                    <FormControl
-                      className="input-no-decoration"
-                      name="nama_kepala_keluarga"
-                      value={dataTempCitizen.nama_kepala_keluarga}
-                      onChange={this.onHandleChangeCitizenData}
-                      required
-                    />
-                  </FormGroup>
-                  <FormGroup className="mb-2">
-                    <FormLabel className="mb-1">Alamat</FormLabel>
-                    <FormControl
-                      className="input-no-decoration"
-                      name="alamat"
-                      value={dataTempCitizen.alamat}
-                      onChange={this.onHandleChangeCitizenData}
-                      required
-                    />
-                  </FormGroup>
-                  <FormGroup className="mb-2">
-                    <FormLabel className="mb-1">RT</FormLabel>
-                    <FormControl
-                      className="input-no-decoration"
-                      name="rt"
-                      value={dataTempCitizen.rt}
-                      onChange={this.onHandleChangeCitizenData}
-                      required
-                    />
-                  </FormGroup>
-                  <FormGroup className="mb-2">
-                    <FormLabel className="mb-1">RW</FormLabel>
-                    <FormControl
-                      className="input-no-decoration"
-                      name="rw"
-                      value={dataTempCitizen.rw}
-                      onChange={this.onHandleChangeCitizenData}
-                      required
-                    />
-                  </FormGroup>
-                  <FormGroup className="mb-2">
-                    <FormLabel className="mb-1">Kode Pos</FormLabel>
-                    <FormControl
-                      className="input-no-decoration"
-                      name="kodepos"
-                      value={dataTempCitizen.kodepos}
-                      onChange={this.onHandleChangeCitizenData}
-                      required
-                    />
-                  </FormGroup>
-                  <FormGroup className="mb-2">
-                    <FormLabel className="mb-1">Kelurahan</FormLabel>
-                    <FormControl
-                      className="input-no-decoration"
-                      name="kelurahan"
-                      value={dataTempCitizen.kelurahan}
-                      onChange={this.onHandleChangeCitizenData}
-                      required
-                    />
-                  </FormGroup>
-                  <FormGroup className="mb-2">
-                    <FormLabel className="mb-1">Kecamatan</FormLabel>
-                    <FormControl
-                      className="input-no-decoration"
-                      name="kecamatan"
-                      value={dataTempCitizen.kecamatan}
-                      onChange={this.onHandleChangeCitizenData}
-                      required
-                    />
-                  </FormGroup>
-                  <FormGroup className="mb-2">
-                    <FormLabel className="mb-1">Kota</FormLabel>
-                    <FormControl
-                      className="input-no-decoration"
-                      name="kota"
-                      value={dataTempCitizen.kota}
-                      onChange={this.onHandleChangeCitizenData}
-                      required
-                    />
-                  </FormGroup>
-                  <FormGroup className="mb-2">
-                    <FormLabel className="mb-1">Provinsi</FormLabel>
-                    <FormControl
-                      className="input-no-decoration"
-                      name="provinsi"
-                      value={dataTempCitizen.provinsi}
-                      onChange={this.onHandleChangeCitizenData}
-                      required
-                    />
-                  </FormGroup>
+                  {Object.keys(dataTempCitizen).map((x) => {
+                    return (
+                      <FormGroup className="mb-2">
+                        <FormLabel className="mb-1">{x}</FormLabel>
+                        <FormControl
+                          className="input-no-decoration"
+                          name={x}
+                          value={dataTempCitizen[`${x}`]}
+                          onChange={this.onHandleChangeCitizenData}
+                          required
+                        />
+                      </FormGroup>
+                    );
+                  })}
                   <Button className="mt-2 w-100 btn-success" type="submit">
                     Submit
                   </Button>
@@ -468,6 +689,29 @@ export class Admin extends Component {
             </Accordion.Body>
           </Accordion.Item>
         </Accordion>
+        <Modal
+          show={modalDetaiUser}
+          onHide={() =>
+            this.setState({
+              modalDetaiUser: false,
+            })
+          }
+        >
+          <ModalBody>
+            <Row>
+              <Col>
+                {Object.keys(detailUser).map((x) => {
+                  return <div>{x}</div>;
+                })}
+              </Col>
+              <Col>
+                {Object.values(detailUser).map((x) => {
+                  return <div>{`${x}` || ""}</div>;
+                })}
+              </Col>
+            </Row>
+          </ModalBody>
+        </Modal>
       </div>
     );
   }

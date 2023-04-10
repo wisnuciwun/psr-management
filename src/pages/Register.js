@@ -381,8 +381,8 @@ class Register extends Component {
                 Password harus sama dengan password konfirmasi
               </FormControl.Feedback>
             </FormGroup>
-            <hr />
-            <Button className="mt-2 w-100 btn-success" type="submit">
+             <br />
+            <Button className="mt-2 w-100 btn-primary-yellow" type="submit">
               Submit
             </Button>
           </Form>

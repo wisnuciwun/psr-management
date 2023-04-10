@@ -1,68 +1,90 @@
 import React from "react";
-import { Button, Form, FormControl, FormGroup, FormLabel, ModalBody } from "react-bootstrap";
+import {
+  Button,
+  Form,
+  FormControl,
+  FormGroup,
+  FormLabel,
+  ModalBody,
+} from "react-bootstrap";
 
-function PopUpEmergency({ onChange, onHide, onSubmit, validate }) {
+function PopUpEmergency({ onChange, onHide, onSubmit, validate, data }) {
   return (
     <div>
       <ModalBody>
         <Form onSubmit={onSubmit} noValidate validated={validate}>
           <FormGroup className="mb-2 position-relative">
-            <FormLabel className="mb-1">Nama</FormLabel>
+            <FormLabel className="mb-1">
+              Nama <span className="important">*</span>
+            </FormLabel>
             <FormControl
               type="text"
-              name="old_password"
-              value=""
+              name="full_name"
+              value={data?.full_name}
               onChange={onChange}
-              required={false}
+              required
             />
             <FormControl.Feedback type="invalid">
               Isi data terlebih dahulu
             </FormControl.Feedback>
           </FormGroup>
           <FormGroup className="mb-2 position-relative">
-            <FormLabel className="mb-1">Alamat</FormLabel>
+            <FormLabel className="mb-1">
+              Alamat <span className="important">*</span>
+            </FormLabel>
             <FormControl
               type="text"
-              name="old_password"
-              value=""
+              name="address"
+              value={data?.address}
               onChange={onChange}
-              required={false}
+              required
             />
             <FormControl.Feedback type="invalid">
               Isi data terlebih dahulu
             </FormControl.Feedback>
           </FormGroup>
           <FormGroup className="mb-2 position-relative">
-            <FormLabel className="mb-1">Nomor Telepon</FormLabel>
+            <FormLabel className="mb-1">
+              Nomor Telepon <span className="important">*</span>
+            </FormLabel>
             <FormControl
               type="text"
-              name="old_password"
-              value=""
+              name="phone"
+              value={data?.phone}
               onChange={onChange}
-              required={false}
+              required
             />
             <FormControl.Feedback type="invalid">
               Isi data terlebih dahulu
             </FormControl.Feedback>
           </FormGroup>
           <FormGroup className="mb-2 position-relative">
-            <FormLabel className="mb-1">Tipe Keluarga</FormLabel>
+            <FormLabel className="mb-1">
+              Hubungan Keluarga <span className="important">*</span>
+            </FormLabel>
             <FormControl
               type="text"
-              name="old_password"
-              value=""
+              name="relationship"
+              value={data?.relationship}
               onChange={onChange}
-              required={false}
+              required
             />
             <FormControl.Feedback type="invalid">
               Isi data terlebih dahulu
             </FormControl.Feedback>
           </FormGroup>
+          <div
+            style={{ gap: "8px" }}
+            className="d-flex justify-content-between mt-4"
+          >
+            <Button onClick={onHide} className="btn-primary-white w-50">
+              Cancel
+            </Button>
+            <Button type="submit" className="btn-primary-yellow w-50">
+              Save
+            </Button>
+          </div>
         </Form>
-        <div style={{gap: '8px'}} className="d-flex justify-content-between mt-4">
-          <Button onClick={onHide} className="btn-primary-white w-50">Cancel</Button>
-          <Button type="submit" className="btn-primary-yellow w-50">Save</Button>
-        </div>
       </ModalBody>
     </div>
   );

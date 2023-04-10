@@ -2,17 +2,11 @@ import { BadgeNotif } from "components/BadgeNotification";
 import { getLoginData } from "config/redux/rootAction";
 import React, { Component } from "react";
 import {
-  FormControl,
-  FormGroup,
-  FormLabel,
   Button,
   Container,
   Dropdown,
-  FormText,
   Modal,
   ModalHeader,
-  ModalBody,
-  Table,
   Accordion,
   Badge,
 } from "react-bootstrap";
@@ -21,9 +15,6 @@ import { Link } from "react-router-dom";
 import { getCookie, removeCookie } from "tiny-cookie";
 import request from "utils/request";
 import { ValidatorBoolean } from "utils/validator";
-import Form from "react-bootstrap/Form";
-import Select from "react-select";
-import NoData from "components/NoData";
 import DropdownMenu from "react-bootstrap/esm/DropdownMenu";
 import DropdownItem from "react-bootstrap/esm/DropdownItem";
 import PopUpProfile from "modals/PopUpProfile";
@@ -37,17 +28,18 @@ import MenuEmergency from "accordions/MenuEmergency";
 import MenuDocument from "accordions/MenuDocument";
 import MenuFamily from "accordions/MenuFamily";
 import { utils } from "utils";
+import NoData from "components/NoData";
 class Profile extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      validated: false,
-      haveMarried: false,
-      children: [],
       dataProfile: {},
-      modalProfileOpen: false,
-      modalProfileHeader: "",
+      dataFamily: [],
+      dataAddress: {},
+      dataEmergency: [],
+      dataDocument: [],
+      validated: false,
       profileDataPayload: {
         full_name: "",
         phone: "",
@@ -58,29 +50,108 @@ class Profile extends Component {
         blok: "",
         home_number: "",
       },
-      houseType: "",
+      documentDataTemp: {
+        file: "",
+        type: "",
+        nomor: "",
+        issued_date: "",
+        validity_period: "",
+        note: "",
+      },
+      emergencyDataTemp: {
+        full_name: "",
+        address: "",
+        phone: "",
+        relationship: "",
+      },
+      profileDataTemp: {
+        full_name: "",
+        phone: "",
+        address: "",
+        identity_number: 0,
+        family_card_number: 0,
+        type: "",
+        blok: "",
+        home_number: "",
+        appellation: "",
+        nickname: "",
+        religion: "",
+        mother_name: "",
+        height: "",
+        weight: "",
+        blood_type: "",
+      },
+      addressDataTemp: {
+        address: "",
+        postal_code: "",
+        province: "",
+        county_town: "",
+        district: "",
+        subdistrict: "",
+        current_address: "",
+        current_postal_code: "",
+        current_province: "",
+        current_county_town: "",
+        current_district: "",
+        current_subdistrict: "",
+      },
+      familyDataTemp: {
+        full_name: "",
+        relationship: "",
+        identity_number: "",
+        nickname: "",
+        place_of_birth: "",
+        date_of_birth: "",
+        gender: "",
+        religion: "",
+        education: "",
+        occupation: "",
+        blood_type: "",
+        marital_status: "",
+        marital_status_date: "",
+        citizenship: "",
+        father_name: "",
+        mother_name: "",
+      },
+      editedData: {},
+      changeData: false,
+      modalOpen: false,
+      modalProfileHeader: "",
     };
   }
 
-  handleToggle = (e) => {
+  handleModal = (typeModal, edit = false, data = null, dataArray) => {
     this.setState({
-      [e.target.name]: !this.state[e.target.name],
+      modalOpen: true,
+      modalProfileHeader: typeModal,
+      changeData: edit,
+      editedData:
+        data != null && dataArray === undefined
+          ? this.state[`${data}`]
+          : dataArray,
     });
   };
 
-  handleAddChildren = () => {
-    let newData = [...this.state.children];
-    newData.push({ name: "", relationship: "" });
-
-    this.setState({
-      children: newData,
-    });
+  handleAddressSame = (data, event) => {
+    this.setState(
+      {
+        editedData: data,
+      },
+      () => {
+        if (event) {
+          this.handlePostAddress(event);
+        }
+      }
+    );
   };
 
-  handleChangeChildren = (key, event) => {
-    let g = [...this.state.children];
-    let selectedChild = g[key];
-    selectedChild[event.target.name] = event.target.value;
+  handleEditingData = (e) => {
+    this.setState({
+      editedData: {
+        ...this.state.editedData,
+        [e.target.name]: e.target.value,
+      },
+    });
   };
 
   handleLogout = () => {
@@ -90,19 +161,54 @@ class Profile extends Component {
     this.props.navigate("/");
   };
 
-  onHandleUpdateData = () => {};
+  handleGetAddress = () => {
+    request.get("/auth/addresses").then((res) => {
+      if (
+        (res.data.code == 200 || res.data.code == 201) &&
+        res !== undefined &&
+        res.data.docs !== null
+      ) {
+        this.setState({
+          dataAddress: res.data.docs,
+        });
+      }
+    });
+  };
 
-  onHandleChangeProfileData = (event) => {
-    this.setState({
-      profileDataPayload: {
-        ...this.state.profileDataPayload,
-        [event.target.name]: event.target.value,
-      },
+  handlePostAddress = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    request.post("/auth/addresses", this.state.editedData).then((res) => {
+      if (res.data.code === 200) {
+        BadgeNotif.show({
+          text: "Alamat berhasil diubah",
+          variant: "success",
+        });
+
+        this.setState({
+          modalOpen: false,
+        });
+        setTimeout(() => {
+          this.handleGetAddress();
+        }, 100);
+      } else {
+        BadgeNotif.show({ delay: 5000, text: res.response.data.message });
+      }
+    });
+  };
+
+  handleGetProfile = () => {
+    request.get("/auth/info").then((res) => {
+      if (res.data.code === 200) {
+        this.setState({
+          dataProfile: res.data.docs,
+        });
+      }
     });
   };
 
   handlePutDataProfile = (event) => {
-    let { dispatch } = this.props;
     const form = event.currentTarget;
     event.preventDefault();
     event.stopPropagation();
@@ -114,24 +220,24 @@ class Profile extends Component {
 
       request
         .put("/auth", {
-          ...this.state.profileDataPayload,
-          address: `${this.state.profileDataPayload.blok} ${this.state.profileDataPayload.home_number}`,
-          phone: parseInt(this.state.profileDataPayload.phone),
+          ...this.state.editedData,
+          phone: parseInt(this.state.editedData.phone),
         })
         .then((res) => {
           if (res?.data?.code === 201 || res?.data?.code === 200) {
             BadgeNotif.show({
-              text: "Data berhasil diubah",
+              text: "Profile berhasil diubah",
               variant: "success",
             });
 
             setTimeout(() => {
               request.get("/auth/info").then((res) => {
                 this.setState({
-                  dataProfile: res.data.docs,
-                  profileDataPayload: res.data.docs,
-                  modalProfileOpen: false,
+                  modalOpen: false,
                 });
+                setTimeout(() => {
+                  this.handleGetProfile();
+                }, 100);
               });
             }, 1000);
           } else {
@@ -145,45 +251,178 @@ class Profile extends Component {
     }
   };
 
-  handleSelectHouseType = (value) => {
-    this.setState({
-      houseType: value,
-      profileDataPayload: {
-        ...this.state.registerPayload,
-        type: value.value,
-      },
+  handleDeleteDataFamily = (value) => {
+    request.delete(`/auth/families/${value}`).then((res) => {
+      if (res.data.code === 200) {
+        BadgeNotif.show({
+          text: "Data keluarga berhasil dihapus",
+          variant: "success",
+        });
+
+        setTimeout(() => {
+          this.handleGetDataFamily();
+        }, 100);
+      } else {
+        BadgeNotif.show({ delay: 5000, text: res.response.data.message });
+      }
     });
   };
 
-  handleOpenModal = (typeModal) => {
-    this.setState({
-      modalProfileOpen: !this.state.modalProfileOpen,
-      modalProfileHeader: typeModal,
+  handleGetDataFamily = () => {
+    request.get("/auth/families").then((res) => {
+      if (res.data.code === 200 && res.data.docs.length != 0) {
+        this.setState({
+          dataFamily: res.data.docs,
+        });
+      }
     });
+  };
+
+  handlePostFamily = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    request.post("/auth/families", this.state.editedData).then((res) => {
+      if (res.data.code === 200) {
+        BadgeNotif.show({
+          text: "Data keluarga berhasil diubah",
+          variant: "success",
+        });
+
+        this.setState({
+          modalOpen: false,
+        });
+        setTimeout(() => {
+          this.handleGetDataFamily();
+        }, 100);
+      } else {
+        BadgeNotif.show({ delay: 5000, text: res.response.data.message });
+      }
+    });
+  };
+
+  handleGetEmergency = () => {
+    request.get("/auth/emergency_contacts").then((res) => {
+      if (res.data.code === 200 && res.data.docs.length !== 0) {
+        this.setState({
+          dataEmergency: res.data.docs,
+        });
+      }
+    });
+  };
+
+  postDataEmergency = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    request
+      .post("/auth/emergency_contacts", this.state.editedData)
+      .then((res) => {
+        if (res.data.code === 200) {
+          BadgeNotif.show({
+            text: "Data kontak darurat berhasil diubah",
+            variant: "success",
+          });
+
+          this.setState({
+            modalOpen: false,
+          });
+          setTimeout(() => {
+            this.handleGetEmergency();
+          }, 100);
+        } else {
+          BadgeNotif.show({ delay: 5000, text: res.response.data.message });
+        }
+      });
+  };
+
+  handleGetDocument = () => {
+    request.get("/auth/documents").then((res) => {
+      if (res.data.code === 200 && res.data.docs.length !== 0) {
+        this.setState({
+          dataDocument: res.data.docs,
+        });
+      }
+    });
+  };
+
+  handlePostDocument = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    let formData = new FormData();
+    let dt = this.state.editedData;
+
+    formData.append("file", dt.file, dt.file.name);
+    formData.append("issued_date", dt.issued_date);
+    formData.append("nomor", parseInt(dt.nomor));
+    formData.append("note", dt.note);
+    formData.append("type", dt.type);
+    formData.append("validity_period", dt.validity_period);
+
+    request
+      .post("/auth/documents", formData, {
+        "Content-Type": "multipart/form-data",
+      })
+      .then((res) => {
+        if (res.data.code === 200) {
+          BadgeNotif.show({
+            text: "Profile berhasil diubah",
+            variant: "success",
+          });
+
+          this.setState({
+            modalOpen: false,
+          });
+          setTimeout(() => {
+            this.handleGetDocument();
+          }, 100);
+        } else {
+          BadgeNotif.show({ delay: 5000, text: res.response.data.message });
+        }
+      });
   };
 
   componentDidMount() {
-    request.get("/auth/info").then((res) => {
-      this.setState({
-        dataProfile: res.data.docs,
-        profileDataPayload: res.data.docs,
-      });
-    });
+    this.handleGetAddress();
+    this.handleGetDataFamily();
+    this.handleGetProfile();
+    this.handleGetEmergency();
+    this.handleGetDocument();
   }
 
   render() {
-    let {
-      haveMarried,
-      children,
-      dataProfile,
-      modalProfileOpen,
-      profileDataPayload,
-      validated,
-      houseType,
-    } = this.state;
+    let { dataProfile, dataAddress, dataFamily, dataEmergency, dataDocument } =
+      this.state;
+
     const options = [
       { value: "owner", label: "Milik Pribadi" },
       { value: "contract", label: "Kontrak" },
+    ];
+
+    const religionOpt = [
+      { value: "Islam", label: "Islam" },
+      { value: "Konghucu", label: "Konghucu" },
+      { value: "Kristen", label: "Kristen" },
+      { value: "Katolik", label: "Katolik" },
+      { value: "Hindu", label: "Hindu" },
+      { value: "Budha", label: "Budha" },
+    ];
+
+    const bloodOpt = [
+      { value: "A", label: "A" },
+      { value: "B", label: "B" },
+      { value: "AB", label: "AB" },
+      { value: "0", label: "0" },
+    ];
+
+    const genderOpt = [
+      { value: "l", label: "Laki-laki" },
+      { value: "p", label: "Perempuan" },
+    ];
+
+    const citizenOpt = [
+      { label: "Warga Negara Indonesia", value: "wni" },
+      { label: "Warga Negara Asing", value: "wna" },
     ];
 
     const role = this.props.userbasedata.user_role.role.name;
@@ -222,37 +461,53 @@ class Profile extends Component {
       <>
         <Container>
           <Accordion>
-            <Accordion.Item eventKey="profile">
+            <Accordion.Item eventKey="edit profile">
               <Accordion.Header>Profile</Accordion.Header>
-              <MenuProfile onOpenModal={this.handleOpenModal} />
+              <MenuProfile
+                dataProfile={dataProfile}
+                onOpenModal={this.handleModal}
+              />
             </Accordion.Item>
             <Accordion.Item
               className="mt-2 border-top-collapse"
               eventKey="alamat"
             >
               <Accordion.Header>Alamat</Accordion.Header>
-              <MenuAddress onOpenModal={this.handleOpenModal} />
+              <MenuAddress
+                dataAddress={dataAddress}
+                onOpenModal={this.handleModal}
+              />
             </Accordion.Item>
             <Accordion.Item
               className="mt-2 border-top-collapse"
               eventKey="keluarga"
             >
               <Accordion.Header>Data Keluarga</Accordion.Header>
-              <MenuFamily onOpenModal={this.handleOpenModal} />
+              <MenuFamily
+                dataFamily={dataFamily}
+                onOpenModal={this.handleModal}
+                onDelete={this.handleDeleteDataFamily}
+              />
             </Accordion.Item>
             <Accordion.Item
               className="mt-2 border-top-collapse"
               eventKey="darurat"
             >
               <Accordion.Header>Kontak Darurat</Accordion.Header>
-              <MenuEmergency onOpenModal={this.handleOpenModal} />
+              <MenuEmergency
+                dataEmergency={dataEmergency}
+                onOpenModal={this.handleModal}
+              />
             </Accordion.Item>
             <Accordion.Item
               className="mt-2 border-top-collapse"
               eventKey="dokumen"
             >
               <Accordion.Header>Dokumen</Accordion.Header>
-              <MenuDocument onOpenModal={this.handleOpenModal} />
+              <MenuDocument
+                dataDocument={dataDocument}
+                onOpenModal={this.handleModal}
+              />
             </Accordion.Item>
             <Accordion.Item
               className="mt-2 border-top-collapse"
@@ -260,9 +515,9 @@ class Profile extends Component {
             >
               <Accordion.Header>Data Iuran</Accordion.Header>
               <Accordion.Body>
-                {/* <NoData /> */}
+                <NoData />
 
-                <Dropdown drop="down">
+                {/* <Dropdown drop="down">
                   <div
                     style={{ gap: "8px" }}
                     className="d-flex justify-content-between"
@@ -278,7 +533,6 @@ class Profile extends Component {
                         alignItems: "center",
                       }}
                       variant="secondary"
-                      // as={customButtonToggle}
                     >
                       <span
                         style={{
@@ -327,19 +581,16 @@ class Profile extends Component {
                       <td></td>
                     </tr>
                   </table>
-                </div>
+                </div> */}
               </Accordion.Body>
             </Accordion.Item>
           </Accordion>
           <hr className="line-thin" />
-          <Button onClick={this.handleLogout} className="mt-2 w-100 btn-danger">
+          {/* <Button onClick={this.handleLogout} className="mt-2 w-100 btn-danger">
             Logout
-          </Button>
+          </Button> */}
           <Link to={"/forgetpassword"}>
-            <Button
-              className="mt-2 w-100 btn-secondary"
-              style={{ color: "white" }}
-            >
+            <Button className=" w-100 btn-secondary" style={{ color: "white" }}>
               Reset Password
             </Button>
           </Link>
@@ -352,222 +603,74 @@ class Profile extends Component {
             </Button>
           </Link>
         </Container>
-        {/* <Modal
-          centered
-          show={modalProfileOpen}
-          onHide={() => {
-            this.setState({
-              modalProfileOpen: false,
-            });
-          }}
-        >
-          <ModalHeader closeButton>Ubah Data Profile</ModalHeader>
-          <ModalBody>
-            <Form
-              onSubmit={this.handlePutDataProfile}
-              validated={validated}
-              noValidate
-            >
-              <FormGroup className="mb-2">
-                <FormLabel className="mb-1">Nama</FormLabel>
-                <FormControl
-                  className="input-no-decoration"
-                  placeholder="Isi nama anda"
-                  value={profileDataPayload.full_name}
-                  onChange={this.onHandleChangeProfileData}
-                  name="full_name"
-                  required
-                  isInvalid={
-                    !ValidatorBoolean({
-                      value: profileDataPayload.full_name,
-                      rule: "type:string",
-                    }) && validated
-                  }
-                />
-                <FormControl.Feedback type="invalid">
-                  Nama harus diisi
-                </FormControl.Feedback>
-              </FormGroup>
-              <FormGroup className="mb-2">
-                <FormLabel className="mb-1">Status Kepemilikan Rumah</FormLabel>
-                <br />
-                <FormControl
-                  hidden
-                  className="input-no-decoration"
-                  name="full_name"
-                  value={options.filter(
-                    (v) => v.value == profileDataPayload.type
-                  )}
-                  placeholder="Isi nama anda"
-                  required
-                  isInvalid={
-                    !ValidatorBoolean({
-                      value: options.filter(
-                        (v) => v.value == profileDataPayload.type
-                      ),
-                      rule: "type:string",
-                    }) && validated
-                  }
-                />
-                <Select
-                  onChange={this.handleSelectHouseType}
-                  value={options.filter(
-                    (v) => v.value == profileDataPayload.type
-                  )}
-                  options={options}
-                  placeholder="Pilih salah satu"
-                />
-                <FormControl.Feedback type="invalid">
-                  Isi status kepemilikan rumah
-                </FormControl.Feedback>
-              </FormGroup>
-              <FormGroup className="mb-2">
-                <FormLabel className="mb-1">No. KTP</FormLabel>
-                <FormControl
-                  maxLength={16}
-                  className="input-no-decoration"
-                  placeholder="Isi No. KTP"
-                  value={profileDataPayload.identity_number}
-                  onChange={this.onHandleChangeProfileData}
-                  name="identity_number"
-                  required
-                  isInvalid={
-                    !ValidatorBoolean({
-                      value: profileDataPayload.identity_number,
-                      rule: "type:string|min:16",
-                    }) && validated
-                  }
-                />
-              </FormGroup>
-              <FormGroup className="mb-2">
-                <FormLabel className="mb-1">No. KK</FormLabel>
-                <FormControl
-                  className="input-no-decoration"
-                  placeholder="Isi No. KK"
-                  maxLength={16}
-                  value={profileDataPayload.family_card_number}
-                  onChange={this.onHandleChangeProfileData}
-                  name="family_card_number"
-                  required
-                  isInvalid={
-                    !ValidatorBoolean({
-                      value: profileDataPayload.family_card_number,
-                      rule: "type:string|min:16",
-                    }) && validated
-                  }
-                />
-                <FormControl.Feedback type="invalid">
-                  Nomor KK harus diisi dan sesuai format
-                </FormControl.Feedback>
-              </FormGroup>
-              <FormGroup className="mb-2">
-                <FormLabel className="mb-1">Blok rumah</FormLabel>
-                <FormControl
-                  className="input-no-decoration"
-                  name="blok"
-                  value={profileDataPayload.blok}
-                  onChange={this.onHandleChangeProfileData}
-                  placeholder="Isi blok rumah anda. Contoh: B5"
-                  required
-                  isInvalid={
-                    !ValidatorBoolean({
-                      value: profileDataPayload.blok,
-                      rule: "type:string|max:3",
-                    }) && validated
-                  }
-                />
-                <FormControl.Feedback type="invalid">
-                  Isi blok rumah anda sesuai contoh
-                </FormControl.Feedback>
-              </FormGroup>
-              <FormGroup className="mb-2">
-                <FormLabel className="mb-1">Nomor rumah</FormLabel>
-                <FormControl
-                  className="input-no-decoration"
-                  name="home_number"
-                  value={profileDataPayload.home_number}
-                  onChange={this.onHandleChangeProfileData}
-                  placeholder="Isi nomor rumah anda. Contoh: 07"
-                  required
-                  isInvalid={
-                    !ValidatorBoolean({
-                      value: profileDataPayload.home_number,
-                      rule: "type:number|max:2",
-                    }) && validated
-                  }
-                />
-                <FormControl.Feedback type="invalid">
-                  Isi nomor rumah anda sesuai contoh
-                </FormControl.Feedback>
-              </FormGroup>
-              <FormGroup className="mb-2">
-                <FormLabel className="mb-1">No. HP</FormLabel>
-                <FormControl
-                  className="input-no-decoration"
-                  placeholder="Isi No. HP anda"
-                  value={profileDataPayload.phone}
-                  name="phone"
-                  maxLength={13}
-                  onChange={this.onHandleChangeProfileData}
-                  isInvalid={
-                    !ValidatorBoolean({
-                      value: profileDataPayload.phone,
-                      rule: "type:string|min:10",
-                    }) && validated
-                  }
-                />
-                <FormControl.Feedback type="invalid">
-                  Isi nomor HP anda, maksimal 13 digit dan minimal 10 digit
-                </FormControl.Feedback>
-              </FormGroup>
-              <Button className="btn-success w-100 mt-2" type="submit">
-                Ubah Data
-              </Button>
-            </Form>
-          </ModalBody>
-        </Modal> */}
         <Modal
-          show={this.state.modalProfileOpen}
-          onHide={() => this.setState({ modalProfileOpen: false })}
+          show={this.state.modalOpen}
+          onHide={() => this.setState({ modalOpen: false })}
         >
-          <ModalHeader>
+          <ModalHeader
+            style={{ border: "none" }}
+            className="font-lg font-weight-bold"
+            closeButton
+          >
             {utils.toSentenceCase(this.state.modalProfileHeader)}
           </ModalHeader>
           {(() => {
             switch (this.state.modalProfileHeader) {
-              case "profile":
+              case "edit profile":
                 return (
                   <PopUpProfile
-                    onSubmit={() => null}
-                    onHide={() => this.setState({ modalProfileOpen: false })}
+                    data={this.state.editedData}
+                    onSubmit={this.handlePutDataProfile}
+                    onHide={() => this.setState({ modalOpen: false })}
+                    onChange={this.handleEditingData}
+                    religionOpt={religionOpt}
+                    bloodOpt={bloodOpt}
                   />
                 );
-              case "address":
+              case "buat alamat":
+              case "edit alamat":
                 return (
                   <PopUpAddress
-                    onSubmit={() => null}
-                    onHide={() => this.setState({ modalProfileOpen: false })}
+                    show={this.state.modalOpen}
+                    onAddressSame={this.handleAddressSame}
+                    onSubmit={this.handlePostAddress}
+                    onChange={this.handleEditingData}
+                    onHide={() => this.setState({ modalOpen: false })}
+                    data={this.state.editedData}
                   />
                 );
-              case "document":
+              case "buat dokumen":
+              case "edit dokumen":
                 return (
                   <PopUpDocument
-                    onSubmit={() => null}
-                    onHide={() => this.setState({ modalProfileOpen: false })}
+                    onSubmit={this.handlePostDocument}
+                    onChange={this.handleEditingData}
+                    onHide={() => this.setState({ modalOpen: false })}
+                    data={this.state.editedData}
                   />
                 );
-              case "emergency":
+              case "buat kontak darurat":
+              case "edit kontak darurat":
                 return (
                   <PopUpEmergency
-                    onSubmit={() => null}
-                    onHide={() => this.setState({ modalProfileOpen: false })}
+                    onSubmit={this.postDataEmergency}
+                    onChange={this.handleEditingData}
+                    onHide={() => this.setState({ modalOpen: false })}
+                    data={this.state.editedData}
                   />
                 );
-              case "family":
+              case "buat data keluarga":
+              case "edit data keluarga":
                 return (
                   <PopUpFamily
-                    onSubmit={() => null}
-                    onHide={() => this.setState({ modalProfileOpen: false })}
+                    onSubmit={this.handlePostFamily}
+                    onChange={this.handleEditingData}
+                    onHide={() => this.setState({ modalOpen: false })}
+                    data={this.state.editedData}
+                    religionOpt={religionOpt}
+                    bloodOpt={bloodOpt}
+                    genderOpt={genderOpt}
+                    citizenOpt={citizenOpt}
                   />
                 );
               default:

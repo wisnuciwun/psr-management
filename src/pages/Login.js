@@ -1,10 +1,6 @@
 import React, { Component } from "react";
 import { Link, Navigate } from "react-router-dom";
-import {
-  Button,
-  Container,
-  FormGroup,
-} from "react-bootstrap";
+import { Button, Container, FormGroup } from "react-bootstrap";
 import request from "../utils/request";
 import { connect } from "react-redux";
 import { getLoginData } from "config/redux/rootAction";
@@ -71,7 +67,7 @@ class Login extends Component {
       <>
         <div
           className="d-flex align-items-center h-100"
-          style={{ minHeight: "70vh" }}
+          style={{ minHeight: "85vh" }}
         >
           <Container>
             <Form
@@ -79,7 +75,12 @@ class Login extends Component {
               validated={validated}
               onSubmit={this.onHandleLogin}
             >
-              <FormGroup>
+              <div className="text-center">
+                <h3>Welcome Back!</h3>
+                <p>login to enter dashboard</p>
+                <img src="/assets/logo2.png" style={{ width: "97px" }} alt="" />
+              </div>
+              <FormGroup className="mt-4">
                 <FormLabel className="mb-1">Email</FormLabel>
                 <FormControl
                   className="input-no-decoration"
@@ -98,11 +99,11 @@ class Login extends Component {
                   Silahkan input email anda terlebih dahulu
                 </FormControl.Feedback>
               </FormGroup>
-              <FormGroup className="position-relative">
+              <FormGroup className="position-relative mt-4">
                 <FormLabel className="mb-1">Password</FormLabel>
                 <FormControl
                   className="input-no-decoration"
-                  type={hidePassword ? 'password' : 'text'}
+                  type={hidePassword ? "password" : "text"}
                   onChange={this.onHandleChangeUser}
                   name="password"
                   value={loginPayload.password}
@@ -115,9 +116,11 @@ class Login extends Component {
                   required
                 />
                 <i
-                  onClick={() => this.setState({
-                    hidePassword: !hidePassword
-                  })}
+                  onClick={() =>
+                    this.setState({
+                      hidePassword: !hidePassword,
+                    })
+                  }
                   className={`fa-regular  ${
                     hidePassword ? "fa-eye" : "fa-eye-slash"
                   } fa-lg cursor-pointer btn-password fa icon-suffix2`}
@@ -126,13 +129,14 @@ class Login extends Component {
                   Silahkan input password anda terlebih dahulu
                 </FormControl.Feedback>
               </FormGroup>
-              <Button type="submit" className="w-100 mt-4">
+              <br />
+              <Button type="submit" className="w-100 mt-4 btn-primary-yellow">
                 Login
               </Button>
             </Form>
             <p className="text-center mt-2">
               Belum punya akun?{" "}
-              <Link to={"/register"} className="pointer">
+              <Link to={"/register"} className="pointer color-primary-yellow">
                 Register
               </Link>
             </p>

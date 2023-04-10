@@ -15,6 +15,7 @@ import routes from "./routes";
 import OrganizationStructure from "pages/OrganizationStructure";
 import HomeFooter from "components/HomeFooter";
 import { getCookie, setCookie } from "tiny-cookie";
+import "react-datepicker/dist/react-datepicker.css";
 
 function App() {
   const isLogin = getCookie("token");
@@ -30,16 +31,16 @@ function App() {
               justifyContent: "center",
               alignItems: "center",
               display: "flex",
-              width: '100%',
-              height: '100%'
+              width: "100%",
+              height: "100%",
             }}
           >
             <Spinner />
           </div>
         }
       >
-        <div className="app position-relative">
-          <div className="screen">
+        <div className={`${window.location.pathname !== '/admin' ? 'app': 'app-full'} position-relative`}>
+          <div className={`${window.location.pathname !== '/admin' ? 'screen': ''}`}>
             <HomeNavbar />
             <Routes>
               {routes.map((route, idx) => {
@@ -84,7 +85,7 @@ function App() {
                 }
               })}
             </Routes>
-            <HomeFooter />
+            {window.location.pathname !== "/login" && <HomeFooter />}
           </div>
         </div>
       </Suspense>

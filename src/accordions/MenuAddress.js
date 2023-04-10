@@ -1,106 +1,116 @@
+import NoData from "components/NoData";
 import React from "react";
 import { Accordion, Button, Form, Table } from "react-bootstrap";
 
-function MenuAddress({ dataProfile, onOpenModal }) {
+function MenuAddress({ dataAddress, onOpenModal }) {
   return (
     <Accordion.Body>
-      {/* <NoData /> */}
-      <div className="d-flex justify-content-end">
-        <Button
-          onClick={() => {
-               onOpenModal('address')
-          }}
-          className="btn-primary-yellow"
-        >
-          Tambahkan
-        </Button>
-      </div>
-      <p style={{ color: "#2BD059" }}>Alamat Sesuai KTP</p>
-      <Table
-        style={{
-          fontSize: "14px",
-          borderSpacing: "10px",
-          borderCollapse: "separate",
-          paddingLeft: "0px",
-        }}
-      >
-        <tr>
-          <td style={{ width: "170px" }}>Alamat KTP</td>
-          <td>:</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td style={{ width: "170px" }}>Kode Pos</td>
-          <td>:</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td style={{ width: "170px" }}>Provinsi</td>
-          <td>:</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td style={{ width: "170px" }}>Kabupaten/Kotad</td>
-          <td>:</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td style={{ width: "170px" }}>Kecamatan</td>
-          <td>:</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td style={{ width: "170px" }}>Kelurahan</td>
-          <td>:</td>
-          <td></td>
-        </tr>
-      </Table>
-      <hr className="line-thin" />
-      <p style={{ color: "#2BD059" }}>Alamat Sekarang</p>
-      <div className="d-flex" style={{ gap: "10px" }}>
-        <Form.Check label="Tidak sama dengan KTP" type="radio" />
-        <Form.Check label="Sesuai KTP" type="radio" />
-      </div>
-      <Table
-        style={{
-          fontSize: "14px",
-          borderSpacing: "10px",
-          borderCollapse: "separate",
-          paddingLeft: "0px",
-        }}
-      >
-        <tr>
-          <td style={{ width: "170px" }}>Alamat KTP</td>
-          <td>:</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td style={{ width: "170px" }}>Kode Pos</td>
-          <td>:</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td style={{ width: "170px" }}>Provinsi</td>
-          <td>:</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td style={{ width: "170px" }}>Kabupaten/Kotad</td>
-          <td>:</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td style={{ width: "170px" }}>Kecamatan</td>
-          <td>:</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td style={{ width: "170px" }}>Kelurahan</td>
-          <td>:</td>
-          <td></td>
-        </tr>
-      </Table>
-      <Button className="btn-primary-yellow w-100">Edit</Button>
+      {Object.keys(dataAddress).length === 0 ? (
+        <>
+          <NoData />
+          <br />
+          <Button
+            onClick={() => {
+              onOpenModal("buat alamat", false, "addressDataTemp");
+            }}
+            className="btn-primary-yellow w-100"
+          >
+            Tambah Data
+          </Button>
+        </>
+      ) : (
+        <>
+          <p className="color-primary-green">Alamat Sesuai KTP</p>
+          <Table
+            style={{
+              fontSize: "14px",
+              borderSpacing: "10px",
+              borderCollapse: "separate",
+              paddingLeft: "0px",
+            }}
+          >
+            <tr>
+              <td style={{ width: "120px" }}>Alamat KTP</td>
+              <td>:</td>
+              <td>{dataAddress?.address}</td>
+            </tr>
+            <tr>
+              <td style={{ width: "120px" }}>Kode Pos</td>
+              <td>:</td>
+              <td>{dataAddress?.postal_code}</td>
+            </tr>
+            <tr>
+              <td style={{ width: "120px" }}>Provinsi</td>
+              <td>:</td>
+              <td>{dataAddress?.province}</td>
+            </tr>
+            <tr>
+              <td style={{ width: "120px" }}>Kabupaten/Kota</td>
+              <td>:</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td style={{ width: "120px" }}>Kecamatan</td>
+              <td>:</td>
+              <td>{dataAddress?.county_town}</td>
+            </tr>
+            <tr>
+              <td style={{ width: "120px" }}>Kelurahan</td>
+              <td>:</td>
+              <td>{dataAddress?.district}</td>
+            </tr>
+          </Table>
+          <hr className="line-thin" />
+          <p className="color-primary-green">Alamat Sekarang</p>
+          <Table
+            style={{
+              fontSize: "14px",
+              borderSpacing: "10px",
+              borderCollapse: "separate",
+              paddingLeft: "0px",
+            }}
+          >
+            <tr>
+              <td style={{ width: "120px" }}>Alamat KTP</td>
+              <td>:</td>
+              <td>{dataAddress?.current_address}</td>
+            </tr>
+            <tr>
+              <td style={{ width: "120px" }}>Kode Pos</td>
+              <td>:</td>
+              <td>{dataAddress?.current_postal_code}</td>
+            </tr>
+            <tr>
+              <td style={{ width: "120px" }}>Provinsi</td>
+              <td>:</td>
+              <td>{dataAddress.current_province}</td>
+            </tr>
+            <tr>
+              <td style={{ width: "120px" }}>Kabupaten/Kota</td>
+              <td>:</td>
+              <td>{dataAddress?.current_county_town}</td>
+            </tr>
+            <tr>
+              <td style={{ width: "120px" }}>Kecamatan</td>
+              <td>:</td>
+              <td>{dataAddress?.current_district}</td>
+            </tr>
+            <tr>
+              <td style={{ width: "120px" }}>Kelurahan</td>
+              <td>:</td>
+              <td>{dataAddress?.current_subdistrict}</td>
+            </tr>
+          </Table>
+          <Button
+            onClick={() => {
+              onOpenModal("edit alamat", true, "dataAddress");
+            }}
+            className="btn-primary-yellow w-100"
+          >
+            Edit
+          </Button>
+        </>
+      )}
     </Accordion.Body>
   );
 }
