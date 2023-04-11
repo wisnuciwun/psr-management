@@ -382,6 +382,19 @@ class Profile extends Component {
       });
   };
 
+  onUploadPhoto = (val) => {
+    console.log('first', val.target.files[0])
+    let formData = new FormData();
+    formData.append("image", val.target.files[0], val.target.files[0].name);
+    request
+      .put("/auth/update_profile_picture", formData, {
+        "Content-Type": "multipart/form-data",
+      })
+      .then((res) => {
+        console.log("object", res);
+      });
+  };
+
   componentDidMount() {
     this.handleGetAddress();
     this.handleGetDataFamily();
@@ -625,6 +638,7 @@ class Profile extends Component {
                     onChange={this.handleEditingData}
                     religionOpt={religionOpt}
                     bloodOpt={bloodOpt}
+                    uploadPhoto={this.onUploadPhoto}
                   />
                 );
               case "buat alamat":

@@ -44,7 +44,7 @@ export default {
     request({ method: "get", url, params, headers }),
   post: (url, data, headers = {}) =>
     request({ method: "post", url, data, headers }),
-  put: (url, data) => request({ method: "put", url, data }),
+  put: (url, data, headers) => request({ method: "put", url, data, headers }),
   delete: (url, data) => request({ method: "delete", url, data }),
   setToken: (token) => {
     if (token) {

@@ -1,4 +1,5 @@
 import React from "react";
+import { useRef } from "react";
 import {
   Button,
   Form,
@@ -17,12 +18,50 @@ function PopUpProfile({
   validate,
   data,
   religionOpt,
-  bloodOpt
+  bloodOpt,
+  uploadPhoto,
 }) {
-  
+  let refs = useRef();
+
   return (
     <div>
       <ModalBody>
+        <FormLabel className="mb-1">Image Profile</FormLabel>
+        <div
+          className="d-flex justify-content-start mb-4"
+          style={{ gap: "8px" }}
+        >
+          <div
+            style={{
+              width: "72px",
+              height: "72px",
+              borderRadius: "8px",
+              backgroundColor: "gray",
+            }}
+          >
+            <img src={data.image_url} style={{width: '72px', height: '72px', objectFit: 'cover', borderRadius: '8px'}} />
+          </div>
+          <FormControl
+            ref={refs}
+            hidden
+            type="file"
+            size="md"
+            className="h-100"
+            onChange={uploadPhoto}
+          />
+          <div className="font-sm" style={{color: 'gray'}}>
+            <span>Format .JPG .JPEG .PNG</span>
+            <br />
+            <span>File Size Max. 5 MB</span>
+            <br />
+            <Button
+              onClick={() => refs.current.click()}
+              className="btn-primary-white"
+            >
+              Upload
+            </Button>
+          </div>
+        </div>
         <Form onSubmit={onSubmit} noValidate validated={validate}>
           <div className="d-flex mb-3" style={{ gap: "10px" }}>
             <Form.Check
@@ -31,7 +70,7 @@ function PopUpProfile({
               value="Bapak"
               label="Bpk"
               type="radio"
-              checked={data?.appellation === 'Bapak'}
+              checked={data?.appellation === "Bapak"}
             />
             <Form.Check
               name="appellation"
@@ -39,7 +78,7 @@ function PopUpProfile({
               value="Ibu"
               label="Ibu"
               type="radio"
-              checked={data?.appellation === 'Ibu'}
+              checked={data?.appellation === "Ibu"}
             />
           </div>
           <FormGroup className="mb-3 position-relative">
@@ -127,7 +166,7 @@ function PopUpProfile({
               onChange={(v) =>
                 onChange({ target: { name: "religion", value: v.value } })
               }
-              value={{value: data.religion, label: data.religion}}
+              value={{ value: data.religion, label: data.religion }}
               options={religionOpt}
               placeholder="Pilih salah satu"
             />
@@ -188,7 +227,7 @@ function PopUpProfile({
               onChange={(v) =>
                 onChange({ target: { name: "blood_type", value: v.value } })
               }
-              value={{label: data.blood_type, value: data.blood_type}}
+              value={{ label: data.blood_type, value: data.blood_type }}
               options={bloodOpt}
               placeholder="Pilih salah satu"
             />
