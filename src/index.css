@@ -8,55 +8,66 @@
 @font-face {
   font-family: "aquas";
   font-style: bold;
-  src: url('../public/aquawax/Aquawax\ Black\ Trial.ttf');
+  src: url("../public/aquawax/Aquawax\ Black\ Trial.ttf");
 }
 
 @font-face {
   font-family: "aquas";
   font-weight: lighter;
-  src: url('../public/aquawax/Aquawax\ Light\ Trial.ttf');
+  src: url("../public/aquawax/Aquawax\ Light\ Trial.ttf");
 }
 
 @font-face {
   font-family: "aquas";
   font-weight: normal;
-  src: url('../public/aquawax/Aquawax\ Medium\ Trial.ttf');
+  src: url("../public/aquawax/Aquawax\ Medium\ Trial.ttf");
 }
 
 body {
-  font-family: 'aquas', 'Segoe UI', 'Roboto';
+  font-family: "aquas", "Segoe UI", "Roboto";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: black !important;
 }
 
-h1, h2, h3, h4, h5, h6, .aquas {
-  font-family: 'aquas' !important;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.aquas {
+  font-family: "aquas" !important;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
-.app{
+.app {
   display: table;
   margin: 0 auto;
   min-height: 100vh;
   height: 100%;
-  background-color: #FFFFFF !important;
+  background-color: #ffffff !important;
   position: relative;
   overflow-y: auto;
   padding-bottom: 125px;
 }
 
-.app-full{
+.app-full {
   min-height: 100vh;
   height: 100%;
-  background-color: #FFFFFF !important;
+  background-color: #ffffff !important;
   position: relative;
   overflow-y: auto;
   padding-bottom: 125px;
+}
+
+.full-screen {
+  display: flex;
+  width: 100%;
 }
 
 .screen {
@@ -108,12 +119,12 @@ code {
   font-weight: 700;
 }
 
-.input-no-decoration{
+.input-no-decoration {
   background: none !important;
   border: 0.5px solid #495057 !important;
 }
 
-.icon-suffix2{
+.icon-suffix2 {
   position: absolute;
   right: 0;
   top: 0;
@@ -121,7 +132,7 @@ code {
   margin-right: 13px;
 }
 
-.icon-suffix{
+.icon-suffix {
   position: absolute;
   right: 0;
   top: 0;
@@ -129,35 +140,37 @@ code {
   margin-right: 13px;
 }
 
-.pointer{
+.pointer {
   cursor: pointer;
 }
 
-.bg-primary-green{
-  background-color: #36A054 !important;
+.bg-primary-green {
+  background-color: #36a054 !important;
 }
 
-.bg-secondary-yellow{
-  background-color: #FFD46D !important;
+.bg-secondary-yellow {
+  background-color: #ffd46d !important;
 }
 
-.bg-primary-yellow{
-  background-color: #FEC439;
+.bg-primary-yellow {
+  background-color: #fec439;
 }
 
 .bg-selected-menu {
   border-radius: 8px;
-  background-color: #FEC439;
+  background-color: #fec439;
   padding: 12px !important;
 }
 
-.no-outline:focus, .no-outline:active:focus, .no-outline.active:focus{
-  outline:none !important;
-  box-shadow:none !important;
+.no-outline:focus,
+.no-outline:active:focus,
+.no-outline.active:focus {
+  outline: none !important;
+  box-shadow: none !important;
 }
 
-.btn-primary-yellow{
-  background-color: #FEC439 !important;
+.btn-primary-yellow {
+  background-color: #fec439 !important;
   border-radius: 96px !important;
   color: white;
   border: none !important;
@@ -166,25 +179,25 @@ code {
   height: 40px !important;
 }
 
-.btn-primary-red{
-  background-color: #FCE4E4 !important;
+.btn-primary-red {
+  background-color: #fce4e4 !important;
   border-radius: 96px !important;
-  color: #CC3F3F !important;
+  color: #cc3f3f !important;
   border: none !important;
   height: fit-content !important;
   font-size: 14px !important;
   height: 40px !important;
 }
 
-.btn-primary-white{
+.btn-primary-white {
   background-color: white !important;
   border-radius: 96px !important;
-  color: #FEC439 !important;
-  border: 1.5px solid #FEC439 !important;
+  color: #fec439 !important;
+  border: 1.5px solid #fec439 !important;
   height: 40px !important;
 }
 
-.btn-primary-light{
+.btn-primary-light {
   background-color: white !important;
   border-radius: 96px !important;
   color: black !important;
@@ -196,29 +209,29 @@ code {
   border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-.border-top-collapse{
+.border-top-collapse {
   border-top: 0.5px solid rgba(0, 0, 0, 0.2) !important;
 }
 
-.flex-break{
+.flex-break {
   flex-basis: 100%;
 }
 
-.font-weight-bold{
+.font-weight-bold {
   font-weight: 500 !important;
 }
 
 .color-primary-yellow {
-  color: #FEC439;
+  color: #fec439;
   text-decoration: none;
 }
 
 .color-primary-green {
-  color: #36A054;
+  color: #36a054;
   text-decoration: none;
 }
 
-.important{
+.important {
   color: red;
 }
 

@@ -425,7 +425,7 @@ class Profile extends Component {
       { label: "Warga Negara Asing", value: "wna" },
     ];
 
-    const role = this.props.userbasedata.user_role.role.name;
+    const role = this.props.userbasedata?.user_role?.role?.name;
 
     const customButtonToggle = React.forwardRef(
       ({ children, onClick }, ref) => (
@@ -594,7 +594,7 @@ class Profile extends Component {
               Reset Password
             </Button>
           </Link>
-          <Link to="/admin" style={{ textDecoration: "none" }}>
+          <Link to="/admin/banner" style={{ textDecoration: "none" }}>
             <Button
               className="mt-2 w-100 btn-secondary"
               hidden={role === "Superadmin" ? false : true}

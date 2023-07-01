@@ -12,11 +12,11 @@ function MenuProfile({ dataProfile, onOpenModal }) {
           paddingLeft: "0px",
         }}
       >
-        <tr>
+        {/* <tr>
           <td style={{ width: "170px" }}>Nomor Kartu Keluarga</td>
           <td>:</td>
           <td>{dataProfile?.family_card_number}</td>
-        </tr>
+        </tr> */}
         <tr>
           <td>Nama Lengkap</td>
           <td>:</td>
@@ -57,11 +57,11 @@ function MenuProfile({ dataProfile, onOpenModal }) {
           <td>:</td>
           <td>{dataProfile?.phone}</td>
         </tr>
-        <tr>
+        {/* <tr>
           <td>Email</td>
           <td>:</td>
           <td>{dataProfile?.email}</td>
-        </tr>
+        </tr> */}
       </Table>
       <Button onClick={() => {
         onOpenModal("edit profile", true, "dataProfile");
