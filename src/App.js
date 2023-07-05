@@ -2,6 +2,7 @@ import logo from "./logo.svg";
 import Home from "pages/Home";
 import { Fragment, Suspense } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import './pages/styles.css';
 import { HomeNavbar } from "components";
 import { Button, Modal, ModalBody, NavLink, Spinner } from "react-bootstrap";
 import {
@@ -10,16 +11,30 @@ import {
   Route,
   Routes,
   useNavigate,
+  useLocation,
 } from "react-router-dom";
 import routes from "./routes";
 import OrganizationStructure from "pages/OrganizationStructure";
 import HomeFooter from "components/HomeFooter";
 import { getCookie, setCookie } from "tiny-cookie";
 import "react-datepicker/dist/react-datepicker.css";
+import Sidebar from "components/Sidebar";
 
 function App() {
   const isLogin = getCookie("token");
   const navigate = useNavigate();
+
+  const location = useLocation();
+
+  const pathsToApplyAppFullClass = [
+    "/admin",
+    "/admin/banner",
+    "/admin/pengguna",
+    "/admin/struktur-organisasi",
+    "/admin/list-data-warga",
+  ];
+
+  const shouldApplyAppFullClass = pathsToApplyAppFullClass.includes(location.pathname);
 
   return (
     <Fragment>
@@ -39,9 +54,11 @@ function App() {
           </div>
         }
       >
-        <div className={`${window.location.pathname !== '/admin' ? 'app': 'app-full'} position-relative`}>
-          <div className={`${window.location.pathname !== '/admin' ? 'screen': ''}`}>
-            <HomeNavbar />
+        <div className={`${shouldApplyAppFullClass ? 'app-full':'app'} position-relative`}>
+          <div className={`${shouldApplyAppFullClass ? 'full-screen': 'screen'}`}>
+            <div>
+            { shouldApplyAppFullClass ?  <Sidebar/> : <HomeNavbar />}
+            </div>
             <Routes>
               {routes.map((route, idx) => {
                 if (route.protected && isLogin === null) {

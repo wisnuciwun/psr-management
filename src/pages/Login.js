@@ -115,16 +115,6 @@ class Login extends Component {
                   }
                   required
                 />
-                <i
-                  onClick={() =>
-                    this.setState({
-                      hidePassword: !hidePassword,
-                    })
-                  }
-                  className={`fa-regular  ${
-                    hidePassword ? "fa-eye" : "fa-eye-slash"
-                  } fa-lg cursor-pointer btn-password fa icon-suffix2`}
-                ></i>
                 <FormControl.Feedback type="invalid">
                   Silahkan input password anda terlebih dahulu
                 </FormControl.Feedback>
@@ -134,12 +124,12 @@ class Login extends Component {
                 Login
               </Button>
             </Form>
-            <p className="text-center mt-2">
+            {/* <p className="text-center mt-2">
               Belum punya akun?{" "}
               <Link to={"/register"} className="pointer color-primary-yellow">
                 Register
               </Link>
-            </p>
+            </p> */}
           </Container>
         </div>
       </>

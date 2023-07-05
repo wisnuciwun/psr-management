@@ -32,6 +32,7 @@ function HomeNavbar(props) {
   const pagePosition = window.location.pathname;
   let expand = false;
   let navigate = useNavigate();
+  const role = props.userbasedata?.user_role?.role?.name;
 
   const handleLogout = () => {
     dispatch(getLoginData({}));
@@ -105,8 +106,14 @@ function HomeNavbar(props) {
                     </span>
                   </Dropdown.Toggle>
                   <DropdownMenu style={{ marginLeft: "-70px" }}>
-                    <DropdownItem onClick={() => navigate("/profile")}>
-                      Profile
+                    <DropdownItem
+                      onClick={() =>
+                        navigate(
+                          role === "Superadmin" ? "/admin/banner" : "/profile"
+                        )
+                      }
+                    >
+                      {role === "Superadmin" ? "Admin Page" : "Profile"}
                     </DropdownItem>
                     {isLogin !== null ? (
                       <DropdownItem onClick={handleLogout}>Logout</DropdownItem>
