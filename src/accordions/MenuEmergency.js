@@ -2,7 +2,7 @@ import NoData from "components/NoData";
 import React from "react";
 import { Accordion, Button, Table } from "react-bootstrap";
 
-function MenuEmergency({ dataEmergency, onOpenModal }) {
+function MenuEmergency({ dataEmergency, onOpenModal, onDelete }) {
   return (
     <Accordion.Body>
       {dataEmergency.length === 0 || Object.keys(dataEmergency).length === 0 ? (
@@ -11,7 +11,7 @@ function MenuEmergency({ dataEmergency, onOpenModal }) {
           <br />
           <Button
             onClick={() => {
-              onOpenModal("buat kontak darurat", false, "dataEmergency");
+              onOpenModal("buat kontak darurat", false, "emergencyDataTemp");
             }}
             className="btn-primary-yellow w-100"
           >
@@ -52,21 +52,31 @@ function MenuEmergency({ dataEmergency, onOpenModal }) {
                     <td>{v?.relationship}</td>
                   </tr>
                 </Table>
-                <Button
-                  onClick={() => {
-                    onOpenModal("edit kontak darurat", false, null, v);
-                  }}
-                  className="btn-primary-yellow w-100"
-                >
-                  Edit
-                </Button>
+                <div className="d-flex" style={{ gap: '8px' }}>
+                  <Button
+                    onClick={() => {
+                      onDelete(v.uuid);
+                    }}
+                    className="btn-primary-red w-50"
+                  >
+                    Hapus
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      onOpenModal("edit kontak darurat", true, null, v);
+                    }}
+                    className="btn-primary-yellow w-50"
+                  >
+                    Edit
+                  </Button>
+                </div>
                 <hr className="line-thin" />
               </>
             );
           })}
           <Button
             onClick={() => {
-              onOpenModal("buat kontak darurat", false, "dataEmergency");
+              onOpenModal("buat kontak darurat", false, "emergencyDataTemp");
             }}
             className="btn-primary-yellow w-100"
           >

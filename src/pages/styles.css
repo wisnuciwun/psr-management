@@ -11,9 +11,9 @@ li {
   border-bottom: 1px solid #fff;
   padding: 15px;
 }
-li:hover {
+/* li:hover {
   background: #c7a302;
-}
+} */
 ul {
   padding-top: 30px;
 }
@@ -21,7 +21,6 @@ ul {
   width: 220px;
   height: 100%;
   position: absolute;
-  
 }
 .right {
   font-size: 30px;

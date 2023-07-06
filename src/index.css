@@ -189,6 +189,11 @@ code {
   height: 40px !important;
 }
 
+.btn-primary-red:disabled {
+  background-color: #495057 !important;
+  color: #ffffff !important;
+}
+
 .btn-primary-white {
   background-color: white !important;
   border-radius: 96px !important;
@@ -237,7 +242,7 @@ code {
 
 .accordion-button:not(.collapsed) {
   color: white !important;
-  background-color: #36A054 !important;
+  background-color: #36a054 !important;
   border-radius: 8px 8px 0px 0px !important;
   outline: none !important;
 }

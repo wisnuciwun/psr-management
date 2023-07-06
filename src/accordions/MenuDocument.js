@@ -3,7 +3,7 @@ import React from "react";
 import { Accordion, Button, Form, Table } from "react-bootstrap";
 import moment from 'moment'
 
-function MenuDocument({ dataDocument, onOpenModal }) {
+function MenuDocument({ dataDocument, onOpenModal, onDelete }) {
   return (
     <Accordion.Body>
       {dataDocument.length === 0 ? (
@@ -59,22 +59,33 @@ function MenuDocument({ dataDocument, onOpenModal }) {
                   </tr>
                 </Table>
                 {v.file.includes("jpeg") ||
-                v.file.includes("png") ||
-                v.file.includes("jpg") ? (
-                  <img className='line-thin w-100' src={v?.file_url} style={{height: '250px', objectFit: 'contain', borderRadius: '8px'}} alt="" />
+                  v.file.includes("png") ||
+                  v.file.includes("jpg") ? (
+                  <img className='line-thin w-100' src={v?.file_url} style={{ height: '250px', objectFit: 'contain', borderRadius: '8px' }} alt="" />
                 ) : (
                   <a download={v?.file} href={v?.file_url}>
                     {v.file}
                   </a>
                 )}
-                <Button
-                  onClick={() => {
-                    onOpenModal("edit dokumen", true, null, v);
-                  }}
-                  className="btn-primary-yellow w-100 mt-3"
-                >
-                  Edit
-                </Button>
+                <div className="d-flex" style={{ gap: '8px' }}>
+                  <Button
+                    disabled
+                    onClick={() => {
+                      onDelete(v.uuid);
+                    }}
+                    className="btn-primary-red w-50 mt-3"
+                  >
+                    Hapus
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      onOpenModal("edit dokumen", true, null, v);
+                    }}
+                    className="btn-primary-yellow w-50 mt-3"
+                  >
+                    Edit
+                  </Button>
+                </div>
                 <hr className="line-thin" />
               </>
             );

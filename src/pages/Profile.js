@@ -301,6 +301,23 @@ class Profile extends Component {
     });
   };
 
+  handleDeleteEmergency = (value) => {
+    request.delete(`/auth/emergency_contacts/${value}`).then((res) => {
+      if (res.data.code === 200) {
+        BadgeNotif.show({
+          text: "Data Emergency berhasil dihapus",
+          variant: "success",
+        });
+
+        setTimeout(() => {
+          this.handleGetEmergency();
+        }, 5000);
+      } else {
+        BadgeNotif.show({ delay: 5000, text: res.response.data.message });
+      }
+    });
+  };
+
   handleGetEmergency = () => {
     request.get("/auth/emergency_contacts").then((res) => {
       if (res.data.code === 200 && res.data.docs.length !== 0) {
@@ -313,27 +330,42 @@ class Profile extends Component {
 
   postDataEmergency = (event) => {
     event.preventDefault();
-    event.stopPropagation();
+    // event.stopPropagation();
 
-    request
-      .post("/auth/emergency_contacts", this.state.editedData)
-      .then((res) => {
-        if (res.data.code === 200) {
-          BadgeNotif.show({
-            text: "Data kontak darurat berhasil diubah",
-            variant: "success",
-          });
+    request.post("/auth/emergency_contacts", this.state.editedData).then((res) => {
+      if (res.data.code === 200) {
+        BadgeNotif.show({
+          text: "Data kontak darurat berhasil diubah",
+          variant: "success",
+        });
 
-          this.setState({
-            modalOpen: false,
-          });
-          setTimeout(() => {
-            this.handleGetEmergency();
-          }, 100);
-        } else {
-          BadgeNotif.show({ delay: 5000, text: res.response.data.message });
-        }
-      });
+        this.setState({
+          modalOpen: false,
+        });
+        setTimeout(() => {
+          this.handleGetEmergency();
+        }, 100);
+      } else {
+        BadgeNotif.show({ delay: 5000, text: res.response.data.message });
+      }
+    });
+  };
+
+  handleDeleteDocument = (value) => {
+    request.delete(`/auth/documents/${value}`).then((res) => {
+      if (res.data.code === 200) {
+        BadgeNotif.show({
+          text: "Document berhasil dihapus",
+          variant: "success",
+        });
+
+        setTimeout(() => {
+          this.handleGetDocument();
+        }, 100);
+      } else {
+        BadgeNotif.show({ delay: 5000, text: res.response.data.message });
+      }
+    });
   };
 
   handleGetDocument = () => {
@@ -498,6 +530,7 @@ class Profile extends Component {
               <Accordion.Header>Data Keluarga</Accordion.Header>
               <MenuFamily
                 dataFamily={dataFamily}
+                kk={dataProfile.family_card_number}
                 onOpenModal={this.handleModal}
                 onDelete={this.handleDeleteDataFamily}
               />
@@ -510,6 +543,7 @@ class Profile extends Component {
               <MenuEmergency
                 dataEmergency={dataEmergency}
                 onOpenModal={this.handleModal}
+                onDelete={this.handleDeleteEmergency}
               />
             </Accordion.Item>
             <Accordion.Item
@@ -520,6 +554,7 @@ class Profile extends Component {
               <MenuDocument
                 dataDocument={dataDocument}
                 onOpenModal={this.handleModal}
+                onDelete={this.handleDeleteDocument}
               />
             </Accordion.Item>
             <Accordion.Item
@@ -603,7 +638,7 @@ class Profile extends Component {
             Logout
           </Button> */}
           <Link to={"/forgetpassword"}>
-            <Button className=" w-100 btn-secondary" style={{ color: "white" }}>
+            <Button className=" w-100 btn-primary-yellow" style={{ color: "white" }}>
               Reset Password
             </Button>
           </Link>
@@ -685,6 +720,7 @@ class Profile extends Component {
                     bloodOpt={bloodOpt}
                     genderOpt={genderOpt}
                     citizenOpt={citizenOpt}
+                    kk={dataProfile.family_card_number}
                   />
                 );
               default:

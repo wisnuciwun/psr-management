@@ -135,17 +135,17 @@ function MenuAddress({ dataAddress, onOpenModal }) {
             <tr>
               <td style={{ width: "120px" }}>Kabupaten/Kota</td>
               <td>:</td>
-              <td></td>
+              <td>{dataAddress?.county_town}</td>
             </tr>
             <tr>
               <td style={{ width: "120px" }}>Kecamatan</td>
               <td>:</td>
-              <td>{dataAddress?.county_town}</td>
+              <td>{dataAddress?.district}</td>
             </tr>
             <tr>
               <td style={{ width: "120px" }}>Kelurahan</td>
               <td>:</td>
-              <td>{dataAddress?.district}</td>
+              <td>{dataAddress?.subdistrict}</td>
             </tr>
           </Table>
           <hr className="line-thin" />

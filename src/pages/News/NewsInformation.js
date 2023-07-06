@@ -19,11 +19,11 @@ function NewsInformation() {
      const [modalIsOpen, setModalIsOpen] = useState(false);
 
      const openModal = () => {
-       setModalIsOpen(true);
+          setModalIsOpen(true);
      }
-   
+
      const closeModal = () => {
-       setModalIsOpen(false);
+          setModalIsOpen(false);
      }
 
      return (
@@ -35,19 +35,19 @@ function NewsInformation() {
                     <h5 className="mb-3">Berita</h5>
                     {
                          news.map((data) => (
-                              <> 
-                                   <Card key={data.id} className='mb-3' style={{ padding: 0 ,boxShadow: "0px 4px 4px 0px #00000040" }} >
+                              <>
+                                   <Card key={data.id} className='mb-3' style={{ padding: 10, boxShadow: "0px 4px 4px 0px #00000040" }} >
                                         {/* <img src={data.image} alt="gambar 1" /> */}
-                                        <ImageZoomModal 
+                                        <ImageZoomModal
                                              key={data.id}
                                              imageUrl={data.image}
                                              openModal={openModal}
                                              closeModal={closeModal}
-                                             modalIsOpen={modalIsOpen}     
+                                             modalIsOpen={modalIsOpen}
                                         />
                                         <Card.Body className="font-md font-weight-bold text-truncate">
                                              <div className="font-md text-truncate font-weight-bold">
-                                                  <span style={{...fontAttributes, color: "#AAAAAA"}}>{data.date}</span>
+                                                  <span style={{ ...fontAttributes, color: "#AAAAAA" }}>{data.date}</span>
                                              </div>
                                              <div className="font-sm text-truncate">
                                                   {data.headline}
@@ -55,11 +55,11 @@ function NewsInformation() {
                                         </Card.Body>
                                         <Card.Footer style={{ backgroundColor: 'white' }}>
                                              <div className='d-flex justify-content-evenly'>
-                                                  <Button className='w-50' style={{...btnAttributes}}>
-                                                       <IconSearch style={{...iconAttributes}} /> <span style={{ ...fontAttributes }}>Baca</span> 
+                                                  <Button className='w-50' style={{ ...btnAttributes }} onClick={() => { handleToDetailNews(data.id) }}>
+                                                       <IconSearch style={{ ...iconAttributes }} /> <span style={{ ...fontAttributes }}>Baca</span>
                                                   </Button>
-                                                  <Button className='w-50' style={{...btnAttributes}} onClick={() => { handleToDetailNews(data.id) }}>
-                                                       <IconEnterOutline style={{...iconAttributes}}/> <span style={{ ...fontAttributes }}>Selengkapnya</span>
+                                                  <Button className='w-50' style={{ ...btnAttributes }} onClick={() => { handleToDetailNews(data.id) }}>
+                                                       <IconEnterOutline style={{ ...iconAttributes }} /> <span style={{ ...fontAttributes }}>Selengkapnya</span>
                                                   </Button>
                                              </div>
                                         </Card.Footer>

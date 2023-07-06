@@ -3,7 +3,7 @@ import React from "react";
 import { Accordion, Button, Table } from "react-bootstrap";
 import moment from "moment";
 
-function MenuFamily({ dataFamily, onOpenModal, onDelete }) {
+function MenuFamily({ dataFamily, onOpenModal, onDelete, kk }) {
   return (
     <Accordion.Body>
       {dataFamily.length === 0 || Object.keys(dataFamily).length === 0 ? (
@@ -35,7 +35,7 @@ function MenuFamily({ dataFamily, onOpenModal, onDelete }) {
                   <tr>
                     <td style={{ width: "170px" }}>Nomor Kartu Keluarga</td>
                     <td>:</td>
-                    <td>{v?.identity_number}</td>
+                    <td>{kk}</td>
                   </tr>
                   <tr>
                     <td>NIK</td>
@@ -120,7 +120,7 @@ function MenuFamily({ dataFamily, onOpenModal, onDelete }) {
                     <td>{v?.mother_name}</td>
                   </tr>
                 </Table>
-                <div className="d-flex" style={{gap: '8px'}}>
+                <div className="d-flex" style={{ gap: '8px' }}>
                   <Button
                     onClick={() => {
                       onDelete(v.uuid);

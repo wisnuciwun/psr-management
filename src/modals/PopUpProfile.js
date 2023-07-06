@@ -39,7 +39,7 @@ function PopUpProfile({
               backgroundColor: "gray",
             }}
           >
-            <img src={data.image_url} style={{width: '72px', height: '72px', objectFit: 'cover', borderRadius: '8px'}} />
+            <img src={data.image_url} style={{ width: '72px', height: '72px', objectFit: 'cover', borderRadius: '8px' }} />
           </div>
           <FormControl
             ref={refs}
@@ -49,7 +49,7 @@ function PopUpProfile({
             className="h-100"
             onChange={uploadPhoto}
           />
-          <div className="font-sm" style={{color: 'gray'}}>
+          <div className="font-sm" style={{ color: 'gray' }}>
             <span>Format .JPG .JPEG .PNG</span>
             <br />
             <span>File Size Max. 5 MB</span>
@@ -68,7 +68,7 @@ function PopUpProfile({
               name="appellation"
               onClick={onChange}
               value="Bapak"
-              label="Bpk"
+              label="Bapak"
               type="radio"
               checked={data?.appellation === "Bapak"}
             />
@@ -83,13 +83,18 @@ function PopUpProfile({
           </div>
           <FormGroup className="mb-3 position-relative">
             <FormLabel className="mb-1">
-              Nomor Kartu Keluarga <span className="important">*</span>
+              Nomor Kartu Keluarga<span className="important">*</span>
             </FormLabel>
             <FormControl
-              type="number"
+              type="text"
+              maxLength="16"
               name="family_card_number"
               value={data.family_card_number}
-              onChange={onChange}
+              onChange={(e) => {
+                if (parseInt(e.target.value).toString() != 'NaN' || e.target.value == '') {
+                  onChange(e)
+                }
+              }}
               required
             />
             <FormControl.Feedback type="invalid">

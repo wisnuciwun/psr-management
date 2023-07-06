@@ -21,6 +21,8 @@ function PopUpFamily({
   bloodOpt,
   genderOpt,
   citizenOpt,
+  dataProfile,
+  kk,
 }) {
   const CustomInput = forwardRef(({ value, onClick }, ref) => (
     <FormControl
@@ -36,10 +38,16 @@ function PopUpFamily({
           <FormGroup className="mb-2 position-relative">
             <FormLabel className="mb-1">Nomor Kartu Keluarga</FormLabel>
             <FormControl
-              type="number"
-              name="identity_number"
-              value={data?.identity_number}
-              onChange={onChange}
+              disabled={true}
+              type="text"
+              maxLength="16"
+              name="family_card_number"
+              value={kk}
+              // onChange={(e) => {
+              //   if (parseInt(e.target.value).toString() != 'NaN' || e.target.value == '') {
+              //     onChange(e)
+              //   }
+              // }}
               required={false}
             />
             <FormControl.Feedback type="invalid">
@@ -49,10 +57,15 @@ function PopUpFamily({
           <FormGroup className="mb-2 position-relative">
             <FormLabel className="mb-1">NIK</FormLabel>
             <FormControl
-              type="number"
+              type="text"
+              maxLength="16"
               name="identity_number"
               value={data?.identity_number}
-              onChange={onChange}
+              onChange={(e) => {
+                if (parseInt(e.target.value).toString() != 'NaN' || e.target.value == '') {
+                  onChange(e)
+                }
+              }}
               required={false}
             />
             <FormControl.Feedback type="invalid">

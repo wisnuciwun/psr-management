@@ -64,7 +64,10 @@ function HomeNavbar(props) {
                 <Popover className="mt-4" id="news-notification">
                   <Popover.Header as="h3">Notifikasi</Popover.Header>
                   <Popover.Body>
-                    <Card className="mb-2">
+                    <p>
+                      Belum ada notifikasi saat ini
+                    </p>
+                    {/* <Card className="mb-2">
                       <Card.Body>
                         Undangan untuk menghadiri peresmian masjid
                       </Card.Body>
@@ -73,7 +76,7 @@ function HomeNavbar(props) {
                       <Card.Body className="w-100" style={{ width: "200px" }}>
                         Anda belum membayar iuran bulan ini
                       </Card.Body>
-                    </Card>
+                    </Card> */}
                   </Popover.Body>
                 </Popover>
               }
@@ -167,20 +170,18 @@ function HomeNavbar(props) {
               <Nav className="justify-content-end flex-grow-1 pe-3">
                 <Nav.Link
                   href="/"
-                  className={`${
-                    pagePosition === "/" && "bg-selected-menu"
-                  } d-flex align-items-center p-2`}
+                  className={`${pagePosition === "/" && "bg-selected-menu"
+                    } d-flex align-items-center p-2`}
                 >
                   <i style={{ width: "35px" }} className="fa fa-home fa-lg">
                     &nbsp;
                   </i>
                   <span className="font-lg">Beranda</span>
                 </Nav.Link>
-                <Nav.Link
+                {/* <Nav.Link
                   href="/berita"
-                  className={`${
-                    pagePosition === "/berita" && "bg-selected-menu"
-                  } d-flex align-items-center p-2`}
+                  className={`${pagePosition === "/berita" && "bg-selected-menu"
+                    } d-flex align-items-center p-2`}
                 >
                   <i
                     style={{ width: "35px" }}
@@ -189,12 +190,11 @@ function HomeNavbar(props) {
                     &nbsp;
                   </i>
                   <span className="font-lg">Berita</span>
-                </Nav.Link>
+                </Nav.Link> */}
                 <Nav.Link
                   href="/struktur"
-                  className={`${
-                    pagePosition === "/struktur" && "bg-selected-menu"
-                  } d-flex align-items-center p-2`}
+                  className={`${pagePosition === "/struktur" && "bg-selected-menu"
+                    } d-flex align-items-center p-2`}
                 >
                   <i style={{ width: "35px" }} className="fa fa-users fa-lg">
                     &nbsp;
@@ -203,9 +203,8 @@ function HomeNavbar(props) {
                 </Nav.Link>
                 <Nav.Link
                   href="/kontak"
-                  className={`${
-                    pagePosition === "/kontak" && "bg-selected-menu"
-                  } d-flex align-items-center p-2`}
+                  className={`${pagePosition === "/kontak" && "bg-selected-menu"
+                    } d-flex align-items-center p-2`}
                 >
                   <i style={{ width: "35px" }} className="fa fa-phone fa-lg">
                     &nbsp;
@@ -215,9 +214,8 @@ function HomeNavbar(props) {
                 {isLogin !== null ? (
                   <Nav.Link
                     href="/profile"
-                    className={`${
-                      pagePosition === "/profile" && "bg-selected-menu"
-                    } d-flex align-items-center p-2`}
+                    className={`${pagePosition === "/profile" && "bg-selected-menu"
+                      } d-flex align-items-center p-2`}
                   >
                     <i
                       style={{ width: "35px" }}
@@ -231,9 +229,8 @@ function HomeNavbar(props) {
                 ) : (
                   <Nav.Link
                     href="/login"
-                    className={`${
-                      pagePosition === "/login" && "bg-selected-menu"
-                    } d-flex align-items-center p-2`}
+                    className={`${pagePosition === "/login" && "bg-selected-menu"
+                      } d-flex align-items-center p-2`}
                   >
                     <i
                       style={{ width: "35px" }}
