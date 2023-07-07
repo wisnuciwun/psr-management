@@ -44,7 +44,7 @@ export class OrganizationStructure extends Component {
     let allNames = Object.keys(allData);
 
     return (
-      <div className={window.location.pathname === '/struktur' ? 'p-3': ''}>
+      <div className={window.location.pathname === "/struktur" ? "p-3" : ""}>
         <h5 className="mb-3 text-center">Visi Misi</h5>
         <div
           style={{ textJustify: "inter-word", textAlign: "justify" }}
@@ -94,40 +94,39 @@ export class OrganizationStructure extends Component {
             allNames.map((w, id) => {
               return (
                 <div
-                  style={{ gap: "8px" }}
-                  className="w-100 d-flex flex-wrap mb-1"
+                  className="mb-1 mt-3"
                 >
                   <h5 className="mt-2 text-center w-100">{w}</h5>
-                  {allData[w].map((v, idx) => {
-                    return (
-                      <Card
-                        key={idx}
-                        onClick={() => this.onHandleModalData(v)}
-                        style={{
-                          maxWidth: v.position === "Ketua" ? "100%" : "48.5%",
-                        }}
-                        className={v.position === "Ketua" ? "w-100" : "w-50"}
-                      >
-                        <img
-                          style={{
-                            height: "230px",
-                            objectFit: "cover",
-                          }}
-                          src={v.img}
-                          alt=""
-                        />
-                        <Card.Body className="font-md font-weight-bold text-truncate">
-                          <div className="font-md text-truncate font-weight-bold">
-                            {v.name}
-                          </div>
-                          <div className="font-sm text-truncate">
-                            {v.position}
-                          </div>
-                          <div className="font-sm">{v.address}</div>
-                        </Card.Body>
-                      </Card>
-                    );
-                  })}
+                  <div className="d-flex" style={{ overflowX: "scroll", gap: '8px' }}>
+                    {allData[w].map((v, idx) => {
+                      return (
+                        <Card
+                          key={idx}
+                          onClick={() => this.onHandleModalData(v)}
+                         
+                          style={{minWidth: '50%'}}
+                        >
+                          <img
+                            style={{
+                              height: "230px",
+                              objectFit: "cover",
+                            }}
+                            src={v.img}
+                            alt=""
+                          />
+                          <Card.Body className="font-md font-weight-bold text-truncate">
+                            <div className="font-md text-truncate font-weight-bold">
+                              {v.name}
+                            </div>
+                            <div className="font-sm text-truncate">
+                              {v.position}
+                            </div>
+                            <div className="font-sm">{v.address}</div>
+                          </Card.Body>
+                        </Card>
+                      );
+                    })}
+                  </div>
                 </div>
               );
             })}
