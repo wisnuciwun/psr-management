@@ -9,6 +9,7 @@ class BadgeNotification extends Component {
       delay = 3000,
       text = "",
       variant = "danger",
+      position = "bottom",
       close = false,
     }) => {
       let after = (
@@ -19,12 +20,22 @@ class BadgeNotification extends Component {
                 <Alert
                   hidden={true}
                   className="position-fixed d-flex justify-content-between align-items-center"
-                  style={{
-                    width: "92%",
-                    bottom: 0,
-                    maxWidth: "470px",
-                    zIndex: "9999999",
-                  }}
+                  style={
+                    position == "bottom"
+                      ? {
+                          width: "92%",
+                          bottom: 0,
+                          maxWidth: "470px",
+                          zIndex: "9999999",
+                        }
+                      : {
+                          width: "92%",
+                          top: 0,
+                          marginTop: "50px",
+                          maxWidth: "470px",
+                          zIndex: "9999999",
+                        }
+                  }
                   variant={variant}
                 >
                   {text}

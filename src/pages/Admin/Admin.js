@@ -17,14 +17,15 @@ import {
 import { getCookie } from "tiny-cookie";
 import request from "utils/request";
 import "bootstrap/dist/css/bootstrap.min.css";
-import '../../pages/styles.css'
+import "../../pages/styles.css";
 import { ExcelRenderer } from "react-excel-renderer";
 import { Link, useLocation } from "react-router-dom";
 import Banner from "./Banner";
 import StrukOr from "./StrukOr";
 import Pengguna from "./Pengguna";
 import ListDataWarga from "./ListDataWarga";
-import '../../fontawesome/css/font-awesome.min.css'
+import "../../fontawesome/css/font-awesome.min.css";
+import { BadgeNotif } from "components/BadgeNotification";
 
 export class Admin extends Component {
   constructor(props) {
@@ -33,6 +34,7 @@ export class Admin extends Component {
     this.state = {
       readyToInsert: [],
       modalDetaiUser: false,
+      modalStrukturOr: false,
       fileCitizen: "",
       dataBanners: null,
       dataTempOrganization: {
@@ -124,14 +126,34 @@ export class Admin extends Component {
 
   onPostDataCitizen = (e) => {
     e.preventDefault();
-    e.stopPropagation();
 
     request
       .post("/backoffice/citizens", this.state.dataTempCitizen)
-      .then(() => {
-        setTimeout(() => {
-          this.onGetDataCitizens();
-        }, 500);
+      .then((res) => {
+        if(res.data.code == 201){
+          BadgeNotif.show({
+            text: 'Data berhasil ditambahkan!',
+            variant: 'success',
+            position: 'top'
+          })
+          this.setState({
+            dataTempCitizen: {
+              no_kk: null,
+              nama_kepala_keluarga: null,
+              alamat: null,
+              rt: null,
+              rw: null,
+              kodepos: null,
+              kelurahan: null,
+              kecamatan: null,
+              kota: null,
+              provinsi: null,
+            }
+          })
+          setTimeout(() => {
+            this.onGetDataCitizens();
+          }, 4000);
+        }
       });
   };
 
@@ -152,7 +174,6 @@ export class Admin extends Component {
 
   onPostDataBanners = async (e) => {
     e.preventDefault();
-    e.stopPropagation();
     let token = getCookie("token");
     const formData = new FormData();
 
@@ -168,35 +189,68 @@ export class Admin extends Component {
         "https://api-dev.barayaswarga.com/api/v1/backoffice/banners",
         formData
       )
-      .then(() => {
-        setTimeout(() => {
-          this.onGetDataBanners();
-          this.setState({
-            dataBanners: null,
+      .then((res) => {
+        if (res.data.code == 201) {
+          BadgeNotif.show({
+            position: "top",
+            text: "Berhasil upload gambar banner!",
+            variant: "warning",
           });
-        }, 500);
+
+          this.setState(
+            {
+              dataBanners: null,
+            },
+            () =>
+              setTimeout(() => {
+                this.onGetDataBanners();
+              }, 4000)
+          );
+        }
+      })
+      .catch((err) => {
+        BadgeNotif.show({
+          position: "top",
+          text: err.response.data.docs[0].message,
+          variant: "warning",
+        });
       });
   };
 
   onDeleteDataBanners = async (value) => {
-    await request.delete("/backoffice/banners", { uuid: value }).then(() => {
-      setTimeout(() => {
-        this.onGetDataBanners();
-      }, 500);
+    await request.delete("/backoffice/banners", { uuid: value }).then((res) => {
+      if (res.data.code == 200) {
+        BadgeNotif.show({
+          text: "Gambar banner berhasil dihapus",
+          position: "top",
+          variant: "success",
+        });
+        setTimeout(() => {
+          this.onGetDataBanners();
+        }, 4000);
+      }
     });
   };
 
   onDeleteDataOrganization = async (value) => {
     await request
       .delete("/backoffice/organizations", { uuid: value })
-      .then(() => {
-        setTimeout(() => {
-          this.onGetDataStructure();
-        }, 500);
+      .then((res) => {
+        if (res.data.code == 200) {
+          BadgeNotif.show({
+            position: "top",
+            variant: "success",
+            text: "Data berhasil dihapus",
+          });
+
+          setTimeout(() => {
+            this.onGetDataStructure();
+          }, 4000);
+        }
       });
   };
 
-  onDeleteDataCitizen = async (value) => { };
+  onDeleteDataCitizen = async (value) => {};
 
   onHandleChangeCitizenData = (e) => {
     this.setState({
@@ -234,7 +288,7 @@ export class Admin extends Component {
           "provinsi",
           "kota",
         ];
-        let values = ["", "", "", "", "", "", "", "", "", ""];
+        let values = ["", "", "", "03", "03", "40379", "Wargaluyu", "Arjasari", "Jawa Barat", "Bandung"];
 
         let fileObj = this.state.fileCitizen;
 
@@ -252,7 +306,7 @@ export class Admin extends Component {
                   let jsonEntries = new Map();
                   jsonEntries.set(names, values);
                   let temp = Object.assign(
-                    ...names.map((k, i) => ({ [k]: values[i] }))
+                    ...names.map((k, i) => ({ [k]: values[i]}))
                   );
 
                   this.setState((state) => {
@@ -283,37 +337,37 @@ export class Admin extends Component {
 
   onPostDataStructure = async (e) => {
     e.preventDefault();
-    e.stopPropagation();
     const formData = new FormData();
     let token = getCookie("token");
 
     formData.append(
-      "img",
+      "image",
       this.state.dataTempOrganization.img,
       this.state.dataTempOrganization.img.name
     );
+
+    Object.keys(this.state.dataTempOrganization).map((v) => {
+      if (v != "img") {
+        formData.append(v, this.state.dataTempOrganization[v]);
+      }
+    });
 
     axios.defaults.headers.Authorization = `Bearer ${token}`;
     await axios
       .post(
         "https://api-dev.barayaswarga.com/api/v1/backoffice/organizations",
-        this.state.dataTempOrganization
+        formData
       )
-      .then(() => {
-        setTimeout(() => {
-          this.onGetDataBanners();
-          this.setState({
-            dataBanners: null,
+      .then((res) => {
+        if (res.data.code == 201) {
+          BadgeNotif.show({
+            position: "top",
+            variant: "success",
+            text: "Data berhasil ditambah",
           });
-        }, 500);
-      });
 
-    request
-      .post("/backoffice/organizations", this.state.dataTempOrganization)
-      .then(() => {
-        setTimeout(() => {
-          this.onGetDataCitizens();
           this.setState({
+            modalStrukturOr: false,
             dataTempOrganization: {
               name: "",
               nickname: "",
@@ -326,35 +380,30 @@ export class Admin extends Component {
               order: 0,
             },
           });
-        }, 500);
-      });
-  };
 
-  // address: "B3 04";
-  // appellation: null;
-  // blok: "B3";
-  // blood_type: null;
-  // createdAt: "2023-02-23T05:43:31.000Z";
-  // email: "darmajati.rangga@gmail.com";
-  // family_card_number: "7378884777166";
-  // full_name: "Test warga 2";
-  // height: null;
-  // home_number: "04";
-  // id: 6;
-  // identity_number: "3209487727001";
-  // image: null;
-  // image_url: null;
-  // is_active: true;
-  // mother_name: null;
-  // nickname: null;
-  // phone: "628537376611";
-  // religion: null;
-  // tos: true;
-  // type: "contract";
-  // updatedAt: "2023-02-24T08:02:28.000Z";
-  // uuid: "e72cb7b5-17c1-4e5a-bf3b-6991ec5b9e04";
-  // verified: true;
-  // weight: null;
+          setTimeout(() => {
+            this.onGetDataStructure();
+          }, 4000);
+        }
+      });
+
+    setTimeout(() => {
+      this.onGetDataCitizens();
+      this.setState({
+        dataTempOrganization: {
+          name: "",
+          nickname: "",
+          address: "",
+          position: "",
+          img: "",
+          email: "",
+          phone: "",
+          group: "",
+          order: 0,
+        },
+      });
+    }, 4000);
+  };
 
   componentDidMount() {
     this.onGetDataBanners();
@@ -375,81 +424,92 @@ export class Admin extends Component {
     } = this.state;
 
     return (
-      <div style={{ padding: '15px', width: '100%' }}>
-      <div>
-        {(() => { 
-            switch (window.location.href.split('/')[4]) {
-              case 'banner':
+      <div style={{ padding: "15px", width: "100%" }}>
+        <div>
+          {(() => {
+            switch (window.location.href.split("/")[4]) {
+              case "banner":
                 return (
-                  <Banner dataImageBanners={this.state.dataImageBanners}
-                  onDeleteDataBanners={this.onDeleteDataBanners}
-                  onChangeDataBanners={this.onChangeDataBanners}
-                  onPostDataBanners={this.onPostDataBanners}
+                  <Banner
+                    dataImageBanners={this.state.dataImageBanners}
+                    onDeleteDataBanners={this.onDeleteDataBanners}
+                    onChangeDataBanners={this.onChangeDataBanners}
+                    onPostDataBanners={this.onPostDataBanners}
+                    file={this.state.dataBanners}
                   />
                 );
-              
-              case 'struktur-organisasi':
+
+              case "struktur-organisasi":
                 return (
                   <StrukOr
-                  dataOrganization={this.state.dataOrganization}
-                  onDeleteDataOrganization={this.onDeleteDataOrganization}
-                  onPostDataStructure={this.onPostDataStructure} 
-                  dataTempOrganization={dataTempOrganization}
-                  onChangeUploadImgOrganization={this.onChangeUploadImgOrganization}
-                  onHandleChangeOrganizationData={this.onHandleChangeOrganizationData}
+                    openModal={this.state.modalStrukturOr}
+                    toggleModal={() => {
+                      this.setState({
+                        modalStrukturOr: !this.state.modalStrukturOr,
+                      });
+                    }}
+                    dataOrganization={this.state.dataOrganization}
+                    onDeleteDataOrganization={this.onDeleteDataOrganization}
+                    onPostDataStructure={this.onPostDataStructure}
+                    dataTempOrganization={dataTempOrganization}
+                    onChangeUploadImgOrganization={
+                      this.onChangeUploadImgOrganization
+                    }
+                    onHandleChangeOrganizationData={
+                      this.onHandleChangeOrganizationData
+                    }
                   />
                 );
 
-              case 'pengguna' :
+              case "pengguna":
                 return (
                   <Pengguna
-                  dataUsers={this.state.dataUsers}
-                  onGetDetailUser={this.onGetDetailUser}
-                  onDeleteDataOrganization={this.onDeleteDataOrganization}
+                    dataUsers={this.state.dataUsers}
+                    onGetDetailUser={this.onGetDetailUser}
+                    onDeleteDataOrganization={this.onDeleteDataOrganization}
                   />
                 );
 
-              case 'list-data-warga' :
+              case "list-data-warga":
                 return (
                   <ListDataWarga
-                  dataCitizens={this.state.dataCitizens}
-                  procFileHandler={this.procFileHandler}
-                  onPostDataBulkCitizen={this.onPostDataBulkCitizen}
-                  onPostDataCitizen={this.onPostDataCitizen}
-                  dataTempCitizen={this.state.dataTempCitizen}
-                  onHandleChangeCitizenData={this.onHandleChangeCitizenData}
+                    dataCitizens={this.state.dataCitizens}
+                    procFileHandler={this.procFileHandler}
+                    onPostDataBulkCitizen={this.onPostDataBulkCitizen}
+                    onPostDataCitizen={this.onPostDataCitizen}
+                    dataTempCitizen={this.state.dataTempCitizen}
+                    onHandleChangeCitizenData={this.onHandleChangeCitizenData}
                   />
-                )
-            
+                );
+
               default:
                 break;
             }
-           
-        })()}
-       
-        <Modal
-          show={modalDetaiUser}
-          onHide={() =>
-            this.setState({
-              modalDetaiUser: false,
-            })
-          }
-        >
-          <ModalBody>
-            <Row>
-              <Col>
-                {Object.keys(detailUser).map((x) => {
-                  return <div>{x}</div>;
-                })}
-              </Col>
-              <Col>
-                {Object.values(detailUser).map((x) => {
-                  return <div>{`${x}` || ""}</div>;
-                })}
-              </Col>
-            </Row>
-          </ModalBody>
-        </Modal>
+          })()}
+
+          <Modal
+            show={modalDetaiUser}
+            onHide={() =>
+              this.setState({
+                modalDetaiUser: false,
+              })
+            }
+          >
+            <ModalBody>
+              <Row>
+                <Col>
+                  {Object.keys(detailUser).map((x) => {
+                    return <div>{x}</div>;
+                  })}
+                </Col>
+                <Col>
+                  {Object.values(detailUser).map((x) => {
+                    return <div>{`${x}` || ""}</div>;
+                  })}
+                </Col>
+              </Row>
+            </ModalBody>
+          </Modal>
         </div>
       </div>
     );

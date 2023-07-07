@@ -35,13 +35,14 @@ const Pengguna = ({
               <th style={{ width: "100px" }}>Nomor HP</th>
               <th style={{ minWidth: "200px" }}>Nomor KK</th>
               <th>Tinggi</th>
-              <th>Nomor Rumah</th>
+              {/* <th>Nomor Rumah</th> */}
               <th style={{ minWidth: "200px" }}>Nomor KTP</th>
               <th style={{ minWidth: "200px" }}>Foto</th>
               <th style={{ minWidth: "200px" }}>Url Foto</th>
               <th>Aktif</th>
               <th style={{ minWidth: "200px" }}>Nama Ibu</th>
               <th style={{ minWidth: "200px" }}>Nama Panggilan</th>
+              <th>Agama</th>
               <th>TOS</th>
               <th>Jenis Tempat Tinggal</th>
               <th>Verified</th>
@@ -76,7 +77,7 @@ const Pengguna = ({
                     <td>{x.verified}</td>
                     <td>
                       <i
-                        onClick={() => onDeleteDataOrganization(x.uuid)}
+                        onClick={() => null}
                         className="fa fa-trash text-dark pointer"
                       ></i>
                     </td>

@@ -1,3 +1,4 @@
+import { BadgeNotif } from "components/BadgeNotification";
 import React from "react";
 import {
   Button,
@@ -12,6 +13,7 @@ const Banner = ({
   onDeleteDataBanners = null,
   onPostDataBanners = null,
   onChangeDataBanners = null,
+  file = null,
 }) => {
   return (
     <Card style={{ borderRadius: "8px", padding: "10px", width: "100%" }}>
@@ -19,7 +21,7 @@ const Banner = ({
         <p className="font-xl">List Gambar Banner</p>
         <div
           className="d-flex"
-          // style={{ gap: "8px", overflowX: "scroll" }}
+          style={{ gap: "8px", overflowX: "scroll" }}
         >
           {dataImageBanners.length != 0 &&
             dataImageBanners.map((x) => {
@@ -52,9 +54,8 @@ const Banner = ({
       </div>
       <div>
         <FormGroup
-          onSubmit={onPostDataBanners}
           controlId="formFile"
-          className="mb-3"
+          className="mb-3 mt-3"
           style={{ width: "50%" }}
         >
           <FormLabel>Upload Foto Banner</FormLabel>
@@ -67,9 +68,17 @@ const Banner = ({
               onChange={onChangeDataBanners}
             />
             <Button
-              type="submit"
+              type="button"
+              onClick={(e) => {
+                file != null
+                  ? onPostDataBanners(e)
+                  : BadgeNotif.show({
+                      position: "top",
+                      text: "Input gambar terlebih dahulu",
+                      variant: "warning",
+                    });
+              }}
               className="btn-yellow-admin"
-              onClick={onPostDataBanners}
             >
               Upload
             </Button>

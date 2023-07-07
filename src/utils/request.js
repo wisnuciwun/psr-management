@@ -1,6 +1,9 @@
 import axios from "axios";
 import { BadgeNotif } from "components/BadgeNotification";
-import { getCookie } from "tiny-cookie";
+import { store } from "config/redux/persistConfig";
+import { getLoginData } from "config/redux/rootAction";
+import { useNavigate } from "react-router";
+import { getCookie, removeCookie } from "tiny-cookie";
 // import config from "@config";
 // import { store } from "@config/store";
 // import { logoutRequest } from 'actions/app';
@@ -26,6 +29,11 @@ const responseHandler = (response) => {
 };
 
 const errorHandler = (error) => {
+  if (error.response.data.code === 401) {
+    store.dispatch(getLoginData({}))
+    removeCookie("token");
+    window.location.replace('/')
+  }
   return error;
 };
 

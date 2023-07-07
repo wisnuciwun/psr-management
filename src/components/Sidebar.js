@@ -8,9 +8,9 @@ const Sidebar = () => {
     <div style={{ paddingRight: "15px", width: "250px" }}>
       <div style={{ width: "250px" }} className="bg-secondary-yellow left">
         <div className="text-center mt-4 mb-4">
-          <i class="fa fa-wrench fa-5x" style={{color: 'white'}}></i>
-          <br />
-          <div style={{color: 'white'}} className="font-md">Admin Control Panel</div>
+          <i class="fa fa-wrench fa-5x" ></i>
+          {/* <br /> */}
+          {/* <div style={{color: 'white'}} className="font-md">Admin Control Panel</div> */}
         </div>
         <div
           style={{ backgroundColor: menu.includes("banner") ? "#fec439" : "" }}
