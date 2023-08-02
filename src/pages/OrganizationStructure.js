@@ -58,30 +58,30 @@ export class OrganizationStructure extends Component {
             inovasi-inovasi baru nantinya dapat berguna bagi masyarakat.
           </p>
           <p>
-            Misi
+            Misi :
             <br />
             <ol style={{ marginLeft: "-25px" }}>
-              <li>
+              <li style={{margin: '0', padding: '0.2em'}}>
                 Membangun kepengurusan yang profesional dan kekeluargaan,
                 merangkul semua warga.
               </li>
-              <li>
+              <li style={{margin: '0', padding: '0.2em'}}>
                 Memberi fasilitas dan pengembangan minat dan bakat sesuai
                 kebutuhan dan keinginan warga.
               </li>
-              <li>
+              <li style={{margin: '0', padding: '0.2em'}}>
                 Menguatkan media aspirasi dan membangun kerja sama yang
                 strategis.
               </li>
-              <li>
+              <li style={{margin: '0', padding: '0.2em'}}>
                 Memberikan informasi penting melalui media informasi dan
                 digitalisasi.
               </li>
-              <li>
+              <li style={{margin: '0', padding: '0.2em'}}>
                 Mengadakan kegiatan sosial bersama yang bermanfaat, turun
                 langsung menjaga kebersihan lingkungan.
               </li>
-              <li>
+              <li style={{margin: '0', padding: '0.2em'}}>
                 Menyusun program kerja sesuai dengan bidang-bidang yang ada
                 dalam kepengurusan sebagai salah satu penunjang kesejahteraan
                 warga.
@@ -93,18 +93,18 @@ export class OrganizationStructure extends Component {
           {allNames.length != 0 &&
             allNames.map((w, id) => {
               return (
-                <div
-                  className="mb-1 mt-3"
-                >
+                <div className="mb-1 mt-3">
                   <h5 className="mt-2 text-center w-100">{w}</h5>
-                  <div className="d-flex" style={{ overflowX: "scroll", gap: '8px' }}>
+                  <div
+                    className="d-flex"
+                    style={{ overflowX: "scroll", gap: "8px" }}
+                  >
                     {allData[w].map((v, idx) => {
                       return (
                         <Card
                           key={idx}
                           onClick={() => this.onHandleModalData(v)}
-                         
-                          style={{minWidth: '50%'}}
+                          style={{ minWidth: "50%" }}
                         >
                           <img
                             style={{
@@ -167,58 +167,62 @@ export class OrganizationStructure extends Component {
             Unduh Tata Tertib
           </a>
         </div> */}
-        <Modal onHide={this.onHandleModalBio} centered show={toggleModalBio}>
-          <ModalHeader closeButton>Biodata lengkap</ModalHeader>
-          <ModalBody className="p-3">
-            <div className="d-flex justify-content-center">
-              <img
-                src={selectedData.img}
-                style={{
-                  height: "300px",
-                  width: "100%",
-                  objectFit: "cover",
-                  borderRadius: "10px",
-                }}
-                alt=""
-              />
-            </div>
-            <br />
-            <div className="font-md">Nama Lengkap</div>
-            <div className="font-md font-weight-bold text-primary">
-              {selectedData.name}
-            </div>
-            <div className="font-md">Nama Panggilan</div>
-            <div className="font-md font-weight-bold text-primary">
-              {selectedData.nickName}
-            </div>
-            <div className="font-md">Nomor HP</div>
-            <div className="font-md text-success font-weight-bold">
-              {selectedData.phone}
-              &nbsp;&nbsp;
-              <CopyToClipboard
-                onCopy={() => {
-                  BadgeNotif.show({
-                    text: "Nomor berhasil dicopy !",
-                    variant: "success",
-                  });
-                }}
-                text={selectedData.phone}
-              >
-                <i className="fa fa-clone fa-sm text-dark"></i>
-              </CopyToClipboard>
-            </div>
-            <div className="font-md">Jabatan</div>
-            <div className="font-md font-weight-bold">
-              {selectedData.position}
-            </div>
-            <div className="font-md">Email</div>
-            <div className="font-md font-weight-bold">{selectedData.email}</div>
-            <div className="font-md">Alamat Rumah</div>
-            <div className="font-md font-weight-bold">
-              {selectedData.address}
-            </div>
-          </ModalBody>
-        </Modal>
+        <div className="d-flex justify-content-center">
+          <Modal backdropClassName="custom-backdrop" onHide={this.onHandleModalBio} centered show={toggleModalBio}>
+            <ModalHeader className="font-lg font-weight-bold" closeButton>Biodata lengkap</ModalHeader>
+            <ModalBody className="p-3">
+              <div className="d-flex justify-content-center">
+                <img
+                  src={selectedData.img}
+                  style={{
+                    height: "300px",
+                    width: "100%",
+                    objectFit: "cover",
+                    borderRadius: "10px",
+                  }}
+                  alt=""
+                />
+              </div>
+              <br />
+              <div className="font-md">Nama Lengkap</div>
+              <div className="font-md font-weight-bold">
+                {selectedData.name}
+              </div>
+              <div className="font-md">Nama Panggilan</div>
+              <div className="font-md font-weight-bold">
+                {selectedData.nickName}
+              </div>
+              <div className="font-md">Nomor HP</div>
+              <div className="font-md text-primary font-weight-bold">
+                {selectedData.phone}
+                &nbsp;&nbsp;
+                <CopyToClipboard
+                  onCopy={() => {
+                    BadgeNotif.show({
+                      text: "Nomor berhasil dicopy !",
+                      variant: "success",
+                    });
+                  }}
+                  text={selectedData.phone}
+                >
+                  <i className="fa fa-clone fa-sm text-dark"></i>
+                </CopyToClipboard>
+              </div>
+              <div className="font-md">Jabatan</div>
+              <div className="font-md font-weight-bold">
+                {selectedData.position}
+              </div>
+              <div className="font-md">Email</div>
+              <div className="font-md font-weight-bold">
+                {selectedData.email}
+              </div>
+              <div className="font-md">Alamat Rumah</div>
+              <div className="font-md font-weight-bold">
+                {selectedData.address}
+              </div>
+            </ModalBody>
+          </Modal>
+        </div>
       </div>
     );
   }

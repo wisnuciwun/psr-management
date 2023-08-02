@@ -87,7 +87,7 @@ export class Contacts extends Component {
           <iframe
             style={{ width: "100%", height: "450px", border: 0 }}
             src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15839.155490446004!2d107.609882!3d-7.0340834!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x9d8b41110835f69b!2sPrima%20Swarga%20Residence!5e0!3m2!1sen!2sid!4v1674440275828!5m2!1sen!2sid"
-            allowfullscreen=""
+            allowfullscreen="false"
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
           ></iframe>

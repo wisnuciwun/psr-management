@@ -10,6 +10,7 @@ import {
 import Select from "react-select";
 import moment from "moment";
 import DatePicker from "react-datepicker";
+import { education, marriage, relationship } from "constants/tempDataPersonal";
 
 function PopUpFamily({
   onChange,
@@ -24,13 +25,6 @@ function PopUpFamily({
   dataProfile,
   kk,
 }) {
-  const CustomInput = forwardRef(({ value, onClick }, ref) => (
-    <FormControl
-      value={moment(value).format("DD-MM-YYYY")}
-      ref={ref}
-      onClick={onClick}
-    />
-  ));
   return (
     <div>
       <ModalBody>
@@ -62,8 +56,13 @@ function PopUpFamily({
               name="identity_number"
               value={data?.identity_number}
               onChange={(e) => {
-                if (parseInt(e.target.value).toString() != 'NaN' || e.target.value == '') {
-                  onChange(e)
+                if (
+                  parseInt(
+                    e.target.value[e.target.value.length - 1]
+                  ).toString() != "NaN" ||
+                  e.target.value == ""
+                ) {
+                  onChange(e);
                 }
               }}
               required={false}
@@ -114,16 +113,24 @@ function PopUpFamily({
           <FormGroup className="mb-2 position-relative">
             <FormLabel className="mb-1">Tanggal Lahir</FormLabel>
             <DatePicker
-              customInput={<CustomInput />}
-              value={data?.date_of_birth}
-              onChange={(e) =>
-                onChange({
-                  target: {
-                    name: "date_of_birth",
-                    value: moment(e).format("YYYY-MM-DD"),
-                  },
-                })
+              showYearDropdown
+              showMonthDropdown
+              className="form-control"
+              selected={
+                data.date_of_birth != ""
+                  ? new Date(moment(data.date_of_birth).format("YYYY-MM-DD"))
+                  : new Date()
               }
+              onChange={(e) => {
+                if (e != null) {
+                  onChange({
+                    target: {
+                      name: "date_of_birth",
+                      value: moment(e).format("YYYY-MM-DD"),
+                    },
+                  });
+                }
+              }}
             />
             <FormControl.Feedback type="invalid">
               Isi data terlebih dahulu
@@ -159,12 +166,13 @@ function PopUpFamily({
           </FormGroup>
           <FormGroup className="mb-2 position-relative">
             <FormLabel className="mb-1">Pendidikan</FormLabel>
-            <FormControl
-              type="text"
-              name="education"
-              value={data?.education}
-              onChange={onChange}
-              required={false}
+            <Select
+              onChange={(v) =>
+                onChange({ target: { name: "education", value: v.value } })
+              }
+              value={{ value: data.education, label: data.education }}
+              options={education}
+              placeholder="Pilih salah satu"
             />
             <FormControl.Feedback type="invalid">
               Isi data terlebih dahulu
@@ -199,13 +207,21 @@ function PopUpFamily({
           </FormGroup>
           <FormGroup className="mb-2 position-relative">
             <FormLabel className="mb-1">Status Perkawinan</FormLabel>
-            <FormControl
+            <Select
+              onChange={(v) =>
+                onChange({ target: { name: "marital_status", value: v.value } })
+              }
+              value={{ label: data.marital_status, value: data.marital_status }}
+              options={marriage}
+              placeholder="Pilih salah satu"
+            />
+            {/* <FormControl
               type="text"
               name="marital_status"
               value={data?.marital_status}
               onChange={onChange}
               required={false}
-            />
+            /> */}
             <FormControl.Feedback type="invalid">
               Isi data terlebih dahulu
             </FormControl.Feedback>
@@ -213,16 +229,26 @@ function PopUpFamily({
           <FormGroup className="mb-2 position-relative">
             <FormLabel className="mb-1">Tanggal Perkawinan</FormLabel>
             <DatePicker
-              customInput={<CustomInput />}
-              value={data?.marital_status_date}
-              onChange={(e) =>
-                onChange({
-                  target: {
-                    name: "marital_status_date",
-                    value: moment(e).format("YYYY-MM-DD"),
-                  },
-                })
+              showYearDropdown
+              showMonthDropdown
+              className="form-control"
+              selected={
+                data.marital_status_date != ""
+                  ? new Date(
+                      moment(data.marital_status_date).format("YYYY-MM-DD")
+                    )
+                  : new Date()
               }
+              onChange={(e) => {
+                if (e != null) {
+                  onChange({
+                    target: {
+                      name: "marital_status_date",
+                      value: moment(e).format("YYYY-MM-DD"),
+                    },
+                  });
+                }
+              }}
             />
             <FormControl.Feedback type="invalid">
               Isi data terlebih dahulu
@@ -232,13 +258,21 @@ function PopUpFamily({
             <FormLabel className="mb-1">
               Status Hubungan Dalam Keluarga
             </FormLabel>
-            <FormControl
+            <Select
+              onChange={(v) =>
+                onChange({ target: { name: "relationship", value: v.value } })
+              }
+              value={{ label: data.relationship, value: data.relationship }}
+              options={relationship}
+              placeholder="Pilih salah satu"
+            />
+            {/* <FormControl
               type="text"
               name="relationship"
               value={data?.relationship}
               onChange={onChange}
               required={false}
-            />
+            /> */}
             <FormControl.Feedback type="invalid">
               Isi data terlebih dahulu
             </FormControl.Feedback>

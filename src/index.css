@@ -136,8 +136,8 @@ code {
   position: absolute;
   right: 0;
   top: 0;
-  margin-top: 38px;
-  margin-right: 13px;
+  margin-top: 42px;
+  margin-right: 10px;
 }
 
 .pointer {
@@ -262,4 +262,22 @@ code {
   height: fit-content !important;
   font-size: 14px !important;
   height: 40px !important;
+}
+
+.custom-backdrop{
+  background-color: black !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.form-control{
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  height: 36px;
+  width: 100%;
+  border-radius: 4px;
+}
+
+.form-control:focus {
+  border-color: #fec439 !important;
+  box-shadow: 0 0 5px #fec439 !important;
 }

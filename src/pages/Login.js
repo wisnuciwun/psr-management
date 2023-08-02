@@ -101,20 +101,37 @@ class Login extends Component {
               </FormGroup>
               <FormGroup className="position-relative mt-4">
                 <FormLabel className="mb-1">Password</FormLabel>
-                <FormControl
-                  className="input-no-decoration"
-                  type={hidePassword ? "password" : "text"}
-                  onChange={this.onHandleChangeUser}
-                  name="password"
-                  value={loginPayload.password}
-                  isInvalid={
-                    ValidatorBoolean({
-                      value: loginPayload.password,
-                      rule: "type:string",
-                    }) && validated
-                  }
-                  required
-                />
+                <div>
+                  <FormControl
+                    className="input-no-decoration"
+                    type={hidePassword ? "password" : "text"}
+                    onChange={this.onHandleChangeUser}
+                    name="password"
+                    value={loginPayload.password}
+                    isInvalid={
+                      ValidatorBoolean({
+                        value: loginPayload.password,
+                        rule: "type:string",
+                      }) && validated
+                    }
+                    required
+                  />
+                  <div style={{position: 'absolute', right: '10px', bottom:'10px'}}>
+                    {hidePassword ? (
+                      <i
+                        
+                        className="fa fa-eye fa-lg"
+                        onClick={() => this.setState({ hidePassword: false })}
+                      ></i>
+                    ) : (
+                      <i
+                        
+                        className="fa fa-eye-slash fa-lg"
+                        onClick={() => this.setState({ hidePassword: true })}
+                      ></i>
+                    )}
+                  </div>
+                </div>
                 <FormControl.Feedback type="invalid">
                   Silahkan input password anda terlebih dahulu
                 </FormControl.Feedback>

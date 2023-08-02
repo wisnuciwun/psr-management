@@ -1,3 +1,4 @@
+import { emergencyContact } from "constants/tempDataPersonal";
 import React from "react";
 import {
   Button,
@@ -7,6 +8,7 @@ import {
   FormLabel,
   ModalBody,
 } from "react-bootstrap";
+import Select from "react-select";
 
 function PopUpEmergency({ onChange, onHide, onSubmit, validate, data }) {
   return (
@@ -48,10 +50,20 @@ function PopUpEmergency({ onChange, onHide, onSubmit, validate, data }) {
               Nomor Telepon <span className="important">*</span>
             </FormLabel>
             <FormControl
+              maxLength={13}
               type="text"
               name="phone"
               value={data?.phone}
-              onChange={onChange}
+              onChange={(e) => {
+                if (
+                  parseInt(
+                    e.target.value[e.target.value.length - 1]
+                  ).toString() != "NaN" ||
+                  e.target.value == ""
+                ) {
+                  onChange(e);
+                }
+              }}
               required
             />
             <FormControl.Feedback type="invalid">
@@ -62,13 +74,21 @@ function PopUpEmergency({ onChange, onHide, onSubmit, validate, data }) {
             <FormLabel className="mb-1">
               Hubungan Keluarga <span className="important">*</span>
             </FormLabel>
-            <FormControl
+            <Select
+              onChange={(v) =>
+                onChange({ target: { name: "relationship", value: v.value } })
+              }
+              value={{ value: data.relationship, label: data.relationship }}
+              options={emergencyContact}
+              placeholder="Pilih salah satu"
+            />
+            {/* <FormControl
               type="text"
               name="relationship"
               value={data?.relationship}
               onChange={onChange}
               required
-            />
+            /> */}
             <FormControl.Feedback type="invalid">
               Isi data terlebih dahulu
             </FormControl.Feedback>

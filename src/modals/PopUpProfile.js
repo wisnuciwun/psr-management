@@ -39,7 +39,15 @@ function PopUpProfile({
               backgroundColor: "gray",
             }}
           >
-            <img src={data.image_url} style={{ width: '72px', height: '72px', objectFit: 'cover', borderRadius: '8px' }} />
+            <img
+              src={data.image_url}
+              style={{
+                width: "72px",
+                height: "72px",
+                objectFit: "cover",
+                borderRadius: "8px",
+              }}
+            />
           </div>
           <FormControl
             ref={refs}
@@ -49,7 +57,7 @@ function PopUpProfile({
             className="h-100"
             onChange={uploadPhoto}
           />
-          <div className="font-sm" style={{ color: 'gray' }}>
+          <div className="font-sm" style={{ color: "gray" }}>
             <span>Format .JPG .JPEG .PNG</span>
             <br />
             <span>File Size Max. 5 MB</span>
@@ -67,10 +75,10 @@ function PopUpProfile({
             <Form.Check
               name="appellation"
               onClick={onChange}
-              value="Bapak"
+              value="Bpk"
               label="Bapak"
               type="radio"
-              checked={data?.appellation === "Bapak"}
+              checked={data?.appellation === "Bpk"}
             />
             <Form.Check
               name="appellation"
@@ -91,8 +99,13 @@ function PopUpProfile({
               name="family_card_number"
               value={data.family_card_number}
               onChange={(e) => {
-                if (parseInt(e.target.value).toString() != 'NaN' || e.target.value == '') {
-                  onChange(e)
+                if (
+                  parseInt(
+                    e.target.value[e.target.value.length - 1]
+                  ).toString() != "NaN" ||
+                  e.target.value == ""
+                ) {
+                  onChange(e);
                 }
               }}
               required
@@ -137,10 +150,20 @@ function PopUpProfile({
               <span className="important">*</span>
             </FormLabel>
             <FormControl
+              maxLength={13}
               type="number"
               name="phone"
               value={data.phone}
-              onChange={onChange}
+              onChange={(e) => {
+                if (
+                  parseInt(
+                    e.target.value[e.target.value.length - 1]
+                  ).toString() != "NaN" ||
+                  e.target.value == ""
+                ) {
+                  onChange(e);
+                }
+              }}
               required
             />
             <FormControl.Feedback type="invalid">
@@ -149,14 +172,47 @@ function PopUpProfile({
           </FormGroup>
           <FormGroup className="mb-2 position-relative">
             <FormLabel className="mb-1">
-              Alamat
+              Blok
               <span className="important">*</span>
             </FormLabel>
             <FormControl
               type="text"
-              name="address"
-              value={data.address}
-              onChange={onChange}
+              maxLength={2}
+              name="blok"
+              value={data.blok}
+              onChange={(e) => {
+                onChange({
+                  target: {
+                    value: e.target.value.toString().toUpperCase(),
+                    name: "blok",
+                  },
+                });
+              }}
+              required
+            />
+            <FormControl.Feedback type="invalid">
+              Isi data terlebih dahulu
+            </FormControl.Feedback>
+          </FormGroup>
+          <FormGroup className="mb-2 position-relative">
+            <FormLabel className="mb-1">
+              Nomor Rumah
+              <span className="important">*</span>
+            </FormLabel>
+            <FormControl
+              type="text"
+              name="home_number"
+              value={data.home_number}
+              onChange={(e) => {
+                if (
+                  parseInt(
+                    e.target.value[e.target.value.length - 1]
+                  ).toString() != "NaN" ||
+                  e.target.value == ""
+                ) {
+                  onChange(e);
+                }
+              }}
               required
             />
             <FormControl.Feedback type="invalid">
@@ -199,10 +255,20 @@ function PopUpProfile({
               Tinggi Badan <span className="important">*</span>
             </FormLabel>
             <FormControl
-              type="number"
+              type="text"
               name="height"
+              maxLength={3}
               value={data.height}
-              onChange={onChange}
+              onChange={(e) => {
+                if (
+                  parseInt(
+                    e.target.value[e.target.value.length - 1]
+                  ).toString() != "NaN" ||
+                  e.target.value == ""
+                ) {
+                  onChange(e);
+                }
+              }}
               required
             />
             <FormControl.Feedback type="invalid">
@@ -214,10 +280,20 @@ function PopUpProfile({
               Berat Badan <span className="important">*</span>
             </FormLabel>
             <FormControl
-              type="number"
+              type="text"
               name="weight"
+              maxLength={3}
               value={data.weight}
-              onChange={onChange}
+              onChange={(e) => {
+                if (
+                  parseInt(
+                    e.target.value[e.target.value.length - 1]
+                  ).toString() != "NaN" ||
+                  e.target.value == ""
+                ) {
+                  onChange(e);
+                }
+              }}
               required
             />
             <FormControl.Feedback type="invalid">

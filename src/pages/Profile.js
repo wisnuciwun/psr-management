@@ -180,7 +180,7 @@ class Profile extends Component {
     event.stopPropagation();
 
     request.post("/auth/addresses", this.state.editedData).then((res) => {
-      if (res.data.code === 200) {
+      if (res.data?.code === 200) {
         BadgeNotif.show({
           text: "Alamat berhasil diubah",
           variant: "success",
@@ -283,7 +283,7 @@ class Profile extends Component {
     event.stopPropagation();
 
     request.post("/auth/families", this.state.editedData).then((res) => {
-      if (res.data.code === 200) {
+      if (res.data?.code === 200) {
         BadgeNotif.show({
           text: "Data keluarga berhasil diubah",
           variant: "success",
@@ -332,23 +332,25 @@ class Profile extends Component {
     event.preventDefault();
     // event.stopPropagation();
 
-    request.post("/auth/emergency_contacts", this.state.editedData).then((res) => {
-      if (res.data.code === 200) {
-        BadgeNotif.show({
-          text: "Data kontak darurat berhasil diubah",
-          variant: "success",
-        });
+    request
+      .post("/auth/emergency_contacts", this.state.editedData)
+      .then((res) => {
+        if (res.data?.code === 200) {
+          BadgeNotif.show({
+            text: "Data kontak darurat berhasil diubah",
+            variant: "success",
+          });
 
-        this.setState({
-          modalOpen: false,
-        });
-        setTimeout(() => {
-          this.handleGetEmergency();
-        }, 100);
-      } else {
-        BadgeNotif.show({ delay: 5000, text: res.response.data.message });
-      }
-    });
+          this.setState({
+            modalOpen: false,
+          });
+          setTimeout(() => {
+            this.handleGetEmergency();
+          }, 100);
+        } else {
+          BadgeNotif.show({ delay: 5000, text: res.response.data.message });
+        }
+      });
   };
 
   handleDeleteDocument = (value) => {
@@ -415,7 +417,6 @@ class Profile extends Component {
   };
 
   onUploadPhoto = (val) => {
-    console.log('first', val.target.files[0])
     let formData = new FormData();
     formData.append("image", val.target.files[0], val.target.files[0].name);
     request
@@ -423,7 +424,14 @@ class Profile extends Component {
         "Content-Type": "multipart/form-data",
       })
       .then((res) => {
-        console.log("object", res);
+        if (res.data.code == 200) {
+          this.setState({
+            dataProfile: {
+              ...this.state.editedData,
+              image_url: URL.createObjectURL(val.target.files[0]),
+            },
+          });
+        }
       });
   };
 
@@ -638,7 +646,10 @@ class Profile extends Component {
             Logout
           </Button> */}
           <Link to={"/forgetpassword"}>
-            <Button className=" w-100 btn-primary-yellow" style={{ color: "white" }}>
+            <Button
+              className=" w-100 btn-primary-yellow"
+              style={{ color: "white" }}
+            >
               Reset Password
             </Button>
           </Link>
@@ -652,6 +663,7 @@ class Profile extends Component {
           </Link>
         </Container>
         <Modal
+          centered
           show={this.state.modalOpen}
           onHide={() => this.setState({ modalOpen: false })}
         >

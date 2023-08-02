@@ -130,12 +130,12 @@ export class Admin extends Component {
     request
       .post("/backoffice/citizens", this.state.dataTempCitizen)
       .then((res) => {
-        if(res.data.code == 201){
+        if (res.data.code == 201) {
           BadgeNotif.show({
-            text: 'Data berhasil ditambahkan!',
-            variant: 'success',
-            position: 'top'
-          })
+            text: "Data berhasil ditambahkan!",
+            variant: "success",
+            position: "top",
+          });
           this.setState({
             dataTempCitizen: {
               no_kk: null,
@@ -148,8 +148,8 @@ export class Admin extends Component {
               kecamatan: null,
               kota: null,
               provinsi: null,
-            }
-          })
+            },
+          });
           setTimeout(() => {
             this.onGetDataCitizens();
           }, 4000);
@@ -288,7 +288,18 @@ export class Admin extends Component {
           "provinsi",
           "kota",
         ];
-        let values = ["", "", "", "03", "03", "40379", "Wargaluyu", "Arjasari", "Jawa Barat", "Bandung"];
+        let values = [
+          "",
+          "",
+          "",
+          "03",
+          "03",
+          "40379",
+          "Wargaluyu",
+          "Arjasari",
+          "Jawa Barat",
+          "Bandung",
+        ];
 
         let fileObj = this.state.fileCitizen;
 
@@ -306,7 +317,7 @@ export class Admin extends Component {
                   let jsonEntries = new Map();
                   jsonEntries.set(names, values);
                   let temp = Object.assign(
-                    ...names.map((k, i) => ({ [k]: values[i]}))
+                    ...names.map((k, i) => ({ [k]: values[i] }))
                   );
 
                   this.setState((state) => {

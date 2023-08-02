@@ -60,7 +60,7 @@ function MenuProfile({ dataProfile, onOpenModal }) {
         <tr>
           <td>Email</td>
           <td>:</td>
-          <td>{dataProfile?.email}</td>
+          <td className="text-break">{dataProfile?.email}</td>
         </tr>
       </Table>
       <Button onClick={() => {

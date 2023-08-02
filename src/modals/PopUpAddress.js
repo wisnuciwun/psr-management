@@ -1,3 +1,4 @@
+import { listCity, listProvince } from "constants/tempDataPersonal";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -9,6 +10,7 @@ import {
   FormLabel,
   ModalBody,
 } from "react-bootstrap";
+import Select from "react-select";
 
 function PopUpAddress({
   onChange,
@@ -101,10 +103,19 @@ function PopUpAddress({
             <FormControl
               maxLength={5}
               max={5}
-              type="number"
+              type="text"
               name="postal_code"
               value={data?.postal_code}
-              onChange={onChange}
+              onChange={(e) => {
+                if (
+                  parseInt(
+                    e.target.value[e.target.value.length - 1]
+                  ).toString() != "NaN" ||
+                  e.target.value == ""
+                ) {
+                  onChange(e);
+                }
+              }}
               required
             />
             <FormControl.Feedback type="invalid">
@@ -115,13 +126,23 @@ function PopUpAddress({
             <FormLabel className="mb-1">
               Provinsi <span className="important">*</span>
             </FormLabel>
-            <FormControl
+            <Select
+              onChange={(v) =>
+                onChange({ target: { name: "province", value: v.value } })
+              }
+              value={{ label: data.province, value: data.province }}
+              options={listProvince.map((v) => {
+                return { label: v, value: v };
+              })}
+              placeholder="Pilih salah satu"
+            />
+            {/* <FormControl
               type="text"
               name="province"
               value={data.province}
               onChange={onChange}
               required
-            />
+            /> */}
             <FormControl.Feedback type="invalid">
               Isi data terlebih dahulu
             </FormControl.Feedback>
@@ -130,13 +151,23 @@ function PopUpAddress({
             <FormLabel className="mb-1">
               Kabupaten/Kota <span className="important">*</span>
             </FormLabel>
-            <FormControl
+            <Select
+              onChange={(v) =>
+                onChange({ target: { name: "county_town", value: v.value } })
+              }
+              value={{ label: data.county_town, value: data.county_town }}
+              options={listCity[data.province.replace(" ", "")].map((v) => {
+                return { label: v, value: v };
+              })}
+              placeholder="Pilih salah satu"
+            />
+            {/* <FormControl
               type="text"
               name="county_town"
               value={data.county_town}
               onChange={onChange}
               required
-            />
+            /> */}
             <FormControl.Feedback type="invalid">
               Isi data terlebih dahulu
             </FormControl.Feedback>
@@ -209,11 +240,19 @@ function PopUpAddress({
                 </FormLabel>
                 <FormControl
                   maxLength={5}
-                  max={5}
-                  type="number"
+                  type="text"
                   name="current_postal_code"
                   value={data?.current_postal_code}
-                  onChange={onChange}
+                  onChange={(e) => {
+                    if (
+                      parseInt(
+                        e.target.value[e.target.value.length - 1]
+                      ).toString() != "NaN" ||
+                      e.target.value == ""
+                    ) {
+                      onChange(e);
+                    }
+                  }}
                 />
                 <FormControl.Feedback type="invalid">
                   Isi data terlebih dahulu
@@ -223,12 +262,27 @@ function PopUpAddress({
                 <FormLabel className="mb-1">
                   Provinsi <span className="important">*</span>
                 </FormLabel>
-                <FormControl
+                <Select
+                  onChange={(v) =>
+                    onChange({
+                      target: { name: "current_province", value: v.value },
+                    })
+                  }
+                  value={{
+                    label: data.current_province,
+                    value: data.current_province,
+                  }}
+                  options={listProvince.map((v) => {
+                    return { label: v, value: v };
+                  })}
+                  placeholder="Pilih salah satu"
+                />
+                {/* <FormControl
                   type="text"
                   name="current_province"
                   value={data.current_province}
                   onChange={onChange}
-                />
+                /> */}
                 <FormControl.Feedback type="invalid">
                   Isi data terlebih dahulu
                 </FormControl.Feedback>
@@ -237,12 +291,30 @@ function PopUpAddress({
                 <FormLabel className="mb-1">
                   Kabupaten/Kota <span className="important">*</span>
                 </FormLabel>
-                <FormControl
+                <Select
+                  onChange={(v) =>
+                    onChange({
+                      target: { name: "current_county_town", value: v.value },
+                    })
+                  }
+                  value={{
+                    label: data.current_county_town,
+                    value: data.current_county_town,
+                  }}
+                  options={listCity[
+                    data.current_province.replace(" ", "") ||
+                      data.province.replace(" ", "")
+                  ].map((v) => {
+                    return { label: v, value: v };
+                  })}
+                  placeholder="Pilih salah satu"
+                />
+                {/* <FormControl
                   type="text"
                   name="current_county_town"
                   value={data.current_county_town}
                   onChange={onChange}
-                />
+                /> */}
                 <FormControl.Feedback type="invalid">
                   Isi data terlebih dahulu
                 </FormControl.Feedback>

@@ -30,6 +30,7 @@ function MenuDocument({ dataDocument, onOpenModal, onDelete }) {
                     borderSpacing: "10px",
                     borderCollapse: "separate",
                     paddingLeft: "0px",
+                    marginLeft: '-10px'
                   }}
                 >
                   <tr>

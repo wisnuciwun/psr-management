@@ -20,14 +20,6 @@ function PopUpDocument({ onChange, onHide, onSubmit, validate, data }) {
     });
   };
 
-  const CustomInput = forwardRef(({ value, onClick }, ref) => (
-    <FormControl
-      value={moment(value).format("DD-MM-YYYY")}
-      ref={ref}
-      onClick={onClick}
-    />
-  ));
-
   return (
     <div>
       <ModalBody>
@@ -61,16 +53,24 @@ function PopUpDocument({ onChange, onHide, onSubmit, validate, data }) {
           <FormGroup className="mb-2 position-relative">
             <FormLabel className="mb-1">Tanggal Terbit</FormLabel>
             <DatePicker
-              customInput={<CustomInput />}
-              value={data?.issued_date}
-              onChange={(e) =>
-                onChange({
-                  target: {
-                    name: "issued_date",
-                    value: moment(e).format("YYYY-MM-DD"),
-                  },
-                })
+              showYearDropdown
+              showMonthDropdown
+              selected={
+                data?.issued_date != ""
+                  ? new Date(moment(data?.issued_date).format("YYYY-MM-DD"))
+                  : new Date()
               }
+              className="form-control"
+              onChange={(e) => {
+                if (e != null) {
+                  onChange({
+                    target: {
+                      name: "issued_date",
+                      value: moment(e).format("YYYY-MM-DD"),
+                    },
+                  });
+                }
+              }}
             />
             <FormControl.Feedback type="invalid">
               Isi data terlebih dahulu
@@ -79,16 +79,24 @@ function PopUpDocument({ onChange, onHide, onSubmit, validate, data }) {
           <FormGroup className="mb-2 position-relative">
             <FormLabel className="mb-1">Masa Berlaku</FormLabel>
             <DatePicker
-              customInput={<CustomInput />}
-              value={data?.validity_period}
-              onChange={(e) =>
-                onChange({
-                  target: {
-                    name: "validity_period",
-                    value: moment(e).format("YYYY-MM-DD"),
-                  },
-                })
+              showYearDropdown
+              showMonthDropdown
+              selected={
+                data?.validity_period != ""
+                  ? new Date(moment(data?.validity_period).format("YYYY-MM-DD"))
+                  : new Date()
               }
+              className="form-control"
+              onChange={(e) => {
+                if (e != null) {
+                  onChange({
+                    target: {
+                      name: "validity_period",
+                      value: moment(e).format("YYYY-MM-DD"),
+                    },
+                  });
+                }
+              }}
             />
             <FormControl.Feedback type="invalid">
               Isi data terlebih dahulu

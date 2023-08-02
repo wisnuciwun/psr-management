@@ -17,7 +17,8 @@ export class Home extends Component {
           </video> */}
           <br />
           <NavLink href="/berita">
-            <h6>Berita</h6>
+            <h4>Berita</h4>
+            <br />
             {/* <Card className="p-0">
               <Card.Body>
                 <p>23 Mar 2023</p>
@@ -49,12 +50,13 @@ export class Home extends Component {
           <div>Belum ada berita yang dapat ditampilkan.</div>
           <br />
           <NavLink>
-            <h6>Struktur Organisasi</h6>
+            <h4>Struktur Organisasi</h4>
           </NavLink>
+          <br />
           <OrganizationStructure/>
           <br />
           <NavLink>
-            <h6 className="mb-3">Hubungi Kami</h6>
+            <h4 className="mb-3">Hubungi Kami</h4>
           </NavLink>
           <Contacts/>
         </div>
