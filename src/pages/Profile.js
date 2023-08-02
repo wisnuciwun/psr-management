@@ -222,6 +222,7 @@ class Profile extends Component {
         .put("/auth", {
           ...this.state.editedData,
           phone: parseInt(this.state.editedData.phone),
+          address: `${this.state.editedData.blok}-${this.state.editedData.home_number}`,
         })
         .then((res) => {
           if (res?.data?.code === 201 || res?.data?.code === 200) {

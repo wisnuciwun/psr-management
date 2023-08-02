@@ -28,6 +28,11 @@ function MenuProfile({ dataProfile, onOpenModal }) {
           <td>{dataProfile?.full_name}</td>
         </tr>
         <tr>
+          <td>Alamat</td>
+          <td>:</td>
+          <td>{dataProfile?.address}</td>
+        </tr>
+        <tr>
           <td>Agama</td>
           <td>:</td>
           <td>{dataProfile?.religion}</td>
