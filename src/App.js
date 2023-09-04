@@ -36,6 +36,8 @@ function App() {
 
   const shouldApplyAppFullClass = pathsToApplyAppFullClass.includes(location.pathname);
 
+  console.log("fff", process.env.REACT_APP_BASE_URL_API)
+
   return (
     <Fragment>
       <Suspense
@@ -54,10 +56,10 @@ function App() {
           </div>
         }
       >
-        <div className={`${shouldApplyAppFullClass ? 'app-full':'app'} position-relative`}>
-          <div className={`${shouldApplyAppFullClass ? 'full-screen': 'screen'}`}>
+        <div className={`${shouldApplyAppFullClass ? 'app-full' : 'app'} position-relative`}>
+          <div className={`${shouldApplyAppFullClass ? 'full-screen' : 'screen'}`}>
             <div>
-            { shouldApplyAppFullClass ?  <Sidebar/> : <HomeNavbar />}
+              {shouldApplyAppFullClass ? <Sidebar /> : <HomeNavbar />}
             </div>
             <Routes>
               {routes.map((route, idx) => {

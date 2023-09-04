@@ -9,7 +9,7 @@ import { getCookie, removeCookie } from "tiny-cookie";
 // import { logoutRequest } from 'actions/app';
 
 const request = axios.create({
-  baseURL: `${process.env.REACT_BASE_URL_API}/api/v1`,
+  baseURL: `${process.env.REACT_APP_BASE_URL_API}/api/v1`,
   timeout: 10000,
   headers: { "Content-Type": "application/json" },
 });
