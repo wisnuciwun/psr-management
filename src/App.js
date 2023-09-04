@@ -36,8 +36,6 @@ function App() {
 
   const shouldApplyAppFullClass = pathsToApplyAppFullClass.includes(location.pathname);
 
-  console.log("fff", process.env.REACT_APP_BASE_URL_API)
-
   return (
     <Fragment>
       <Suspense
