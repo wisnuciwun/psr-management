@@ -9,8 +9,7 @@ import { getCookie, removeCookie } from "tiny-cookie";
 // import { logoutRequest } from 'actions/app';
 
 const request = axios.create({
-  baseURL: "https://2c59-202-46-68-193.ngrok.io/api/v1",
-  //https://api-dev.barayaswarga.com/api/v1
+  baseURL: `${process.env.REACT_BASE_URL_API}/api/v1`,
   timeout: 10000,
   headers: { "Content-Type": "application/json" },
 });
