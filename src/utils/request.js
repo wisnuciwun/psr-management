@@ -12,13 +12,11 @@ const API_URL = 'https://barayapi.router.my.id'
 
 const request = axios.create({
   baseURL: `${API_URL}/api/v1`,
-  // withCredentials: false,
   timeout: 10000,
   headers: {
     "Content-Type": "application/json", 'Access-Control-Allow-Origin': '*',
     // 'Access-Control-Allow-Headers': '*',
     // 'Access-Control-Allow-Credentials': 'true',
-    "Content-Security-Policy": "default-src 'self'; connect-src http://id-30.hostddns.us"
   },
 });
 
