@@ -186,7 +186,7 @@ export class Admin extends Component {
     axios.defaults.headers.Authorization = `Bearer ${token}`;
     await axios
       .post(
-        "https://api-dev.barayaswarga.com/api/v1/backoffice/banners",
+        "https://barayapi.router.my.id/api/v1/backoffice/banners",
         formData
       )
       .then((res) => {
@@ -250,7 +250,7 @@ export class Admin extends Component {
       });
   };
 
-  onDeleteDataCitizen = async (value) => {};
+  onDeleteDataCitizen = async (value) => { };
 
   onHandleChangeCitizenData = (e) => {
     this.setState({
@@ -366,7 +366,7 @@ export class Admin extends Component {
     axios.defaults.headers.Authorization = `Bearer ${token}`;
     await axios
       .post(
-        "https://api-dev.barayaswarga.com/api/v1/backoffice/organizations",
+        "https://barayapi.router.my.id/api/v1/backoffice/organizations",
         formData
       )
       .then((res) => {
