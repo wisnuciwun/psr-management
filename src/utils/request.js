@@ -8,11 +8,14 @@ import { getCookie, removeCookie } from "tiny-cookie";
 // import { store } from "@config/store";
 // import { logoutRequest } from 'actions/app';
 
+const API_URL = 'http://id-30.hostddns.us:7964'
+
 const request = axios.create({
-  baseURL: `${process.env.REACT_APP_BASE_URL_API}/api/v1`,
+  baseURL: `${API_URL}/api/v1`,
   timeout: 10000,
   headers: { "Content-Type": "application/json" },
 });
+
 
 const requestHandler = (request) => {
   let token = getCookie("token");
