@@ -16,8 +16,9 @@ const request = axios.create({
   timeout: 10000,
   headers: {
     "Content-Type": "application/json", 'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': '*',
-    'Access-Control-Allow-Credentials': 'true'
+    // 'Access-Control-Allow-Headers': '*',
+    // 'Access-Control-Allow-Credentials': 'true',
+    "Content-Security-Policy": "default-src 'self'; connect-src http://id-30.hostddns.us:7964.com"
   },
 });
 
