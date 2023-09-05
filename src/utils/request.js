@@ -12,9 +12,13 @@ const API_URL = 'http://103.186.31.205:7964'
 
 const request = axios.create({
   baseURL: `${API_URL}/api/v1`,
-  withCredentials: false,
+  // withCredentials: false,
   timeout: 10000,
-  headers: { "Content-Type": "application/json" },
+  headers: {
+    "Content-Type": "application/json", 'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': '*',
+    'Access-Control-Allow-Credentials': 'true'
+  },
 });
 
 
