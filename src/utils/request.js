@@ -12,6 +12,7 @@ const API_URL = 'http://id-30.hostddns.us:7964'
 
 const request = axios.create({
   baseURL: `${API_URL}/api/v1`,
+  withCredentials: false,
   timeout: 10000,
   headers: { "Content-Type": "application/json" },
 });
