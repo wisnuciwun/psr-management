@@ -8,7 +8,7 @@ import { getCookie, removeCookie } from "tiny-cookie";
 // import { store } from "@config/store";
 // import { logoutRequest } from 'actions/app';
 
-const API_URL = 'http://id-30.hostddns.us:7964'
+const API_URL = 'http://103.186.31.205:7964'
 
 const request = axios.create({
   baseURL: `${API_URL}/api/v1`,
