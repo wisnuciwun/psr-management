@@ -190,7 +190,7 @@ function HomeNavbar(props) {
                     <span className="font-lg">Pencarian Penduduk</span>
                   </Nav.Link>
                 )} */}
-                {/* <Nav.Link
+                <Nav.Link
                   href="/berita"
                   className={`${pagePosition === "/berita" && "bg-selected-menu"
                     } d-flex align-items-center p-2`}
@@ -202,7 +202,7 @@ function HomeNavbar(props) {
                     &nbsp;
                   </i>
                   <span className="font-lg">Berita</span>
-                </Nav.Link> */}
+                </Nav.Link>
                 <Nav.Link
                   href="/struktur"
                   className={`${
