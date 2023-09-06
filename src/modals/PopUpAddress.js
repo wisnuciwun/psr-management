@@ -131,7 +131,7 @@ function PopUpAddress({
                 onChange({ target: { name: "province", value: v.value } })
               }
               value={{ label: data.province, value: data.province }}
-              options={listProvince.map((v) => {
+              options={listProvince?.map((v) => {
                 return { label: v, value: v };
               })}
               placeholder="Pilih salah satu"
@@ -156,7 +156,7 @@ function PopUpAddress({
                 onChange({ target: { name: "county_town", value: v.value } })
               }
               value={{ label: data.county_town, value: data.county_town }}
-              options={listCity[data?.province?.replace(" ", "")].map((v) => {
+              options={listCity[data?.province?.replace(" ", "")]?.map((v) => {
                 return { label: v, value: v };
               })}
               placeholder="Pilih salah satu"
@@ -272,7 +272,7 @@ function PopUpAddress({
                     label: data.current_province,
                     value: data.current_province,
                   }}
-                  options={listProvince.map((v) => {
+                  options={listProvince?.map((v) => {
                     return { label: v, value: v };
                   })}
                   placeholder="Pilih salah satu"
@@ -304,7 +304,7 @@ function PopUpAddress({
                   options={listCity[
                     data?.current_province?.replace(" ", "") ||
                     data?.province?.replace(" ", "")
-                  ].map((v) => {
+                  ]?.map((v) => {
                     return { label: v, value: v };
                   })}
                   placeholder="Pilih salah satu"
