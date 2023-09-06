@@ -156,7 +156,7 @@ function PopUpAddress({
                 onChange({ target: { name: "county_town", value: v.value } })
               }
               value={{ label: data.county_town, value: data.county_town }}
-              options={listCity[data.province.replace(" ", "")].map((v) => {
+              options={listCity[data?.province?.replace(" ", "")].map((v) => {
                 return { label: v, value: v };
               })}
               placeholder="Pilih salah satu"
@@ -302,8 +302,8 @@ function PopUpAddress({
                     value: data.current_county_town,
                   }}
                   options={listCity[
-                    data.current_province.replace(" ", "") ||
-                      data.province.replace(" ", "")
+                    data?.current_province?.replace(" ", "") ||
+                    data?.province?.replace(" ", "")
                   ].map((v) => {
                     return { label: v, value: v };
                   })}
