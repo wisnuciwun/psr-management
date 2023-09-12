@@ -687,6 +687,7 @@ class Profile extends Component {
                     religionOpt={religionOpt}
                     bloodOpt={bloodOpt}
                     uploadPhoto={this.onUploadPhoto}
+                    validate={this.state.validated}
                   />
                 );
               case "buat alamat":
@@ -699,6 +700,7 @@ class Profile extends Component {
                     onChange={this.handleEditingData}
                     onHide={() => this.setState({ modalOpen: false })}
                     data={this.state.editedData}
+                    validate={this.state.validated}
                   />
                 );
               case "buat dokumen":
@@ -709,6 +711,7 @@ class Profile extends Component {
                     onChange={this.handleEditingData}
                     onHide={() => this.setState({ modalOpen: false })}
                     data={this.state.editedData}
+                    validate={this.state.validated}
                   />
                 );
               case "buat kontak darurat":
@@ -719,6 +722,7 @@ class Profile extends Component {
                     onChange={this.handleEditingData}
                     onHide={() => this.setState({ modalOpen: false })}
                     data={this.state.editedData}
+                    validate={this.state.validated}
                   />
                 );
               case "buat data keluarga":
@@ -734,6 +738,7 @@ class Profile extends Component {
                     genderOpt={genderOpt}
                     citizenOpt={citizenOpt}
                     kk={dataProfile.family_card_number}
+                    validate={this.state.validated}
                   />
                 );
               default:

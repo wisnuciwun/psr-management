@@ -32,6 +32,7 @@ function App() {
     "/admin/pengguna",
     "/admin/struktur-organisasi",
     "/admin/list-data-warga",
+    "/admin/register",
   ];
 
   const shouldApplyAppFullClass = pathsToApplyAppFullClass.includes(location.pathname);

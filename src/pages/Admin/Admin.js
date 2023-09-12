@@ -24,6 +24,7 @@ import Banner from "./Banner";
 import StrukOr from "./StrukOr";
 import Pengguna from "./Pengguna";
 import ListDataWarga from "./ListDataWarga";
+import Register from "./Register";
 import "../../fontawesome/css/font-awesome.min.css";
 import { BadgeNotif } from "components/BadgeNotification";
 
@@ -492,6 +493,11 @@ export class Admin extends Component {
                     onHandleChangeCitizenData={this.onHandleChangeCitizenData}
                   />
                 );
+
+              case "register" :
+                return(
+                  <Register></Register>
+                )
 
               default:
                 break;

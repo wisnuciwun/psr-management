@@ -65,6 +65,14 @@ const Sidebar = () => {
           </Link>
         </div>
         <div className="bg-tabmenu">
+          <Link className="menu font-lg d-flex" to="/admin/register">
+            <div style={{ width: "40px" }}>
+              <i class="fa fa-user fa-lg" aria-hidden="true"></i>
+            </div>
+            Register
+          </Link>
+        </div>
+        <div className="bg-tabmenu">
           <Link className="menu font-lg d-flex" to="/">
             <div style={{ width: "40px" }}>
               <i class="fa fa-home fa-lg" aria-hidden="true"></i>
