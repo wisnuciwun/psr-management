@@ -116,16 +116,16 @@ class Login extends Component {
                     }
                     required
                   />
-                  <div style={{position: 'absolute', right: '10px', bottom:'10px'}}>
+                  <div style={{ position: 'absolute', right: '10px', bottom: '10px' }}>
                     {hidePassword ? (
                       <i
-                        
+
                         className="fa fa-eye fa-lg"
                         onClick={() => this.setState({ hidePassword: false })}
                       ></i>
                     ) : (
                       <i
-                        
+
                         className="fa fa-eye-slash fa-lg"
                         onClick={() => this.setState({ hidePassword: true })}
                       ></i>
@@ -141,12 +141,12 @@ class Login extends Component {
                 Login
               </Button>
             </Form>
-            {/* <p className="text-center mt-2">
+            <p className="text-center mt-2">
               Belum punya akun?{" "}
               <Link to={"/register"} className="pointer color-primary-yellow">
                 Register
               </Link>
-            </p> */}
+            </p>
           </Container>
         </div>
       </>
