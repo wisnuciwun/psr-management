@@ -101,7 +101,7 @@ class Register extends Component {
                          phone: parseInt(this.state.registerPayload.phone),
                     })
                     .then((res) => {
-                         if (res?.data?.code === 201) {
+                         if (res.response.data.code === 201 || res.response.data.code === 200) {
                               request
                                    .post("/auth/login", {
                                         email: res.data.docs.email,
