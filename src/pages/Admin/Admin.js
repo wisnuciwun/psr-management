@@ -494,8 +494,8 @@ export class Admin extends Component {
                   />
                 );
 
-              case "register" :
-                return(
+              case "register":
+                return (
                   <Register></Register>
                 )
 

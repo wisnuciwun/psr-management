@@ -16,11 +16,11 @@ const Banner = ({
   file = null,
 }) => {
   return (
-    <Card style={{ borderRadius: "8px", padding: "10px", width: "100%" }}>
+    <Card style={{ borderRadius: "8px", padding: "10px" }}>
       <div>
         <p className="font-xl">List Gambar Banner</p>
         <div
-          className="d-flex"
+          className="d-flex flex-wrap"
           style={{ gap: "8px", overflowX: "scroll" }}
         >
           {dataImageBanners.length != 0 &&
@@ -35,7 +35,7 @@ const Banner = ({
                     width: "120px",
                   }}
                 >
-                  <img className="w-100" src={x.image_url} alt="" />
+                  <img style={{ width: '100%', height: '80px' }} src={x.image_url} alt="" />
                   <div
                     className="position-absolute bg-light d-flex justify-content-center align-items-center"
                     style={{
@@ -73,10 +73,10 @@ const Banner = ({
                 file != null
                   ? onPostDataBanners(e)
                   : BadgeNotif.show({
-                      position: "top",
-                      text: "Input gambar terlebih dahulu",
-                      variant: "warning",
-                    });
+                    position: "top",
+                    text: "Input gambar terlebih dahulu",
+                    variant: "warning",
+                  });
               }}
               className="btn-yellow-admin"
             >
