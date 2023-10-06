@@ -33,10 +33,10 @@ const routes = [
   { path: '/profile', exact: true, name: 'Profile', element: Profile, protected: true },
   { path: '/forgetpassword', exact: true, name: 'Lupa Password', element: ForgetPassword, protected: true },
   { path: '/admin/:pages', exact: true, name: 'Admin Page', element: AdminPage, protected: true },
-  { path: '/admin/banner', exact: true, name: 'Admin Page', element: AdminBannerPage, protected: true },
-  { path: '/admin/pengguna', exact: true, name: 'Admin Page', element: AdminPengguna, protected: true },
-  { path: '/admin/struktur-organisasi', exact: true, name: 'Admin Page', element: AdminStrukOr, protected: true },
-  { path: '/admin/list-data-warga', exact: true, name: 'Admin Page', element: AdminListDataWarga, protected: true },
+  // { path: '/admin/banner', exact: true, name: 'Admin Page', element: AdminBannerPage, protected: false },
+  // { path: '/admin/pengguna', exact: true, name: 'Admin Page', element: AdminPengguna, protected: false },
+  // { path: '/admin/struktur-organisasi', exact: true, name: 'Admin Page', element: AdminStrukOr, protected: false },
+  // { path: '/admin/list-data-warga', exact: true, name: 'Admin Page', element: AdminListDataWarga, protected: false },
 ]
 
 export default routes
