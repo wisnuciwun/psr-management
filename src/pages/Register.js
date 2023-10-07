@@ -84,7 +84,6 @@ class Register extends Component {
      };
 
      handlePostRegister = (event) => {
-          let { dispatch } = this.props;
           const form = event.currentTarget;
           event.preventDefault();
           event.stopPropagation();
@@ -101,22 +100,15 @@ class Register extends Component {
                          phone: parseInt(this.state.registerPayload.phone),
                     })
                     .then((res) => {
-                         if (res.response.data.code === 201 || res.response.data.code === 200) {
-                              request
-                                   .post("/auth/login", {
-                                        email: res.data.docs.email,
-                                        password: this.state.registerPayload.password,
-                                        // res.data.docs.email
-                                   })
-                                   .then((res) => {
-                                        if (res.data.code === 200) {
-                                             dispatch(getLoginData(res.data.docs));
-                                             this.props.navigate("/");
-                                        }
-                                   })
-                                   .catch((error) => { });
-                         } else {
-                              BadgeNotif.show({ delay: 5000, text: res.response.data.message });
+                         if (res.response != undefined) {
+                              if (res.response.data.code === 404 || res.response.data.code != 201) {
+                                   BadgeNotif.show({ delay: 5000, text: res.response.data.message });
+                              }
+                         } else if (res.data.code == 201) {
+                              BadgeNotif.show({ delay: 5000, text: 'Silahkan cek email untuk verifikasi email', variant: 'success' });
+                              setTimeout(() => {
+                                   this.props.navigate('/login')
+                              }, 5000);
                          }
                     });
           } else {
