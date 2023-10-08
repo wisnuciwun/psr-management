@@ -27,6 +27,7 @@ import ListDataWarga from "./ListDataWarga";
 import Register from "./Register";
 import "../../fontawesome/css/font-awesome.min.css";
 import { BadgeNotif } from "components/BadgeNotification";
+import Resizer from "react-image-file-resizer";
 
 export class Admin extends Component {
   constructor(props) {
@@ -49,6 +50,7 @@ export class Admin extends Component {
         group: "",
         order: 0,
       },
+      dataOrganizationChange: false,
       dataTempCitizen: {
         no_kk: null,
         nama_kepala_keluarga: null,
@@ -116,13 +118,45 @@ export class Admin extends Component {
     });
   };
 
+  resizeFile = (file) =>
+    new Promise((resolve) => {
+      Resizer.imageFileResizer(
+        file,
+        300,
+        500,
+        "JPEG",
+        70,
+        0,
+        (uri) => {
+          resolve(uri)
+        },
+        "file"
+      );
+    })
+
+  onPutDataOrganization = (uuid) => {
+    request.get(`/backoffice/organizations/${uuid}`).then((res) => {
+      if (res.data.code == 200 || res.data.code == 201) {
+        this.setState({
+          dataTempOrganization: res.data.docs,
+          modalStrukturOr: true,
+          dataOrganizationChange: true
+        })
+      }
+    })
+
+  };
+
   onChangeUploadImgOrganization = (e) => {
-    this.setState({
-      dataTempOrganization: {
-        ...this.state.dataTempOrganization,
-        img: e.target.files[0],
-      },
-    });
+    this.resizeFile(e.target.files[0]).then(v => {
+      this.setState({
+        dataTempOrganization: {
+          ...this.state.dataTempOrganization,
+          img: v,
+        },
+      });
+    })
+
   };
 
   onPostDataCitizen = (e) => {
@@ -351,18 +385,21 @@ export class Admin extends Component {
     e.preventDefault();
     const formData = new FormData();
     let token = getCookie("token");
+    let url = this.state.dataOrganizationChange ? "/" : "https://barayapi.router.my.id/api/v1/backoffice/organizations"
 
-    formData.append(
-      "image",
-      this.state.dataTempOrganization.img,
-      this.state.dataTempOrganization.img.name
-    );
+    if (this.state.dataTempOrganization.img) {
+      formData.append(
+        "image",
+        this.state.dataTempOrganization.img,
+        this.state.dataTempOrganization.img.name
+      );
 
-    Object.keys(this.state.dataTempOrganization).map((v) => {
-      if (v != "img") {
-        formData.append(v, this.state.dataTempOrganization[v]);
-      }
-    });
+      Object.keys(this.state.dataTempOrganization).map((v) => {
+        if (v != "img") {
+          formData.append(v, this.state.dataTempOrganization[v]);
+        }
+      });
+    }
 
     axios.defaults.headers.Authorization = `Bearer ${token}`;
     await axios
@@ -380,6 +417,7 @@ export class Admin extends Component {
 
           this.setState({
             modalStrukturOr: false,
+            dataOrganizationChange: false,
             dataTempOrganization: {
               name: "",
               nickname: "",
@@ -470,6 +508,7 @@ export class Admin extends Component {
                     onHandleChangeOrganizationData={
                       this.onHandleChangeOrganizationData
                     }
+                    onPutDataOrganization={this.onPutDataOrganization}
                   />
                 );
 

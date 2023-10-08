@@ -20,18 +20,19 @@ const StrukOr = ({
   onHandleChangeOrganizationData = null,
   toggleModal = null,
   openModal = false,
+  // onPutDataOrganization = null
 }) => {
   const dataPosition = [
     "Ketua",
     "Wakil Ketua",
     "Sekretaris",
+    "Bendahara",
     "Koordinator Blok 1 (A-B)",
     "Koordinator Blok 2 (C-D)",
     "Koordinator Blok 3 (E-F)",
     "Koordinator Blok 4 (G-H)",
     "Koordinator Blok 5 (I-J)",
     "Koordinator Keagamaan",
-    "Hubungan Masyarakat",
     "Hubungan Masyarakat",
     "Perencanaan dan Pengembangan Masyarakat",
     "Keamanan, Ketertiban dan Kebersihan",
@@ -72,7 +73,7 @@ const StrukOr = ({
         >
           <thead className="scrollme">
             <tr>
-              <th style={{minWidth: '150px'}}>Nama</th>
+              <th style={{ minWidth: '150px' }}>Nama</th>
               <th>Nama Panggilan</th>
               <th>Alamat</th>
               <th>Posisi</th>
@@ -82,6 +83,7 @@ const StrukOr = ({
               <th>Grup</th>
               <th>Order</th>
               <th></th>
+              {/* <th></th> */}
             </tr>
           </thead>
           <tbody>
@@ -94,7 +96,7 @@ const StrukOr = ({
                     <td>{x.address}</td>
                     <td>{x.position}</td>
                     <td className="d-flex justify-content-center align-items-center">
-                      <img style={{width: '50px', height: '50px', objectFit: 'contain'}} src={x.image_url} alt="" />
+                      <img style={{ width: '50px', height: '50px', objectFit: 'contain' }} src={x.image_url} alt="" />
                     </td>
                     <td>{x.email}</td>
                     <td>{x.phone}</td>
@@ -107,6 +109,13 @@ const StrukOr = ({
                         className="fa fa-trash text-dark pointer"
                       ></i>
                     </td>
+                    {/* <td>
+                      {" "}
+                      <i
+                        onClick={() => onPutDataOrganization(x.uuid)}
+                        className="fa fa-pencil text-dark pointer"
+                      ></i>
+                    </td> */}
                   </tr>
                 );
               })}
@@ -134,7 +143,7 @@ const StrukOr = ({
                   return (
                     <>
                       <FormLabel>{v}</FormLabel>
-                      <FormSelect className="mb-2">
+                      <FormSelect name={v} value={dataTempOrganization[v]} onChange={onHandleChangeOrganizationData} className="mb-2">
                         <option value="">Pilih salah satu</option>
                         {(() => {
                           let result = <option></option>;

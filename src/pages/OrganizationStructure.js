@@ -1,11 +1,11 @@
 import { BadgeNotif } from "components/BadgeNotification";
-import { data_member } from "constants/tempStructure";
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { Card, Modal, ModalBody, ModalHeader } from "react-bootstrap";
 import { utils } from "utils";
+import request from "utils/request";
 
-export class OrganizationStructure extends Component {
+class OrganizationStructure extends Component {
   constructor(props) {
     super(props);
 
@@ -20,6 +20,7 @@ export class OrganizationStructure extends Component {
         img: "",
       },
       toggleModalBio: false,
+      data_member: []
     };
   }
 
@@ -38,10 +39,24 @@ export class OrganizationStructure extends Component {
     );
   }
 
+  onGetDataStructure = () => {
+    request.get("/backoffice/organizations").then((res) => {
+      if (res.data.code === 200) {
+        this.setState({
+          data_member: res.data.docs,
+        });
+      }
+    });
+  };
+
+  componentDidMount() {
+    this.onGetDataStructure()
+  }
+
   render() {
     const { selectedData, toggleModalBio } = this.state;
-    let allData = utils.groupBy(data_member, "group");
-    let allNames = Object.keys(allData);
+    let allData = this.state.data_member.length != 0 ? utils.groupBy(this.state.data_member, "group") : [];
+    let allNames = allData.length != 0 ? Object.keys(allData) : [];
 
     return (
       <div className={window.location.pathname === "/struktur" ? "p-3" : ""}>
@@ -61,27 +76,27 @@ export class OrganizationStructure extends Component {
             Misi :
             <br />
             <ol style={{ marginLeft: "-25px" }}>
-              <li style={{margin: '0', padding: '0.2em'}}>
+              <li style={{ margin: '0', padding: '0.2em' }}>
                 Membangun kepengurusan yang profesional dan kekeluargaan,
                 merangkul semua warga.
               </li>
-              <li style={{margin: '0', padding: '0.2em'}}>
+              <li style={{ margin: '0', padding: '0.2em' }}>
                 Memberi fasilitas dan pengembangan minat dan bakat sesuai
                 kebutuhan dan keinginan warga.
               </li>
-              <li style={{margin: '0', padding: '0.2em'}}>
+              <li style={{ margin: '0', padding: '0.2em' }}>
                 Menguatkan media aspirasi dan membangun kerja sama yang
                 strategis.
               </li>
-              <li style={{margin: '0', padding: '0.2em'}}>
+              <li style={{ margin: '0', padding: '0.2em' }}>
                 Memberikan informasi penting melalui media informasi dan
                 digitalisasi.
               </li>
-              <li style={{margin: '0', padding: '0.2em'}}>
+              <li style={{ margin: '0', padding: '0.2em' }}>
                 Mengadakan kegiatan sosial bersama yang bermanfaat, turun
                 langsung menjaga kebersihan lingkungan.
               </li>
-              <li style={{margin: '0', padding: '0.2em'}}>
+              <li style={{ margin: '0', padding: '0.2em' }}>
                 Menyusun program kerja sesuai dengan bidang-bidang yang ada
                 dalam kepengurusan sebagai salah satu penunjang kesejahteraan
                 warga.
@@ -111,7 +126,7 @@ export class OrganizationStructure extends Component {
                               height: "230px",
                               objectFit: "cover",
                             }}
-                            src={v.img}
+                            src={v.image_url}
                             alt=""
                           />
                           <Card.Body className="font-md font-weight-bold text-truncate">
@@ -173,7 +188,7 @@ export class OrganizationStructure extends Component {
             <ModalBody className="p-3">
               <div className="d-flex justify-content-center">
                 <img
-                  src={selectedData.img}
+                  src={selectedData.image_url}
                   style={{
                     height: "300px",
                     width: "100%",

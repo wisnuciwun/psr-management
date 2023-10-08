@@ -10,7 +10,7 @@ export class Home extends Component {
       <Fragment>
         <HomeCarousel />
         <div className="p-3">
-          <h4 className="mb-3">Selayang Pandang</h4>
+          <h4 >Selayang Pandang</h4>
           <p>Selamat datang di website Baraya Swarga</p>
           {/* <video style={{ width: "100%" }} controls={false} autoPlay>
             <source src="assets/pengurus.mp4" type="video/mp4" />
@@ -18,7 +18,6 @@ export class Home extends Component {
           <br />
           <NavLink href="/berita">
             <h4>Berita</h4>
-            <br />
             {/* <Card className="p-0">
               <Card.Body>
                 <p>23 Mar 2023</p>
@@ -53,12 +52,12 @@ export class Home extends Component {
             <h4>Struktur Organisasi</h4>
           </NavLink>
           <br />
-          <OrganizationStructure/>
+          <OrganizationStructure />
           <br />
           <NavLink>
             <h4 className="mb-3">Hubungi Kami</h4>
           </NavLink>
-          <Contacts/>
+          <Contacts />
         </div>
       </Fragment>
     );
