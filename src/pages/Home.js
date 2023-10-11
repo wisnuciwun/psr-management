@@ -4,7 +4,7 @@ import { Button, Card, NavLink } from "react-bootstrap";
 import OrganizationStructure from "./OrganizationStructure";
 import Contacts from "./Contacts";
 
-export class Home extends Component {
+class Home extends Component {
   render() {
     return (
       <Fragment>

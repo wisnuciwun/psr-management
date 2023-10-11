@@ -39,8 +39,8 @@ class OrganizationStructure extends Component {
     );
   }
 
-  onGetDataStructure = () => {
-    request.get("/backoffice/organizations").then((res) => {
+  onGetDataStructure = async () => {
+    await request.get("/ext/organizations").then((res) => {
       if (res.data.code === 200) {
         this.setState({
           data_member: res.data.docs,
@@ -49,7 +49,7 @@ class OrganizationStructure extends Component {
     });
   };
 
-  componentDidMount() {
+  componentDidMount = () => {
     this.onGetDataStructure()
   }
 

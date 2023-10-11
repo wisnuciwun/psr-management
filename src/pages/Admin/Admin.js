@@ -372,7 +372,7 @@ export class Admin extends Component {
   };
 
   onGetDataStructure = () => {
-    request.get("/backoffice/organizations").then((res) => {
+    request.get("/ext/organizations").then((res) => {
       if (res.data.code === 200) {
         this.setState({
           dataOrganization: res.data.docs,
