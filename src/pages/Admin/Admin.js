@@ -37,7 +37,11 @@ export class Admin extends Component {
       readyToInsert: [],
       modalDetaiUser: false,
       modalStrukturOr: false,
+      citizensTotalPage: 1,
+      structureTotalPage: 1,
       fileCitizen: "",
+      fileUser: "",
+      progressUser: 0,
       dataBanners: null,
       dataTempOrganization: {
         name: "",
@@ -83,7 +87,7 @@ export class Admin extends Component {
   };
 
   onGetDataBanners = () => {
-    request.get("/backoffice/banners").then((res) => {
+    request.get("/ext/banners").then((res) => {
       if (res.data.code === 200) {
         this.setState({
           dataImageBanners: res.data.docs,
@@ -105,8 +109,42 @@ export class Admin extends Component {
   onGetDataCitizens = () => {
     request.get("/backoffice/citizens").then((res) => {
       if (res.data.code === 200) {
+        if (localStorage.getItem('page') == undefined) {
+          localStorage.setItem('page', 1)
+        }
         this.setState({
           dataCitizens: res.data.docs,
+          citizensTotalPage: res.data.pages
+        });
+      }
+    });
+  };
+
+  onCitizenPagination = (page) => {
+    request.get("/backoffice/citizens", { page: page }).then((res) => {
+      localStorage.setItem('page', page + 1)
+      if (res.data.code === 200) {
+        if (localStorage.getItem(page) == undefined) {
+          localStorage.setItem('page', 1)
+        }
+        this.setState({
+          dataCitizens: res.data.docs,
+          citizensTotalPage: res.data.pages
+        });
+      }
+    });
+  };
+
+  onStructurePagination = (page) => {
+    request.get("/backoffice/organizations", { page: page }).then((res) => {
+      localStorage.setItem('page-structure', page + 1)
+      if (res.data.code === 200) {
+        if (localStorage.getItem(page) == undefined) {
+          localStorage.setItem('page-structure', 1)
+        }
+        this.setState({
+          dataOrganization: res.data.docs,
+          structureTotalPage: res.data.pages
         });
       }
     });
@@ -327,13 +365,13 @@ export class Admin extends Component {
           "",
           "",
           "",
-          "03",
-          "03",
+          "01",
+          "01",
           "40379",
           "Wargaluyu",
           "Arjasari",
           "Jawa Barat",
-          "Bandung",
+          "Kabupaten Bandung",
         ];
 
         let fileObj = this.state.fileCitizen;
@@ -347,7 +385,9 @@ export class Admin extends Component {
               for (let i = 1; i < resp.rows.length; i++) {
                 if (resp.rows[i].length != 0) {
                   for (let z = 0; z < names.length; z++) {
-                    values[z] = resp.rows[i][z];
+                    if (resp.rows[i][z] != undefined) {
+                      values[z] = resp.rows[i][z];
+                    }
                   }
                   let jsonEntries = new Map();
                   jsonEntries.set(names, values);
@@ -371,11 +411,147 @@ export class Admin extends Component {
     );
   };
 
+  onPostDataBulkRegistration = async () => {
+    await Promise.all(this.state.readyToInsert.map(async (v, id) => {
+      await request
+        .post("/auth", {
+          ...v,
+          address: `${v.blok} ${v.home_number}`,
+          phone: parseInt(v.phone),
+        })
+        .then((res) => {
+          if (res.response != undefined) {
+            if (res.response.data.code === 404 || res.response.data.code != 201) {
+              BadgeNotif.show({ delay: 5000, text: res.response.data.message });
+              window.location.reload()
+            }
+          } else if (res.data.code == 201) {
+            if (id + 1 == this.state.readyToInsert.length) {
+              BadgeNotif.show({ delay: 5000, text: 'Berhasil registrasi user, silahkan verifikasi email' });
+              this.setState({
+                progressUser: 0,
+                readyToInsert: []
+              })
+            } else {
+              this.setState({
+                progressUser: (id + 1 / this.state.readyToInsert.length) * 100
+              })
+            }
+          }
+        });;
+    }));
+    // this.state.readyToInsert.map((v, id) => {
+    //   setTimeout(() => {
+    //     request
+    //       .post("/auth", {
+    //         ...v,
+    //         address: `${v.blok} ${v.home_number}`,
+    //         phone: parseInt(v.phone),
+    //       })
+    //       .then((res) => {
+    //         if (res.response != undefined) {
+    //           if (res.response.data.code === 404 || res.response.data.code != 201) {
+    //             BadgeNotif.show({ delay: 5000, text: res.response.data.message });
+    //             window.location.reload()
+    //           }
+    //         } else if (res.data.code == 201) {
+    //           if (id + 1 == this.state.readyToInsert.length) {
+    //             BadgeNotif.show({ delay: 5000, text: 'Berhasil registrasi user, silahkan verifikasi email' });
+    //             this.setState({
+    //               progressUser: 0,
+    //               readyToInsert: []
+    //             })
+    //           } else {
+    //             this.setState({
+    //               progressUser: (id + 1 / this.state.readyToInsert.length) * 100
+    //             })
+    //           }
+    //         }
+    //       });
+    //   }, 4000);
+    // })
+  }
+
+
+  procRegisHandler = (event) => {
+    this.setState(
+      {
+        fileUser: event.target.files[0],
+      },
+      () => {
+        let names = [
+          "family_card_number",
+          "full_name",
+          "address",
+          "email",
+          "phone",
+          "identity_number",
+          "type",
+          "blok",
+          "home_number",
+          "password",
+          "password_confirmation",
+          "tos",
+        ];
+        let values = [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "hanyasementara",
+          "hanyasementara",
+          "true"
+        ];
+
+        let fileObj = this.state.fileUser;
+
+        ExcelRenderer(
+          fileObj,
+          (err, resp) => {
+            if (err) {
+              console.log(err);
+            } else {
+              for (let i = 1; i < resp.rows.length; i++) {
+                if (resp.rows[i].length != 0) {
+                  for (let z = 0; z < names.length; z++) {
+                    if (resp.rows[i][z] != undefined) {
+                      values[z] = resp.rows[i][z];
+                    }
+                  }
+                  let jsonEntries = new Map();
+                  jsonEntries.set(names, values);
+                  let temp = Object.assign(
+                    ...names.map((k, i) => ({ [k]: values[i] }))
+                  );
+
+                  this.setState((state) => {
+                    const readyToInsert = [...state.readyToInsert, temp];
+                    temp = Object.assign(...names.map((k, i) => ({ [k]: "" })));
+                    return { readyToInsert, temp };
+                  });
+                }
+              }
+            }
+          },
+          (event.target.value = ""),
+          this.setState({ readyToInsert: [] })
+        );
+      }
+    );
+  };
+
+
   onGetDataStructure = () => {
-    request.get("/ext/organizations").then((res) => {
+    request.get("/backoffice/organizations").then((res) => {
       if (res.data.code === 200) {
         this.setState({
           dataOrganization: res.data.docs,
+          structureTotalPage: res.data.pages
         });
       }
     });
@@ -474,7 +650,7 @@ export class Admin extends Component {
     } = this.state;
 
     return (
-      <div style={{ padding: "15px", width: "100%" }}>
+      <div style={{ padding: "15px", width: "100%", overflow: 'hidden' }}>
         <div>
           {(() => {
             switch (window.location.href.split("/")[4]) {
@@ -509,6 +685,8 @@ export class Admin extends Component {
                       this.onHandleChangeOrganizationData
                     }
                     onPutDataOrganization={this.onPutDataOrganization}
+                    totalPage={this.state.structureTotalPage}
+                    onStructurePagination={this.onStructurePagination}
                   />
                 );
 
@@ -518,6 +696,9 @@ export class Admin extends Component {
                     dataUsers={this.state.dataUsers}
                     onGetDetailUser={this.onGetDetailUser}
                     onDeleteDataOrganization={this.onDeleteDataOrganization}
+                    procFileHandler={this.procRegisHandler}
+                    onPostDataBulkRegistration={this.onPostDataBulkRegistration}
+                    progress={this.state.progressUser}
                   />
                 );
 
@@ -530,13 +711,10 @@ export class Admin extends Component {
                     onPostDataCitizen={this.onPostDataCitizen}
                     dataTempCitizen={this.state.dataTempCitizen}
                     onHandleChangeCitizenData={this.onHandleChangeCitizenData}
+                    onCitizenPagination={this.onCitizenPagination}
+                    totalPage={this.state.citizensTotalPage}
                   />
                 );
-
-              case "register":
-                return (
-                  <Register></Register>
-                )
 
               default:
                 break;

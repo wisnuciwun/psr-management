@@ -8,6 +8,7 @@ import {
   FormLabel,
   FormSelect,
   Modal,
+  Pagination,
   Table,
 } from "react-bootstrap";
 
@@ -20,6 +21,8 @@ const StrukOr = ({
   onHandleChangeOrganizationData = null,
   toggleModal = null,
   openModal = false,
+  totalPage = 0,
+  onStructurePagination = null
   // onPutDataOrganization = null
 }) => {
   const dataPosition = [
@@ -65,7 +68,6 @@ const StrukOr = ({
         }}
       >
         <Table
-          striped
           bordered
           hover
           className="mt-3"
@@ -95,7 +97,7 @@ const StrukOr = ({
                     <td>{x.nickname}</td>
                     <td>{x.address}</td>
                     <td>{x.position}</td>
-                    <td className="d-flex justify-content-center align-items-center">
+                    <td>
                       <img style={{ width: '50px', height: '50px', objectFit: 'contain' }} src={x.image_url} alt="" />
                     </td>
                     <td>{x.email}</td>
@@ -121,6 +123,16 @@ const StrukOr = ({
               })}
           </tbody>
         </Table>
+
+        <div className="d-flex justify-content-center">
+          <Pagination>
+            {
+              Array.apply(null, Array(totalPage)).map((v, id) => {
+                return <Pagination.Item className="m-0 p-0" onClick={() => onStructurePagination(id + 1)}>{id + 1}</Pagination.Item>
+              })
+            }
+          </Pagination>
+        </div>
         <Modal show={openModal} onHide={() => toggleModal()}>
           <Modal.Header closeButton>Tambah Data Organisasi</Modal.Header>
           <Modal.Body>

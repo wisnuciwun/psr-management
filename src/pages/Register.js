@@ -141,6 +141,8 @@ class Register extends Component {
                               noValidate
                               validated={validated}
                               onSubmit={this.handlePostRegister}
+                              autoComplete={false}
+                              autoCorrect={false}
                          >
                               <FormGroup className="mb-2">
                                    <FormLabel className="mb-1">Nama</FormLabel>

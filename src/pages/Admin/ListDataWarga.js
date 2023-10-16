@@ -7,6 +7,7 @@ import {
   FormGroup,
   FormLabel,
   Modal,
+  Pagination,
   Table,
 } from "react-bootstrap";
 
@@ -17,6 +18,8 @@ const ListDataWarga = ({
   onPostDataCitizen = null,
   dataTempCitizen = null,
   onHandleChangeCitizenData = null,
+  onCitizenPagination = null,
+  totalPage = 1,
 }) => {
   const [openModal, setopenModal] = useState(false);
 
@@ -56,6 +59,7 @@ const ListDataWarga = ({
         <Table striped bordered hover>
           <thead>
             <tr>
+              <th>No.</th>
               <th>Nomor Kartu Keluarga</th>
               <th>Nama Kepala Keluarga</th>
               <th>Alamat</th>
@@ -73,7 +77,8 @@ const ListDataWarga = ({
             {dataCitizens.length !== 0 &&
               dataCitizens.map((x, id) => {
                 return (
-                  <tr>
+                  <tr key={id}>
+                    <td>{x.id}</td>
                     <td>{x.no_kk}</td>
                     <td>{x.nama_kepala_keluarga}</td>
                     <td>{x.alamat}</td>
@@ -93,14 +98,20 @@ const ListDataWarga = ({
               })}
           </tbody>
         </Table>
+        <div className="d-flex justify-content-center">
+          <Pagination>
+            {
+              Array.apply(null, Array(totalPage)).map((v, id) => {
+                return <Pagination.Item className="m-0 p-0" onClick={() => onCitizenPagination(id + 1)}>{id + 1}</Pagination.Item>
+              })
+            }
+          </Pagination>
+        </div>
       </div>
       <Modal show={openModal} onHide={() => setopenModal(false)}>
-        <Modal.Header>Tambah Data Warga</Modal.Header>
+        <Modal.Header closeButton>Tambah Data Warga (Manual)</Modal.Header>
         <Modal.Body>
-          <div className="mt-3">
-            <p className="mb-1" style={{ fontWeight: "600" }}>
-              Input Data Warga Manual
-            </p>
+          <div>
             <Form onSubmit={onPostDataCitizen}>
               {Object.keys(dataTempCitizen).map((x) => {
                 return (

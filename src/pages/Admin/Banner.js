@@ -16,19 +16,18 @@ const Banner = ({
   file = null,
 }) => {
   return (
-    <Card style={{ borderRadius: "8px", padding: "10px" }}>
-      <div>
-        <p className="font-xl">List Gambar Banner</p>
+    <Card style={{ borderRadius: "8px", padding: "10px", width: "100%" }}>
+      <p className="font-xl">List Gambar Banner</p>
+      <div className="flex-scrollable">
         <div
-          className="d-flex flex-wrap"
-          style={{ gap: "8px", overflowX: "scroll" }}
+          className="d-flex gap-2"
         >
           {dataImageBanners.length != 0 &&
             dataImageBanners.map((x) => {
               return (
                 <Card
                   onClick={() => onDeleteDataBanners(x.uuid)}
-                  className="d-flex justify-content-center align-items-center"
+                  className="d-flex justify-content-center align-items-center zz"
                   style={{
                     cursor: "pointer",
                     height: "100px",

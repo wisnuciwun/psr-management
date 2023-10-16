@@ -281,3 +281,11 @@ code {
   border-color: #fec439 !important;
   box-shadow: 0 0 5px #fec439 !important;
 }
+
+.flex-scrollable {
+  display: flex;
+    flex-direction: row; /* Horizontal flex container */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    width: 100%; 
+    /* gap: 10px; */
+}

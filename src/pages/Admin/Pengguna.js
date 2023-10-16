@@ -1,15 +1,54 @@
 import moment from "moment";
-import React from "react";
-import { Card, Table } from "react-bootstrap";
+import Register from "pages/Register";
+import React, { useState } from "react";
+import { Button, Card, FormControl, FormGroup, FormLabel, Modal, ModalBody, ModalHeader, ProgressBar, Table } from "react-bootstrap";
 
 const Pengguna = ({
   dataUsers = [],
   onGetDetailUser = null,
   onDeleteDataOrganization = null,
+  procFileHandler = null,
+  onPostDataBulkRegistration = null,
+  progress = 0,
 }) => {
+  const [openModal, setopenModal] = useState(false)
+
   return (
     <Card style={{ borderRadius: "8px", padding: "10px", width: "100%" }}>
-      <p className="font-xl">Pengguna</p>
+      <div className="d-flex justify-content-between">
+        <p className="font-xl">Pengguna</p>
+        <Button
+          onClick={() => setopenModal(!openModal)}
+          className="btn-yellow-admin"
+        >
+          Tambah Data
+        </Button>
+      </div>
+      <FormGroup className="w-50">
+        <FormLabel style={{ fontWeight: "600" }}>
+          Upload Massal Via Excel
+        </FormLabel>
+        <div className="d-flex mb-3" style={{ gap: "8px" }}>
+          <FormControl
+            placeholder="Pastikan format file adalah xlsx atau xls"
+            type="file"
+            size="md"
+            className="h-100"
+            onChange={procFileHandler}
+          />
+          <Button
+            className="btn-yellow-admin"
+            type="submit"
+            onClick={onPostDataBulkRegistration}
+          >
+            Upload
+          </Button>
+        </div>
+        {
+          progress != 0 &&
+          <ProgressBar now={progress} label={`${progress}%`} />
+        }
+      </FormGroup>
       <div
         style={{
           overflowX: "scroll",
@@ -17,6 +56,7 @@ const Pengguna = ({
           overflowY: "auto",
           maxWidth: "80vw",
         }}
+        className="mt-3"
       >
         <Table
           striped
@@ -87,6 +127,14 @@ const Pengguna = ({
           </tbody>
         </Table>
       </div>
+      <Modal show={openModal} onHide={setopenModal}>
+        <ModalHeader closeButton>
+          Tambah User (Manual)
+        </ModalHeader>
+        <ModalBody>
+          <Register />
+        </ModalBody>
+      </Modal>
     </Card>
   );
 };
