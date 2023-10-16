@@ -16,7 +16,7 @@ class Home extends Component {
             <source src="assets/pengurus.mp4" type="video/mp4" />
           </video> */}
           <br />
-          <NavLink href="/berita">
+          <NavLink>
             <h4>Berita</h4>
             {/* <Card className="p-0">
               <Card.Body>
