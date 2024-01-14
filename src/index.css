@@ -1,26 +1,6 @@
-/* @font-face {
-  font-family: "aquas";
-  src: url('../public/aquawax/Aquawax\ Light\ Trial.ttf') format('truetype');
-  src: url('../public/aquawax/Aquawax\ Medium\ Trial.ttf') format('truetype');
-  src: url('../public/aquawax/Aquawax\ Black\ Trial.ttf') format('truetype');
-} */
-
 @font-face {
   font-family: "aquas";
-  font-style: bold;
-  src: url("../public/aquawax/Aquawax\ Black\ Trial.ttf");
-}
-
-@font-face {
-  font-family: "aquas";
-  font-weight: lighter;
-  src: url("../public/aquawax/Aquawax\ Light\ Trial.ttf");
-}
-
-@font-face {
-  font-family: "aquas";
-  font-weight: normal;
-  src: url("../public/aquawax/Aquawax\ Medium\ Trial.ttf");
+  src: url("../public/aquawax/Montserrat-VariableFont_wght.ttf");
 }
 
 body {
