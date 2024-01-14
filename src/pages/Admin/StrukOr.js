@@ -151,40 +151,57 @@ const StrukOr = ({
                       />
                     </FormGroup>
                   );
-                } else if (v == "group" || v == "order") {
+                }
+                else if (v == "order") {
                   return (
-                    <>
-                      <FormLabel>{v}</FormLabel>
-                      <FormSelect name={v} value={dataTempOrganization[v]} onChange={onHandleChangeOrganizationData} className="mb-2">
-                        <option value="">Pilih salah satu</option>
-                        {(() => {
-                          let result = <option></option>;
-                          switch (v) {
-                            case "position":
-                              result = dataPosition.map((v) => (
-                                <option>{v}</option>
-                              ));
-                              break;
-                            case "group":
-                              result = dataGroup.map((v) => (
-                                <option>{v}</option>
-                              ));
-                              break;
-                            case "order":
-                              result = dataOrder.map((v) => (
-                                <option>{v}</option>
-                              ));
-                              break;
+                    <FormGroup className="mb-2">
+                      <FormLabel className="mb-1">{v}</FormLabel>
+                      <FormControl
+                        className="input-no-decoration"
+                        name={`${v}`}
+                        type="number"
+                        value={dataTempOrganization[v]}
+                        onChange={onHandleChangeOrganizationData}
+                        required
+                      />
+                    </FormGroup>
+                  )
+                }
+                // else if (v == "group" || v == "order") {
+                //   return (
+                //     <>
+                //       <FormLabel>{v}</FormLabel>
+                //       <FormSelect name={v} value={dataTempOrganization[v]} onChange={onHandleChangeOrganizationData} className="mb-2">
+                //         <option value="">Pilih salah satu</option>
+                //         {(() => {
+                //           let result = <option></option>;
+                //           switch (v) {
+                //             case "position":
+                //               result = dataPosition.map((v) => (
+                //                 <option>{v}</option>
+                //               ));
+                //               break;
+                //             case "group":
+                //               result = dataGroup.map((v) => (
+                //                 <option>{v}</option>
+                //               ));
+                //               break;
+                //             case "order":
+                //               result = dataOrder.map((v) => (
+                //                 <option>{v}</option>
+                //               ));
+                //               break;
 
-                            default:
-                              break;
-                          }
-                          return result;
-                        })()}
-                      </FormSelect>
-                    </>
-                  );
-                } else {
+                //             default:
+                //               break;
+                //           }
+                //           return result;
+                //         })()}
+                //       </FormSelect>
+                //     </>
+                //   );
+                // } 
+                else {
                   return (
                     <>
                       <FormGroup className="mb-2">
