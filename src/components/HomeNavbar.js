@@ -103,7 +103,7 @@ function HomeNavbar(props) {
                         display: "inline-block",
                       }}
                     >
-                      {props.userbasedata.full_name[0].toUpperCase()}
+                      {Object.keys(props.userbasedata).length != 0 ? props.userbasedata?.full_name[0].toUpperCase() : ''}
                     </span>
                   </Dropdown.Toggle>
                   <DropdownMenu style={{ marginLeft: "-70px" }}>

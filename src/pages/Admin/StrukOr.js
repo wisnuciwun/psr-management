@@ -151,7 +151,7 @@ const StrukOr = ({
                       />
                     </FormGroup>
                   );
-                } else if (v == "position" || v == "group" || v == "order") {
+                } else if (v == "group" || v == "order") {
                   return (
                     <>
                       <FormLabel>{v}</FormLabel>

@@ -68,38 +68,32 @@ class OrganizationStructure extends Component {
           <p>
             Visi :
             <br />
-            Menjadi pengurus yang interaktif, responsible, agamis, humanis dan
-            mempererat tali persaudaraan agar bersinergi dalam menciptakan
-            inovasi-inovasi baru nantinya dapat berguna bagi masyarakat.
+            Terwujudnya Masyarakat Lingkungan Prima Swarga Residence Desa Wargaluyu yang Bermartabat, Agamis, Kreatif, Sauyunan dan Digitalis.
           </p>
           <p>
             Misi :
             <br />
             <ol style={{ marginLeft: "-25px" }}>
               <li style={{ margin: '0', padding: '0.2em' }}>
-                Membangun kepengurusan yang profesional dan kekeluargaan,
-                merangkul semua warga.
+                Membangun Kualitas Sumber Daya Manusia dibidang Pendidikan, Kesehatan dan Keagamaan melalui Digitalisasi.
               </li>
               <li style={{ margin: '0', padding: '0.2em' }}>
-                Memberi fasilitas dan pengembangan minat dan bakat sesuai
-                kebutuhan dan keinginan warga.
+                Meningkatkan Pelayanan Publik dan Membangun Pelayanan Kebutuhan Administrasi Berbasis Informasi dan Teknologi (IT).
               </li>
               <li style={{ margin: '0', padding: '0.2em' }}>
-                Menguatkan media aspirasi dan membangun kerja sama yang
-                strategis.
+                Perbaikan Tata Kelola Organisasi dan Pemulihan Keseimbangan Lingkungan yang berkelanjutan Berlandaskan Sauyunan dan Kerukunan Hidup Bertetangga.
               </li>
               <li style={{ margin: '0', padding: '0.2em' }}>
-                Memberikan informasi penting melalui media informasi dan
-                digitalisasi.
+                Menggali dan Menumbuhkembangkan Potensi Masyarakat serta Melestarikan Budaya Tradisional dan Kearifan Lokal.
               </li>
               <li style={{ margin: '0', padding: '0.2em' }}>
-                Mengadakan kegiatan sosial bersama yang bermanfaat, turun
-                langsung menjaga kebersihan lingkungan.
+                Memelihara Ketersediaan dan Kualitas Infrastruktur serta Keterpaduan Pemanfaatan Tata Ruang Wilayah Prima Swarga Residence.
               </li>
               <li style={{ margin: '0', padding: '0.2em' }}>
-                Menyusun program kerja sesuai dengan bidang-bidang yang ada
-                dalam kepengurusan sebagai salah satu penunjang kesejahteraan
-                warga.
+                Meningkatkan Partisipasi Sektor Swasta dan Pemberdayaan Ekonomi Kerakyatan yang berdaya saing.
+              </li>
+              <li style={{ margin: '0', padding: '0.2em' }}>
+                Membangun dan Meningkatkan hubungan Kemasyarakatan dengan Nilai Gotong Royong dan Kepedulian Sosial.
               </li>
             </ol>
           </p>
