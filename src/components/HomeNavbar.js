@@ -81,7 +81,7 @@ function HomeNavbar(props) {
             >
               <i className="fa fa-bell-o fa-lg"></i>
             </OverlayTrigger>
-            {isLogin ? (
+            {/* {isLogin ? (
               <div>
                 <Dropdown drop="down">
                   <Dropdown.Toggle
@@ -148,7 +148,7 @@ function HomeNavbar(props) {
                   </span>
                 </div>
               </Link>
-            )}
+            )} */}
           </div>
           <Navbar.Offcanvas
             id={`offcanvasNavbar-expand-${expand}`}
@@ -168,8 +168,9 @@ function HomeNavbar(props) {
               <Nav className="justify-content-end flex-grow-1 pe-3">
                 <Nav.Link
                   href="/"
-                  className={`${pagePosition === "/" && "bg-selected-menu"
-                    } d-flex align-items-center p-2`}
+                  className={`${
+                    pagePosition === "/" && "bg-selected-menu"
+                  } d-flex align-items-center p-2`}
                 >
                   <i style={{ width: "35px" }} className="fa fa-home fa-lg">
                     &nbsp;
@@ -204,8 +205,9 @@ function HomeNavbar(props) {
                 </Nav.Link> */}
                 <Nav.Link
                   href="/struktur"
-                  className={`${pagePosition === "/struktur" && "bg-selected-menu"
-                    } d-flex align-items-center p-2`}
+                  className={`${
+                    pagePosition === "/struktur" && "bg-selected-menu"
+                  } d-flex align-items-center p-2`}
                 >
                   <i style={{ width: "35px" }} className="fa fa-users fa-lg">
                     &nbsp;
@@ -214,19 +216,21 @@ function HomeNavbar(props) {
                 </Nav.Link>
                 <Nav.Link
                   href="/kontak"
-                  className={`${pagePosition === "/kontak" && "bg-selected-menu"
-                    } d-flex align-items-center p-2`}
+                  className={`${
+                    pagePosition === "/kontak" && "bg-selected-menu"
+                  } d-flex align-items-center p-2`}
                 >
                   <i style={{ width: "35px" }} className="fa fa-phone fa-lg">
                     &nbsp;
                   </i>
                   <span className="font-lg">Kontak</span>
                 </Nav.Link>
-                {isLogin !== null ? (
+                {/* {isLogin !== null ? (
                   <Nav.Link
                     href="/profile"
-                    className={`${pagePosition === "/profile" && "bg-selected-menu"
-                      } d-flex align-items-center p-2`}
+                    className={`${
+                      pagePosition === "/profile" && "bg-selected-menu"
+                    } d-flex align-items-center p-2`}
                   >
                     <i
                       style={{ width: "35px" }}
@@ -240,8 +244,9 @@ function HomeNavbar(props) {
                 ) : (
                   <Nav.Link
                     href="/login"
-                    className={`${pagePosition === "/login" && "bg-selected-menu"
-                      } d-flex align-items-center p-2`}
+                    className={`${
+                      pagePosition === "/login" && "bg-selected-menu"
+                    } d-flex align-items-center p-2`}
                   >
                     <i
                       style={{ width: "35px" }}
@@ -251,7 +256,7 @@ function HomeNavbar(props) {
                     </i>
                     <span className="font-lg">Login/Register</span>
                   </Nav.Link>
-                )}
+                )} */}
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>

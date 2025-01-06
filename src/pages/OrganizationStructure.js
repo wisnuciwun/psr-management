@@ -4,6 +4,7 @@ import CopyToClipboard from "react-copy-to-clipboard";
 import { Card, Modal, ModalBody, ModalHeader } from "react-bootstrap";
 import { utils } from "utils";
 import request from "utils/request";
+import { data_member } from "constants/tempStructure";
 
 class OrganizationStructure extends Component {
   constructor(props) {
@@ -20,7 +21,7 @@ class OrganizationStructure extends Component {
         img: "",
       },
       toggleModalBio: false,
-      data_member: []
+      data_member: data_member,
     };
   }
 
@@ -50,12 +51,15 @@ class OrganizationStructure extends Component {
   };
 
   componentDidMount = () => {
-    this.onGetDataStructure()
-  }
+    // this.onGetDataStructure()
+  };
 
   render() {
     const { selectedData, toggleModalBio } = this.state;
-    let allData = this.state.data_member.length != 0 ? utils.groupBy(this.state.data_member, "group") : [];
+    let allData =
+      this.state.data_member.length != 0
+        ? utils.groupBy(this.state.data_member, "group")
+        : [];
     let allNames = allData.length != 0 ? Object.keys(allData) : [];
 
     return (
@@ -68,32 +72,42 @@ class OrganizationStructure extends Component {
           <p>
             Visi :
             <br />
-            Terwujudnya Masyarakat Lingkungan Prima Swarga Residence Desa Wargaluyu yang Bermartabat, Agamis, Kreatif, Sauyunan dan Digitalis.
+            Terwujudnya Masyarakat Lingkungan Prima Swarga Residence Desa
+            Wargaluyu yang Bermartabat, Agamis, Kreatif, Sauyunan dan Digitalis.
           </p>
           <p>
             Misi :
             <br />
             <ol style={{ marginLeft: "-25px" }}>
-              <li style={{ margin: '0', padding: '0.2em' }}>
-                Membangun Kualitas Sumber Daya Manusia dibidang Pendidikan, Kesehatan dan Keagamaan melalui Digitalisasi.
+              <li style={{ margin: "0", padding: "0.2em" }}>
+                Membangun Kualitas Sumber Daya Manusia dibidang Pendidikan,
+                Kesehatan dan Keagamaan melalui Digitalisasi.
               </li>
-              <li style={{ margin: '0', padding: '0.2em' }}>
-                Meningkatkan Pelayanan Publik dan Membangun Pelayanan Kebutuhan Administrasi Berbasis Informasi dan Teknologi (IT).
+              <li style={{ margin: "0", padding: "0.2em" }}>
+                Meningkatkan Pelayanan Publik dan Membangun Pelayanan Kebutuhan
+                Administrasi Berbasis Informasi dan Teknologi (IT).
               </li>
-              <li style={{ margin: '0', padding: '0.2em' }}>
-                Perbaikan Tata Kelola Organisasi dan Pemulihan Keseimbangan Lingkungan yang berkelanjutan Berlandaskan Sauyunan dan Kerukunan Hidup Bertetangga.
+              <li style={{ margin: "0", padding: "0.2em" }}>
+                Perbaikan Tata Kelola Organisasi dan Pemulihan Keseimbangan
+                Lingkungan yang berkelanjutan Berlandaskan Sauyunan dan
+                Kerukunan Hidup Bertetangga.
               </li>
-              <li style={{ margin: '0', padding: '0.2em' }}>
-                Menggali dan Menumbuhkembangkan Potensi Masyarakat serta Melestarikan Budaya Tradisional dan Kearifan Lokal.
+              <li style={{ margin: "0", padding: "0.2em" }}>
+                Menggali dan Menumbuhkembangkan Potensi Masyarakat serta
+                Melestarikan Budaya Tradisional dan Kearifan Lokal.
               </li>
-              <li style={{ margin: '0', padding: '0.2em' }}>
-                Memelihara Ketersediaan dan Kualitas Infrastruktur serta Keterpaduan Pemanfaatan Tata Ruang Wilayah Prima Swarga Residence.
+              <li style={{ margin: "0", padding: "0.2em" }}>
+                Memelihara Ketersediaan dan Kualitas Infrastruktur serta
+                Keterpaduan Pemanfaatan Tata Ruang Wilayah Prima Swarga
+                Residence.
               </li>
-              <li style={{ margin: '0', padding: '0.2em' }}>
-                Meningkatkan Partisipasi Sektor Swasta dan Pemberdayaan Ekonomi Kerakyatan yang berdaya saing.
+              <li style={{ margin: "0", padding: "0.2em" }}>
+                Meningkatkan Partisipasi Sektor Swasta dan Pemberdayaan Ekonomi
+                Kerakyatan yang berdaya saing.
               </li>
-              <li style={{ margin: '0', padding: '0.2em' }}>
-                Membangun dan Meningkatkan hubungan Kemasyarakatan dengan Nilai Gotong Royong dan Kepedulian Sosial.
+              <li style={{ margin: "0", padding: "0.2em" }}>
+                Membangun dan Meningkatkan hubungan Kemasyarakatan dengan Nilai
+                Gotong Royong dan Kepedulian Sosial.
               </li>
             </ol>
           </p>
@@ -120,7 +134,7 @@ class OrganizationStructure extends Component {
                               height: "230px",
                               objectFit: "cover",
                             }}
-                            src={v.image_url}
+                            src={v.img}
                             alt=""
                           />
                           <Card.Body className="font-md font-weight-bold text-truncate">
@@ -177,8 +191,15 @@ class OrganizationStructure extends Component {
           </a>
         </div> */}
         <div className="d-flex justify-content-center">
-          <Modal backdropClassName="custom-backdrop" onHide={this.onHandleModalBio} centered show={toggleModalBio}>
-            <ModalHeader className="font-lg font-weight-bold" closeButton>Biodata lengkap</ModalHeader>
+          <Modal
+            backdropClassName="custom-backdrop"
+            onHide={this.onHandleModalBio}
+            centered
+            show={toggleModalBio}
+          >
+            <ModalHeader className="font-lg font-weight-bold" closeButton>
+              Biodata lengkap
+            </ModalHeader>
             <ModalBody className="p-3">
               <div className="d-flex justify-content-center">
                 <img

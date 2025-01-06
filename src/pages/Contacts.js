@@ -21,9 +21,9 @@ export class Contacts extends Component {
   }
   render() {
     return (
-      <div className={window.location.pathname === '/kontak' ? 'p-3': ''}>
+      <div className={window.location.pathname === "/kontak" ? "p-3" : ""}>
         <Form className="w-100">
-          <FormGroup className="mb-2" row>
+          {/* <FormGroup className="mb-2" row>
             <FormLabel className="mb-1" for="exampleEmail" sm={2}>
               Email
             </FormLabel>
@@ -37,7 +37,7 @@ export class Contacts extends Component {
                 value={this.state.email}
               />
             </Col>
-          </FormGroup>
+          </FormGroup> */}
           <FormGroup className="mb-2" row>
             <FormLabel className="mb-1" for="exampleEmail" sm={2}>
               Nama
@@ -59,7 +59,7 @@ export class Contacts extends Component {
             </FormLabel>
             <Col sm={12}>
               <FormControl
-                as='textarea'
+                as="textarea"
                 style={{ height: "200px" }}
                 name="text"
                 id="exampleText"
@@ -72,21 +72,22 @@ export class Contacts extends Component {
           <FormGroup className="mb-2" row>
             <Col sm={12} className="mt-3">
               <a
-                href={`mailto:primaswargaresidence@gmail.com?&subject=Pesan dari - ${this.state.name}&body=${this.state.bodyEmail}`}
+                href={`https://wa.me/6281320500045?text=Assalamualaikum min, saya ${this.state.name}. ${this.state.bodyEmail}`}
+                target="_blank"
               >
-                <Button className="w-100 btn-primary-yellow">Submit</Button>
+                <Button className="w-100 btn-primary-yellow">
+                  Kirim ke WA Pengurus
+                </Button>
               </a>
             </Col>
           </FormGroup>
         </Form>
         <br />
-        <h6 className="mb-4">
-          Lokasi Perumahan
-        </h6>
+        <h6 className="mb-4">Lokasi Balai Warga</h6>
         <div className="d-flex align-items-center h-100">
           <iframe
             style={{ width: "100%", height: "450px", border: 0 }}
-            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15839.155490446004!2d107.609882!3d-7.0340834!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x9d8b41110835f69b!2sPrima%20Swarga%20Residence!5e0!3m2!1sen!2sid!4v1674440275828!5m2!1sen!2sid"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d989.9441042133652!2d107.61163716957196!3d-7.035543899560394!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68eb003f9ace55%3A0xf5b690e54897d59b!2sBALAI%20WARGA%20PSR!5e0!3m2!1sid!2sid!4v1736203921835!5m2!1sid!2sid"
             allowfullscreen="false"
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
