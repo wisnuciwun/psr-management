@@ -155,7 +155,7 @@ class OrganizationStructure extends Component {
             })}
         </div>
         <div className="mb-2">
-          <h5 className="mb-2 text-center">Kotak Aspirasi</h5>
+          <h4 className="mb-2">Kotak Aspirasi</h4>
           <div className="mb-2">
             Apabila anda memiliki keluhan, kritik maupun saran. Anda dapat
             menggunakan link dibawah ini untuk mengisi Kotak Aspirasi. Semua
@@ -203,7 +203,7 @@ class OrganizationStructure extends Component {
             <ModalBody className="p-3">
               <div className="d-flex justify-content-center">
                 <img
-                  src={selectedData.image_url}
+                  src={selectedData.img}
                   style={{
                     height: "300px",
                     width: "100%",

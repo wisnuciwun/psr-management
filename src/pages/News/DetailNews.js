@@ -1,28 +1,42 @@
-import React from 'react'
-import { useParams } from 'react-router'
-import { news } from 'dummy-data/news';
+import moment from "moment";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router";
+import request from "utils/request";
 
 const DetailNews = () => {
   const { id } = useParams();
+  const [newsItem, setnewsItem] = useState({
+    title: "",
+    body: "",
+    author: "",
+  });
 
-  const newsItem = news.find((data) => data.id === parseInt(id));
+  const onGetNews = async () => {
+    await request.get(`/news/${id}`).then((res) => {
+      if (res.data.success) {
+        setnewsItem(res.data.data);
+      }
+    });
+  };
 
-  if (!newsItem) {
-    return <div>Data tidak ditemukan</div>
-  }
+  useEffect(() => {
+    onGetNews();
+  }, []);
+
+  const formattedMessage = newsItem.body.replace(/\r\n/g, "<br />");
 
   return (
     <>
-      <div className='d-flex justify-content-center mb-3 padding-16px'>
-        <img src={newsItem.image} alt="gambar_id" />
-      </div>
-      <div style={{ paddingLeft: 16, paddingRight: 16, textAlign: 'justify' }}>
-        <h5>{newsItem.headline}</h5>
-        <p>{newsItem.date}</p>
-        <p>{newsItem.body}</p>
+      <div style={{ paddingLeft: 16, paddingRight: 16, textAlign: "justify" }}>
+        <h5>{newsItem.title}</h5>
+        <p style={{ fontSize: 12, fontWeight: "bold" }}>
+          {moment(newsItem.created_at).format("DD MMMM YYYY")}
+        </p>
+        <div dangerouslySetInnerHTML={{ __html: formattedMessage }} />
+        {/* <p style={{ fontSize: 14 }}>{newsItem.body}</p> */}
       </div>
     </>
-  )
-}
+  );
+};
 
-export default DetailNews
+export default DetailNews;

@@ -56,7 +56,7 @@ function HomeNavbar(props) {
             aria-controls={`offcanvasNavbar-expand-${expand}`}
           />
           <div className="d-flex align-items-center" style={{ gap: "10px" }}>
-            <OverlayTrigger
+            {/* <OverlayTrigger
               trigger="click"
               key="news-notification"
               placement="bottom"
@@ -65,7 +65,7 @@ function HomeNavbar(props) {
                   <Popover.Header as="h3">Notifikasi</Popover.Header>
                   <Popover.Body>
                     <p>Belum ada notifikasi saat ini</p>
-                    {/* <Card className="mb-2">
+                    <Card className="mb-2">
                       <Card.Body>
                         Undangan untuk menghadiri peresmian masjid
                       </Card.Body>
@@ -74,13 +74,13 @@ function HomeNavbar(props) {
                       <Card.Body className="w-100" style={{ width: "200px" }}>
                         Anda belum membayar iuran bulan ini
                       </Card.Body>
-                    </Card> */}
+                    </Card>
                   </Popover.Body>
                 </Popover>
               }
             >
               <i className="fa fa-bell-o fa-lg"></i>
-            </OverlayTrigger>
+            </OverlayTrigger> */}
             {/* {isLogin ? (
               <div>
                 <Dropdown drop="down">

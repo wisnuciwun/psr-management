@@ -8,18 +8,18 @@ import { getCookie, removeCookie } from "tiny-cookie";
 // import { store } from "@config/store";
 // import { logoutRequest } from 'actions/app';
 
-const API_URL = 'https://barayapi.router.my.id'
+const API_URL = "https://wisnuadiwardhana.my.id";
 
 const request = axios.create({
-  baseURL: `${API_URL}/api/v1`,
+  baseURL: `${API_URL}/psr`,
   timeout: 10000,
   headers: {
-    "Content-Type": "application/json", 'Access-Control-Allow-Origin': '*',
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
     // 'Access-Control-Allow-Headers': '*',
     // 'Access-Control-Allow-Credentials': 'true',
   },
 });
-
 
 const requestHandler = (request) => {
   let token = getCookie("token");
@@ -37,9 +37,9 @@ const responseHandler = (response) => {
 
 const errorHandler = (error) => {
   if (error.response.data.code === 401) {
-    store.dispatch(getLoginData({}))
+    store.dispatch(getLoginData({}));
     removeCookie("token");
-    window.location.replace('/')
+    window.location.replace("/");
   }
   return error;
 };
