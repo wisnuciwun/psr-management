@@ -23,7 +23,7 @@ const DetailNews = () => {
     onGetNews();
   }, []);
 
-  const formattedMessage = newsItem.body.replace(/\r\n/g, "<br />");
+  // const formattedMessage = newsItem.body.replace(/\r\n/g, "<br />");
 
   return (
     <>
@@ -32,7 +32,13 @@ const DetailNews = () => {
         <p style={{ fontSize: 12, fontWeight: "bold" }}>
           {moment(newsItem.created_at).format("DD MMMM YYYY")}
         </p>
-        <div dangerouslySetInnerHTML={{ __html: formattedMessage }} />
+        {/* <div dangerouslySetInnerHTML={{ __html: formattedMessage }} /> */}
+        {newsItem.body.split("\n").map((line, index) => (
+          <React.Fragment key={index}>
+            {line}
+            <br />
+          </React.Fragment>
+        ))}
         {/* <p style={{ fontSize: 14 }}>{newsItem.body}</p> */}
       </div>
     </>
