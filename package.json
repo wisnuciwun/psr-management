@@ -24,6 +24,7 @@
     "react-excel-renderer": "^1.1.0",
     "react-google-docs-viewer": "^1.0.1",
     "react-google-forms-hooks": "^1.2.4",
+    "react-helmet": "^6.1.0",
     "react-image-file-resizer": "^0.4.8",
     "react-notification-alert": "0.0.13",
     "react-redux": "^8.0.5",

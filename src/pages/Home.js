@@ -42,36 +42,38 @@ class Home extends Component {
             <source src="assets/pengurus.mp4" type="video/mp4" />
           </video> */}
           <h4>Berita</h4>
-          {this.state.data_news.length != 0 ? (
-            this.state.data_news.map((v) => {
-              return (
-                <Card className="p-0">
-                  <Card.Body>
-                    <p style={{ fontSize: 11 }}>
-                      {moment(v.created_at).format("DD MMM YYYY")}
-                    </p>
-                    <h5>{v.title}</h5>
-                    <p>{v.body.substring(0, 100)}...</p>
-                    <NavLink
-                      style={{ color: "black", textDecoration: "none" }}
-                      to={`/berita/${v.id}`}
-                    >
-                      <div className="d-flex justify-content-center">
-                        <Button className="w-100 btn-light">
-                          <span>
-                            <i className="fa fa-search">&nbsp;&nbsp;</i>
-                            Selengkapnya
-                          </span>
-                        </Button>
-                      </div>
-                    </NavLink>
-                  </Card.Body>
-                </Card>
-              );
-            })
-          ) : (
-            <div>Belum ada berita yang dapat ditampilkan.</div>
-          )}
+          <div style={{ maxHeight: 450, overflowY: "scroll" }}>
+            {this.state.data_news.length != 0 ? (
+              this.state.data_news.map((v) => {
+                return (
+                  <Card className="p-0 mb-2">
+                    <Card.Body>
+                      <p style={{ fontSize: 11 }}>
+                        {moment(v.created_at).format("DD MMM YYYY")}
+                      </p>
+                      <h5>{v.title}</h5>
+                      <p>{v.body.substring(0, 100)}...</p>
+                      <NavLink
+                        style={{ color: "black", textDecoration: "none" }}
+                        to={`/berita/${v.id}`}
+                      >
+                        <div className="d-flex justify-content-center">
+                          <Button className="w-100 btn-light">
+                            <span>
+                              <i className="fa fa-search">&nbsp;&nbsp;</i>
+                              Selengkapnya
+                            </span>
+                          </Button>
+                        </div>
+                      </NavLink>
+                    </Card.Body>
+                  </Card>
+                );
+              })
+            ) : (
+              <div>Belum ada berita yang dapat ditampilkan.</div>
+            )}
+          </div>
           <br />
           <h4>Struktur Organisasi</h4>
           <br />

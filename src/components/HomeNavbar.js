@@ -177,6 +177,20 @@ function HomeNavbar(props) {
                   </i>
                   <span className="font-lg">Beranda</span>
                 </Nav.Link>
+                <Nav.Link
+                  href="/jajanan-psr"
+                  className={`${
+                    pagePosition === "/jajanan-psr" && "bg-selected-menu"
+                  } d-flex align-items-center p-2`}
+                >
+                  <i
+                    style={{ width: "35px" }}
+                    className="fa fa-shopping-cart fa-lg"
+                  >
+                    &nbsp;
+                  </i>
+                  <span className="font-lg">Jajanan PSR</span>
+                </Nav.Link>
                 {/* {isLogin != null && (
                   <Nav.Link
                     href="/penduduk"

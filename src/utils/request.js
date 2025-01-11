@@ -57,15 +57,18 @@ request.interceptors.response.use(
 export default {
   get: (url, params, headers = {}) =>
     request({ method: "get", url, params, headers }),
+  options: (url, params, headers = {}) =>
+    request({ method: "options", url, params, headers }),
   post: (url, data, headers = {}) =>
     request({ method: "post", url, data, headers }),
   put: (url, data, headers) => request({ method: "put", url, data, headers }),
   delete: (url, data) => request({ method: "delete", url, data }),
   setToken: (token) => {
-    if (token) {
-      request.defaults.headers.common.Authorization = `Bearer ${token}`;
-    } else {
-      delete request.defaults.headers.common.Authorization;
-    }
+    request.defaults.h.common["X-CSRF-TOKEN"] = token;
+    // if (token) {
+    //   request.defaults.headers.common.Authorization = `Bearer ${token}`;
+    // } else {
+    //   delete request.defaults.headers.common.Authorization;
+    // }
   },
 };
