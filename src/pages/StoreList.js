@@ -58,12 +58,17 @@ const StoreList = () => {
           content={`https://barayaswarga.com/jajanan-psr`}
         />
       </Helmet>
-      <h1 className="mb-4">Lapak</h1>
-      <Form className="mb-4" onSubmit={handleSearch}>
+      <h1>Lapak Prima Swarga Residence</h1>
+      <span className="mb-4 text-muted font-md">
+        Ngga usah jauh-jauh keluar rumah, nggak usah pusing cari di internet.
+        Disini, semua insyaAllah ada! Mulai dari sandang, pangan dan papan semua
+        ada. Yuk bersama kita bisa mandiri dan sejahtera
+      </span>
+      <Form className="mb-4 mt-4" onSubmit={handleSearch}>
         <div className="d-flex">
           <FormControl
             type="text"
-            placeholder="Mau jajan apa?"
+            placeholder="Mau cari apa hari ini?"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="me-2"
