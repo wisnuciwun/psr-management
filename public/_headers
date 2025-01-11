@@ -1,2 +1,14 @@
-/path-to-your-page/*
+# General caching and meta header settings for all pages
+/*
   Cache-Control: no-cache
+  Content-Type: text/html; charset=UTF-8
+
+# Specific settings for /jajanan-psr
+/jajanan-psr
+  Cache-Control: no-cache
+  Content-Type: text/html; charset=UTF-8
+
+# Specific settings for /lapak/{slug} pattern
+/lapak/*
+  Cache-Control: no-cache
+  Content-Type: text/html; charset=UTF-8
